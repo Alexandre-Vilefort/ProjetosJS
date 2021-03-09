@@ -6,7 +6,7 @@ var myGameObject3;
 var myGameObject4;
 var myGameObject5;
 var ObjectsList = []
-var FPS = 8.35;
+var FPS = 0.5*8.35;
 var RAIO = 10;
 var teste = 0;
 var time1 = performance.now();
