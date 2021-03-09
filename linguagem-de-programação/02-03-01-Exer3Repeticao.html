@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Exercício 9 da lista 2</title>
+    <meta charset="utf-8">
+    <script>// aqui vem java script
+        function exemplo(){
+            let idade;
+            //let f1 = 0, f2 = 0, f3 = 0, f4 = 0, f5 = 0;
+            let [f1, f2, f3, f4, f5] = [0,0,0,0,0];
+            let p1, p2, p3, p4, p5;
+
+            for (let i=1;i<=8;i++){
+                idade = Number(prompt(`Informe a idade da pessoa ${i}`));
+                if(idade <=15 && idade >=0){
+                    f1++;
+                }else if(idade>15 && idade<=30){
+                    f2++;
+                }else if(idade>30 && idade<=45){
+                    f3++;
+                }else if(idade>45 && idade<=60){
+                    f4++;
+                }else if(idade>60 ){
+                    f5++;
+                }else{
+                    alert("idade invalida");
+                    i--;
+                }
+            }
+            p1 = f1 / 8 * 100;
+            p5 = f5 / 8 * 100;
+
+            document.getElementById("exe1").innerHTML = `faixa 1 é ${f1} 
+                                                         <br> faixa 2 é ${f2} 
+                                                         <br> faixa 2 é ${f3} 
+                                                         <br> faixa 2 é ${f4}  
+                                                         <br> faixa 2 é ${f5} 
+                                                         <br> porcentagem da faixa 1 é ${p1}% 
+                                                         <br> porcentagem da faixa 5 é ${p5}%`
+
+        }   
+    </script>
+    <!--aqui vem css -->
+    <style>
+        body {
+            background-color: rgb(86, 124, 139);
+        }
+
+        #conteiner {
+            width: 400px;
+            margin: auto;
+            margin-top: 120px;
+            padding: 10px;
+            background-color: rgba(195, 218, 228, 0.884);
+            border-radius: 15px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-size: 24px;
+            color: rgb(80, 75, 121);
+            margin-top: 12px;
+            padding: 10px;
+        }
+
+        li {
+            margin: 10px;
+            padding: 15px;
+            font-size: 20px;
+        }
+
+        li:hover {
+            background-color: rgb(159, 181, 194);
+            border-radius: 15px;
+        }
+
+        .entrada, .saida {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            font-size: 20px;
+            color:rgb(80, 75, 121)
+        }
+
+        .entrada input {
+            	position: fixed;
+                right: 47%;
+        }
+
+        button {
+           position: relative;
+           left: 20%;
+           margin: 15px; 
+           border-radius: 12px;
+           border: 2px solid #4c74af; 
+           padding: 10px 30px;
+           font-size: 20px;
+           background-color: rgb(195, 218, 228);
+           transition-duration: 0.4s;
+        }
+
+        button:hover {
+            background-color: #4c74af; 
+            color: white;
+        }
+    </style>
+</head>
+<dody>
+    <div id="conteiner">
+        <h1> Exercício 3 de Repetição</h2>
+        <h2>Forneça idade de 8 pessoas</h2>    
+        <h3> Click no botão abaixo para iniciar o programa</h3>
+        <div>
+            <button onclick="exemplo()" type="button"> Começar</button>
+        </div>
+        <div class="saida" id="exe1">
+        </div>
+    </div>
+</dody>
+
+</html>

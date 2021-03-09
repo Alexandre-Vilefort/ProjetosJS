@@ -1,0 +1,53 @@
+<!DOCTYPE html><!-- cabeçalho de uma página HTML 5 -->
+<html> <!-- elemento raiz-->
+    <head><!-- cabeçaho da página -->
+        <title>Programa Ano Nascimento</title><!-- título da página (Aba do navegador)--> 
+        <meta charset="utf-8"/> <!-- sistema de codificação que aceita cecedilha e acentos-->
+        <!-- aqui vem o JavaScript-->
+        <script>
+            function calcula(){
+                // Vamos recuperar o peso informado pelo usuário 
+                // declarar vriável
+                // quando a variável reebe um valor, ela será do tipo do valor recebido
+                let ano, anonasc, idadeanos, idademeses, idadedias, idadesem // obseravar que as variáveis não possuem tipo - a tipagem é dinâmica
+                ano = document.getElementById("ano").value // recupera valor da caixa de entrada
+                anonasc = document.getElementById("idade").value // recupera valor da caixa de entrada
+                // vamos calcular o imc
+                
+                idadeanos = ano - anonasc
+                idademeses = idadeanos * 12
+                idadesem = idadeanos * 52.1786
+                idadedias = idadeanos * 365
+
+               
+
+                document.getElementById("resultadoanos").innerHTML = `Sua idade em anos é ${idadeanos.toFixed(2)}`
+                document.getElementById("resultadomeses").innerHTML = `Sua idade em meses é ${idademeses.toFixed(2)}`
+                document.getElementById("resultadosemanas").innerHTML = `Sua idade em semanas é ${idadesem.toFixed(2)}`
+                document.getElementById("resultadodias").innerHTML = `Sua idade em dias é ${idadedias.toFixed(2)}`
+            }
+        </script>
+    </head>
+    <body><!-- corpo da página -->
+        <h1> Cálculo da Idade </h1> <!-- cabeçalho de nível 1-->
+        <h2> Informe o ano atual</h2> <!-- cabeçalho de nível 2 -->    
+            <p> <!--abertura de parágrafo--> 
+            Ano atual <input type="number" id="ano">
+            </p>
+        <h2>Informe a sua ano de nascimento </h2><!--abertura de parágrafo-->
+            <p>
+            Ano nascimento <input type="number" id="idade">
+            </p>
+        
+        
+        <p> <!--abertura de parágrafo-->
+            <button type="button" onclick="calcula()"> Calcula </button>
+        </p>
+        
+        <p id="resultadoanos"></p> 
+        <p id="resultadomeses"></p> 
+        <p id="resultadosemanas"></p>
+        <p id="resultadodias"></p>
+        
+    </body>
+</html>

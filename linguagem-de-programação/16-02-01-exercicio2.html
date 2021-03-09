@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Exercício 4 da lista 1</title>
+    <meta charset="utf-8">
+    <script>// aqui vem java script
+        function calcula() {
+            let nota1, nota2, media
+            nota1 = Number(document.getElementById("nota1").value)
+            nota2 = Number(document.getElementById("nota2").value)
+            media = (nota1 * 2 + nota2 * 3) / 5
+
+            document.getElementById("mediares").innerHTML = `A média é ${media.toFixed(2)}`
+
+        }
+    </script>
+    <!--aqui vem css -->
+    <style>
+        body{
+            text-align: center;
+        }
+        #geral{
+            position: fixed;
+            right: 50%;
+            top:5%;
+            outline: blue 2px solid;
+            padding: 50px; /* espaçamento interno */
+            width: 300px; /* largura */
+        }
+        .entrada{
+            margin-top: 20px;
+            margin-bottom: 20px; 
+        }
+        #mediares{
+            margin-top: 20px;
+            margin-bottom: 20px;
+            color: red;
+        }
+    </style>
+</head>
+<dody>
+    <div id="geral">
+        <h2> Exercício 4 da Lista 1</h2>
+        <h3> Informe duas notas</h3>
+        <div class="entrada">
+            <!--divisão de área-->
+            <label for="nota1"> Nota 1 </label>
+            <input type="number" id="nota1" />
+        </div>
+        <!--divisão de área-->
+        <div class="entrada">
+            <label for="nota2"> Nota 2</label>
+            <input type="number" id="nota2" />
+        </div>
+        <div>
+            <button onclick="calcula()" type="button"> Calcula</button>
+        </div>
+        <div id="mediares">
+        </div>
+    </div>
+</dody>
+
+</html>

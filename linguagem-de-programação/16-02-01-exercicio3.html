@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercício 4 da lista 1</title>
+    <meta charset="utf-8">
+    <script>// aqui vem java script
+        function calcula() {
+            let nota1, nota2, media
+            nota1 = Number(document.getElementById("nota1").value)
+            nota2 = Number(document.getElementById("nota2").value)
+            media = (nota1 * 2 + nota2 * 3) / 5
+
+            document.getElementById("resultado").innerHTML = `A média é ${media.toFixed(2)}`
+
+            if (media >= 6) {
+                document.getElementById("resultado2").innerHTML = `A média é ${media.toFixed(2)}, o aluno passou sem sub`
+            } else if (media >= 3 && media) {
+                document.getElementById("resultado2").innerHTML = `A média é ${media.toFixed(2)}, o aluno ficou de sub, informe nota da sub`
+                // código para gerar um label, um input e um botão através do JS no html
+                document.getElementById("sub").innerHTML = `<label for="subnota"> sub</label>
+            <input id="subnota" /> <button onclick="calculaSub()" type="button"> Calcula Sub</button>`
+            } else {
+                document.getElementById("resultado2").innerHTML = `A média é ${media.toFixed(2)}, o aluno reprovado sem sub`
+            }
+        }
+        function calculaSub() {
+            let subn = Number(document.getElementById("subnota").value)
+            if (subn >= 6) {
+                document.getElementById("resultadoSub").innerHTML = `A sub é ${subn.toFixed(2)}, o aluno aprovado com a sub`
+            } else {
+                document.getElementById("resultadoSub").innerHTML = `A sub é ${subn.toFixed(2)}, o aluno reprovado com a sub`
+            }
+        }
+    </script>
+    <!--aqui vem css -->
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #geral {
+            position: fixed;
+            right: 50%;
+            top: 5%;
+            outline: blue 2px solid;
+            padding: 50px;
+            /* espaçamento interno */
+            width: 300px;
+            /* largura */
+        }
+
+        .entrada {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        #resultado,
+        #resultado2,
+        #resultadoSub {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            color: red;
+        }
+    </style>
+</head>
+<dody>
+    <div id="geral">
+        <h2> Exercício 4 da Lista 1</h2>
+        <h3> Informe duas notas</h3>
+        <div class="entrada">
+            <!--divisão de área-->
+            <label for="nota1"> Nota 1 </label>
+            <input type="number" id="nota1" />
+        </div>
+        <!--divisão de área-->
+        <div class="entrada">
+            <label for="nota2"> Nota 2</label>
+            <input type="number" id="nota2" />
+        </div>
+        <div>
+            <button onclick="calcula()" type="button"> Calcula</button>
+        </div>
+        <div id="resultado">
+        </div>
+        <div id="resultado2">
+        </div>
+        <div class="entrada" id="sub">
+        </div>
+        <div id="resultadoSub">
+        </div>
+    </div>
+</dody>
+
+</html>

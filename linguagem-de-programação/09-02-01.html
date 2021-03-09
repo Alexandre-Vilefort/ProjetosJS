@@ -1,0 +1,36 @@
+<!DOCTYPE html><!-- cabeçalho de uma página HTML 5 -->
+<html> <!-- elemento raiz-->
+    <head><!-- cabeçaho da página -->
+        <title>Cálculo do IMC</title><!-- título da página (Aba do navegador)--> 
+        <meta charset="utf-8"/> <!-- sistema de codificação que aceita cecedilha e acentos-->
+        <!-- aqui vem o JavaScript-->
+        <script>
+            function calcula(){
+                // Vamos recuperar o peso informado pelo usuário 
+                // declarar vriável
+                // quando a variável reebe um valor, ela será do tipo do valor recebido
+                let peso, altura, imc // obseravar que as variáveis não possuem tipo - a tipagem é dinâmica
+                peso = document.getElementById("peso").value // recupera valor da caixa de entrada
+                altura = document.getElementById("altura").value // recupera valor da caixa de entrada
+                // vamos calcular o imc
+                imc = peso / altura ** 2
+                document.getElementById("resultado").innerHTML = imc.toFixed(2)
+            }
+        </script>
+    </head>
+    <body><!-- corpo da página -->
+        <h1> Cálculo do IMC - Índice de Massa Corporal </h1> <!-- cabeçalho de nível 1-->
+        <h2> Informe seu peso e sua altura</h2> <!-- cabeçalho de nível 2 -->    
+        <p> <!--abertura de parágrafo--> 
+        Peso <input type="number" id="peso">
+        </p>
+        <p> <!--abertura de parágrafo-->
+        Altura <input type="number" id="altura">
+        </p>
+        <p> <!--abertura de parágrafo-->
+            <button type="button" onclick="calcula()"> Calcula </button>
+        </p>   
+        <p id="resultado"> <!-- aqui virá o resultado--><!-- abertura do parágrafo com identificador-->
+        </p> 
+    </body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Exercício 9 da lista 2</title>
+    <meta charset="utf-8">
+    <script>// aqui vem java script
+        function calcula() {
+            //recupera valor do usuário
+            let nro1 = Number(document.getElementById("n1").value);
+            let nro2 = Number(document.getElementById("n2").value);
+            let opcao = Number(document.getElementById("opcao").value);
+            let resultado = 0;
+
+            switch (opcao) {
+                case 1: resultado = (nro1 + nro2) 
+                    break
+                case 2: resultado = Math.abs(nro1 - nro2)
+                    break
+                case 3: resultado = nro1 * nro2
+                    break
+                case 4: if (nro2 != 0) {
+                    resultado = nro1 / nro2
+                } else {
+                    resutlado = "Não é possível dividir por zero"
+                }
+                    break
+                default: resultado = "Opção inválida, tente novamente"
+            }
+            document.getElementById("resultado").innerHTML = `O resultado é ${resultado}`
+        }
+
+    </script>
+    <!--aqui vem css -->
+    <style>
+        #conteiner {
+            position: fixed;
+            right: 50%;
+            top: 5%;
+            outline: blue 2px solid;
+            white-space: nowrap;
+            padding: 50px;
+            padding-top: 5px;
+            padding-right: 60px;
+            /* espaçamento interno */
+            width: 300px;
+            /* largura */
+        }
+
+        .entrada {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<dody>
+    <div id="conteiner">
+        <h2> Exercício 5 da Lista 2</h2>
+        <h3> Informe a operação e dois números</h3>
+        <div class="entrada">
+            <!--divisão de área-->
+            <label for="opcao"> Operação </label>
+            <input type="opcao" id="opcao" />
+        </div>
+        <div class="entrada">
+            <!--divisão de área-->
+            <label for="n1"> Número 1 </label>
+            <input type="number" id="n1" />
+        </div>
+        <!--divisão de área-->
+        <div class="entrada">
+            <label for="n2"> Número 2</label>
+            <input type="number" id="n2" />
+        </div>
+        <div>
+            <button onclick="calcula()" type="button"> Calcula</button>
+        </div>
+        <div id="resultado">
+        </div>
+    </div>
+</dody>
+
+</html>

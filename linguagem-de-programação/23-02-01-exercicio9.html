@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercício 9 da lista 2</title>
+    <meta charset="utf-8">
+    <script>// aqui vem java script
+      function calcula(){
+          //recupera valor do usuário
+          let saldo = Number(document.getElementById("saldo").value);
+          let credito = 15;
+          if (saldo > 400) {
+              credito = saldo * 30 / 100;
+          } else if (saldo <= 400 && saldo > 300) {
+              credito = saldo*25/100;
+          } else if (saldo <= 300 && saldo > 200) {
+              credito = saldo*20/100; 
+          } else if (saldo <= 200 && saldo >0 ){
+            credito = saldo*10/100;
+          }else {
+              credito = 0;
+          }
+          document.getElementById("resultado").innerHTML = `saldo foi ${saldo}, o crédito é ${credito}`
+      } 
+           
+    </script>
+    <!--aqui vem css -->
+    <style>
+        #conteiner {
+            position: fixed;
+            right: 50%;
+            top: 5%;
+            outline: blue 2px solid;
+            white-space: nowrap;
+            padding: 50px;
+            padding-top: 5px;
+            padding-right: 60px;
+            /* espaçamento interno */
+            width: 300px;
+            /* largura */
+        }
+
+        .entrada {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<dody>
+    <div id="conteiner">
+        <h2> Exercício 9 da Lista 2</h2>
+        <h3> teste</h3>
+        <div class="entrada">
+            <!--divisão de área-->
+            <label for="saldo"> Saldo médio </label>
+            <input type="number" id="saldo" />
+        </div>
+        <div>
+            <button onclick="calcula()" type="button"> Calcula</button>
+        </div>
+        <div id="resultado"></div>
+</dody>
+
+</html>
