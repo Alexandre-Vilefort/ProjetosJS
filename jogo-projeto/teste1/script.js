@@ -6,6 +6,7 @@ var myGameObject3;
 var myGameObject4;
 var myGameObject5;
 var ObjectsList = []
+var FPS = 8.35;
 var RAIO = 10;
 var teste = 0;
 var time1 = performance.now();
@@ -36,7 +37,7 @@ var myGameArea = {
         this.canvas.height = 720;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-        let timeInterval = 8.35;
+        let timeInterval = FPS;
         //let timeInterval = 16.7;
         this.interval = setInterval(updateGameArea, timeInterval);
         this.fps = 1/timeInterval*1000
