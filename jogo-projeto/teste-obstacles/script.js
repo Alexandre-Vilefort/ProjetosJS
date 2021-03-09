@@ -12,8 +12,10 @@ var teste = 0;
 var time1 = performance.now();
 var timeCounter = 0;
 var fpsCounter = 0;
+
 function startGame() {
     myGameArea.start();
+    playeyBase = new semiCircle(4*RAIO, "black", 395, 700, 0, 2);
     //myGameObject1 = new retangle(75, 75, "red", 100, 120);
     /*
     myGameObject1 = new circle(RAIO, "red", 395, 600, 0, 2);
@@ -61,7 +63,7 @@ var myGameArea = {
         })
         window.addEventListener('mousedown', function () {
             var myGameObjectCreator = new circle(RAIO, "#" + ((1<<24)*Math.random() | 0).toString(16), myGameArea.x, myGameArea.y, 0, 10);
-            myGameObjectCreator.dx+=11;
+            myGameObjectCreator.dx+=0;
             //ObjectsList.push(myGameObjectCreator);    
         })
         //window.addEventListener('mouseup', function (event) {
@@ -79,7 +81,6 @@ function retangle(width, height, color, x, y) {
     this.radius = width / 2;
     this.x = x;
     this.y = y;
-    this.center = [this.x, this.y]; // posição (x,y) do centro
     this.mass = 1;
     this.color = color;
     this.dx = Math.floor(Math.random() * 11) * 60 / myGameArea.fps;
@@ -98,7 +99,6 @@ function retangle(width, height, color, x, y) {
 
         this.x += this.dx * 60 / myGameArea.fps;
         this.y += this.dy * 60 / myGameArea.fps;
-        this.center = [this.x, this.y];
     }
     ObjectsList.push(this);
 }
@@ -119,7 +119,6 @@ function circle(radius, color, x, y, dx, dy) {
     this.radius = radius;
     this.x = x;
     this.y = y;
-    this.center = [this.x, this.y]; //posição (x,y) do centro
     this.mass = 1;
     this.color = color;
     this.dx = dx * 60 / myGameArea.fps;
@@ -153,7 +152,43 @@ function circle(radius, color, x, y, dx, dy) {
         }
         this.x += this.dx * 60 / myGameArea.fps;
         this.y += this.dy * 60 / myGameArea.fps;
-        this.center = [this.x, this.y];
+    }
+    ObjectsList.push(this);
+}
+function semiCircle(radius, color, x, y, dx, dy) {
+    this.radius = radius;
+    this.x = x;
+    this.y = y;
+    this.mass = 3;
+    this.color = color;
+    this.dx = 0;
+    this.dy = 0;
+    this.isInside;
+    this.update = function () {
+        let ctx = myGameArea.context;
+        ctx.beginPath()
+        ctx.arc(this.x, this.y, this.radius, Math.PI, 0);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.closePath();
+        this._boundery();
+    }
+    this._boundery = function () {
+        let cwidth = myGameArea.canvas.width;
+        let cheidth = myGameArea.canvas.height;
+        this.isInside = true;
+        if (this.x < 0 + this.radius || this.x > cwidth - this.radius) {
+            this.dx *= -1
+            this.isInside = false;
+            if (this.x < 0 + this.radius) { this.x = this.radius } else if (this.x > cwidth - this.radius) { this.x = cwidth - this.radius }
+        }
+        /*if (this.y < 0 + this.radius || this.y > cheidth - this.radius) {
+            this.dy *= -1;
+            this.isInside = false;
+            if (this.y < 0 + this.radius) { this.y = this.radius } else if (this.y > cheidth - this.radius) { this.y = cheidth - this.radius }
+        }*/
+        this.x += this.dx * 60 / myGameArea.fps;
+        this.y += this.dy * 60 / myGameArea.fps;
     }
     ObjectsList.push(this);
 }
@@ -174,7 +209,7 @@ function moveobject_mouse(anyobject) {
     } else {
         anyobject.dx = 0;
     }
-    if (Math.abs(disty) > 3 && anyobject.isInside) {
+    if (Math.abs(disty) > 5 && anyobject.isInside) {
         anyobject.dy = vel * disty / dist;
     } else {
         anyobject.dy = 0;
@@ -184,16 +219,40 @@ function moveobject_mouse(anyobject) {
     //document.getElementById("bluepos").innerHTML = `posicao do obj ${anyobject.x.toFixed(2)}  ${anyobject.y.toFixed(2)}`
     //document.getElementById("bluepos1").innerHTML = `posicao do obj ${anyobject.center[0].toFixed(2)}  ${anyobject.center[1].toFixed(2)}`
 }
+function movePlayerBase_mouse(anyobject) {
+    let distx = myGameArea.x - (anyobject.x);
+    //let disty = myGameArea.y - (anyobject.y);
+    let disty = 700 - (anyobject.y); //Travar base numa altura de y
+    let dist = Math.sqrt(distx ** 2 + disty ** 2);
+    let vel = 3*Math.log(dist);
+
+    if (Math.abs(distx) > 5 && anyobject.isInside) {
+        anyobject.dx = vel * distx / Math.abs(distx);
+    } else {
+        anyobject.dx += anyobject.dx/(-3);
+    }
+    if (Math.abs(disty) > 5 && anyobject.isInside) {
+        anyobject.dy = vel * disty / Math.abs(disty);
+    } else {
+        anyobject.dy += anyobject.dy/(-3);
+    }
+    
+    document.getElementById("dist").innerHTML = `PlayerBase x: ${anyobject.x.toFixed(2)} -- y: ${anyobject.y.toFixed(2)}`
+    //document.getElementById("bluepos").innerHTML = `posicao do obj ${anyobject.x.toFixed(2)}  ${anyobject.y.toFixed(2)}`
+    //document.getElementById("bluepos1").innerHTML = `posicao do obj ${anyobject.center[0].toFixed(2)}  ${anyobject.center[1].toFixed(2)}`
+}
 function collisionDetection(item, list) {
     let colidedPar = [];
     for (i = 0; i <= list.length - 1; i++) {
-        let dis_x = list[i].center[0] - item.center[0];
-        let dis_y = list[i].center[1] - item.center[1];
+        let dis_x = list[i].x - item.x;
+        let dis_y = list[i].y - item.y;
+        //let dis_x = list[i].center[0] - item.center[0];
+        //let dis_y = list[i].center[1] - item.center[1];
         let dist = Math.sqrt(dis_x ** 2 + dis_y ** 2);
         let dis_r = item.radius + list[i].radius - dist
         let par = [item, list[i]]
         let pari = [list[i], item]
-        if (dis_r > 0 && item !== list[i] && !(colidedPar.includes(par) || colidedPar.includes(pari))) {
+        if ((dis_r > 0 && item !== list[i]) && !(colidedPar.includes(par) || colidedPar.includes(pari))) {
 
             let a = 2;
             let mangle = Math.atan2(dis_y, dis_x);
@@ -213,11 +272,60 @@ function collisionDetection(item, list) {
             let v1 = ((item.mass - list[i].mass) * vl1 + 2 * list[i].mass * vl2) / (item.mass + list[i].mass);
             let v2 = ((list[i].mass - item.mass) * vl2 + 2 * item.mass * vl1) / (item.mass + list[i].mass);
 
+            //document.getElementById("debug2").innerHTML = `item vel ante: vx ${item.dx} -- vy ${item.dy}`
+            //document.getElementById("debug3").innerHTML = `list vel ante: vx ${list[i].dx} -- vy ${list[i].dy}`
+
+            var tag = document.createElement("p");
+            var linebreak = document.createElement('br');
+            var text = document.createTextNode(`Colisão: sin - ${(cos.toFixed(2)).toString()}, cos - ${(sin.toFixed(2)).toString()}, Frame: ${fpsCounter}`);
+            tag.appendChild(text);
+            tag.appendChild(linebreak);
+            text = document.createTextNode( `${item.color} , ${list[i].color}: --- ${dist}`);
+            tag.appendChild(text);
+            var element = document.getElementById("debug");
+            element.appendChild(tag);
+
+            var tag = document.createElement("p");
+            var linebreak = document.createElement('br');
+            var text = document.createTextNode(`item vel ante: vx ${item.dx} -- vy ${item.dy}`);
+            tag.appendChild(text);
+            tag.appendChild(linebreak);
+            text = document.createTextNode( `list vel ante: vx ${list[i].dx} -- vy ${list[i].dy}`);
+            tag.appendChild(text);
+            var element = document.getElementById("debug");
+            element.appendChild(tag);
+
             item.dx = v1 * cos - vp1 * sin;
             item.dy = v1 * sin + vp1 * cos;
 
             list[i].dx = v2 * cos - vp2 * sin;
             list[i].dy = v2 * sin + vp2 * cos;
+
+            //document.getElementById("debug4").innerHTML = `item vel depois: vx ${item.dx} -- vy ${item.dy}`
+            //document.getElementById("debug5").innerHTML = `list vel depois: vx ${list[i].dx} -- vy ${list[i].dy}`
+
+            var tag = document.createElement("p");
+            var linebreak = document.createElement('br');
+            var text = document.createTextNode(`item vel depois: vx ${item.dx} -- vy ${item.dy}`);
+            tag.appendChild(text);
+            tag.appendChild(linebreak);
+            text = document.createTextNode( `list vel depois: vx ${list[i].dx} -- vy ${list[i].dy}`);
+            tag.appendChild(text);
+            var element = document.getElementById("debug");
+            element.appendChild(tag);
+
+            /*if (item.mass > list[i].mass) {
+                list[i].x += (dis_r + a) * cos;
+                list[i].y += (dis_r + a) * sin;
+            } else if (item.mass < list[i].mass) {
+                item.x -= (dis_r + a) * cos;
+                item.y -= (dis_r + a) * sin;
+            } else {
+                list[i].x += (dis_r + a / 2) * cos;
+                list[i].y += (dis_r + a / 2) * sin;
+                item.x -= (dis_r + a / 2) * cos;
+                item.y -= (dis_r + a / 2) * sin;
+            }*/
 
             if (item.mass > list[i].mass) {
                 list[i].x += (dis_r + a) * cos;
@@ -234,19 +342,9 @@ function collisionDetection(item, list) {
 
             colidedPar.push([item, list[i]])
 
-            /*var tag = document.createElement("p");
-            var linebreak = document.createElement('br');
-            var text = document.createTextNode("Colisão " + (cos.toFixed(2)).toString() +"  "+(sin.toFixed(2)).toString());
-            tag.appendChild(text);
-            tag.appendChild(linebreak);
-            text = document.createTextNode( item.color+" "+ (item.y.toFixed(2)).toString() +list[i].color+" "+  (list[i].y.toFixed(2)).toString());
-            tag.appendChild(text);
-            var element = document.getElementById("debug");
-            element.appendChild(tag);*/
         }
     }
 }
-
 function fpsCalculator() {
     let time2 = performance.now();
     let dif = time2 - time1;
@@ -260,14 +358,17 @@ function textDraw() {
     document.getElementById("showmousepos").innerHTML = `A posição do mouse é ${myGameArea.x}  ${myGameArea.y}`
     document.getElementById("debug1").innerHTML = `O tamanho de ObjectList é ${ObjectsList.length}`
 }
-
 function updateGameArea() {
     myGameArea.clear();
     //moveobject_keyboard(myGameObject3);
-    //moveobject_mouse(myGameObject3);
+    movePlayerBase_mouse(playeyBase);
+    for (let i = 0; i <= ObjectsList.length - 1; i++) {
+        //ObjectsList[i].update();
+        collisionDetection(ObjectsList[i], ObjectsList);
+    }
     for (let i = 0; i <= ObjectsList.length - 1; i++) {
         ObjectsList[i].update();
-        collisionDetection(ObjectsList[i], ObjectsList);
+        //collisionDetection(ObjectsList[i], ObjectsList);
     }
     fpsCalculator();
     textDraw();
