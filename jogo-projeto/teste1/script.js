@@ -256,7 +256,7 @@ function fpsCalculator() {
     time1 = time2;
 }
 function textDraw() {
-    document.getElementById("fpsCounter").innerHTML = `O A FPS é ${myGameArea.fps.toFixed(2)}`
+    document.getElementById("fpsCounter").innerHTML = `O FPS é ${myGameArea.fps.toFixed(2)}`
     document.getElementById("showmousepos").innerHTML = `A posição do mouse é ${myGameArea.x}  ${myGameArea.y}`
     document.getElementById("debug1").innerHTML = `O tamanho de ObjectList é ${ObjectsList.length}`
 }
