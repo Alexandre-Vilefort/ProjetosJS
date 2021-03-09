@@ -1,1 +1,1 @@
-https://alexandre-vilefort.github.io/Rep-ProjetosJS/Jogo-projeto/teste1/teste1.html
+https://alexandre-vilefort.github.io/ProjetosJS/jogo-projeto/teste1/teste1.html
