@@ -5,7 +5,8 @@ var myGameObject2;
 var myGameObject3;
 var myGameObject4;
 var myGameObject5;
-var ObjectsList = []
+var ObjectsList = [];
+var TargetsList = [];
 var FPS = 0.5*8.35;
 var RAIO = 10;
 var teste = 0;
@@ -15,21 +16,10 @@ var fpsCounter = 0;
 
 function startGame() {
     myGameArea.start();
+    createTargets();
     playeyBase = new semiCircle(4*RAIO, "black", 395, 700, 0, 2);
     //myGameObject1 = new retangle(75, 75, "red", 100, 120);
-    /*
-    myGameObject1 = new circle(RAIO, "red", 395, 600, 0, 2);
-    myGameObject11 = new circle(RAIO, "red", 305, 600, 0, 2);
-    myGameObject2 = new circle(RAIO, "blue", 395, 80, 0, -2);
-    myGameObject22 = new circle(RAIO, "blue", 305, 80, 0, -2);
-    myGameObject3 = new circle(RAIO, "purple", 700, 180, 1, 3);
-    myGameObject4 = new circle(RAIO, "green", 700, 280, 4, -2);
-    myGameObject44 = new circle(RAIO, "green", 790, 280, 4, -2);
-    myGameObject5 = new circle(RAIO, "blue", 700, 380, -2, 1);
-    myGameObject55 = new circle(RAIO, "blue", 790, 380, -2, 1);
-    myGameObject6 = new circle(RAIO, "yellow", 700, 480, -6, -5);
-    myGameObject66 = new circle(RAIO, "yellow", 790, 480, -6, -5);
-    */
+    myGameObject1 = new circle(RAIO*2/3, "red", 400, 450, 0, 3);
     //myGameObjectText = new canvasText(30, testeteset, 0, 0);
 }
 var myGameArea = {
@@ -40,7 +30,6 @@ var myGameArea = {
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         let timeInterval = FPS;
-        //let timeInterval = 16.7;
         this.interval = setInterval(updateGameArea, timeInterval);
         this.fps = 1/timeInterval*1000
         window.addEventListener('keydown', function (event) {
@@ -62,7 +51,7 @@ var myGameArea = {
             }
         })
         window.addEventListener('mousedown', function () {
-            var myGameObjectCreator = new circle(RAIO, "#" + ((1<<24)*Math.random() | 0).toString(16), myGameArea.x, myGameArea.y, 0, 10);
+            let myGameObjectCreator = new circle(RAIO*2/3, "#" + ((1<<24)*Math.random() | 0).toString(16), myGameArea.x, myGameArea.y, 0, 10);
             myGameObjectCreator.dx = myGameObjectCreator.dx;
             //ObjectsList.push(myGameObjectCreator);    
         })
@@ -75,16 +64,26 @@ var myGameArea = {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }
+function createTargets(){
+    for (let i = 1; i <= 20; i++){
+        for (let j = 1; j <= 10; j++){
+            let myGameObjectCreator = new retangle(10, 10,  "#" + ((1<<24)*Math.random() | 0).toString(16), 30 * i + 100, 30 * j +50);
+        }
+    }
+}
 function retangle(width, height, color, x, y) {
     this.width = width;
     this.height = height;
     this.radius = width / 2;
     this.x = x;
     this.y = y;
-    this.mass = 1;
+    this.mass = 10;
+    this.life = 1;
     this.color = color;
-    this.dx = Math.floor(Math.random() * 11) * 60 / myGameArea.fps;
-    this.dy = Math.floor(Math.random() * 11) * 60 / myGameArea.fps;;
+    this.dx = 0;
+    this.dy = 0;
+    //this.dx = Math.floor(Math.random() * 11) * 60 / myGameArea.fps;
+    //this.dy = Math.floor(Math.random() * 11) * 60 / myGameArea.fps;;
     this.update = function () {
         let ctx = myGameArea.context;
         ctx.fillStyle = color;
@@ -96,11 +95,15 @@ function retangle(width, height, color, x, y) {
         if (this.y - height / 2 < 0 || this.y - height / 2 > myGameArea.canvas.height - this.height) {
             this.dy *= -1;
         }
-
+        if ( this.life == 0 && TargetsList.includes(this) ) {
+            TargetsList.splice(TargetsList.indexOf(this), 1);
+            this.x = 300;
+            this.y = 300;
+        }
         this.x += this.dx * 60 / myGameArea.fps;
         this.y += this.dy * 60 / myGameArea.fps;
     }
-    ObjectsList.push(this);
+    TargetsList.push(this);
 }
 function canvasText(fontSize, text, x, y) {
     this.font = fontSize;
@@ -120,6 +123,7 @@ function circle(radius, color, x, y, dx, dy) {
     this.x = x;
     this.y = y;
     this.mass = 1;
+    this.life = -1;
     this.color = color;
     this.dx = dx //* 60 / myGameArea.fps;
     this.dy = dy //* 60 / myGameArea.fps;
@@ -154,8 +158,12 @@ function circle(radius, color, x, y, dx, dy) {
             ObjectsList.splice(ObjectsList.indexOf(this), 1);
             this.x = 300;
             this.y = 300;
-
         }
+        //if ( this.life = 0 && ObjectsList.includes(this) ) {
+        //    ObjectsList.splice(ObjectsList.indexOf(this), 1);
+        //    this.x = 300;
+        //    this.y = 300;
+        //}
         /*if (this.y < 0 + this.radius || this.y > cheidth - this.radius) {
             this.dy *= -1;
             this.isInside = false;
@@ -171,6 +179,7 @@ function semiCircle(radius, color, x, y, dx, dy) {
     this.x = x;
     this.y = y;
     this.mass = 3;
+    this.life = -1;
     this.color = color;
     this.dx = 0;
     this.dy = 0;
@@ -350,9 +359,10 @@ function collisionDetection(item, list) {
                 item.x -= (dis_r + a / 2) * cos;
                 item.y -= (dis_r + a / 2) * sin;
             }
+            item.life += -1;
+            list[i].life += -1;
 
             colidedPar.push([item, list[i]])
-
         }
     }
 }
@@ -367,15 +377,25 @@ function fpsCalculator() {
 function textDraw() {
     document.getElementById("fpsCounter").innerHTML = `O FPS é ${myGameArea.fps.toFixed(2)}`
     document.getElementById("showmousepos").innerHTML = `A posição do mouse é ${myGameArea.x}  ${myGameArea.y}`
-    document.getElementById("debug1").innerHTML = `O tamanho de ObjectList é ${ObjectsList.length}`
+    document.getElementById("debug1").innerHTML = `O tamanho de ObjectsList é ${ObjectsList.length}`
+    document.getElementById("debug2").innerHTML = `O tamanho de TargetsList é ${TargetsList.length}`
 }
 function updateGameArea() {
     myGameArea.clear();
     //moveobject_keyboard(myGameObject3);
     movePlayerBase_mouse(playeyBase);
     for (let i = 0; i <= ObjectsList.length - 1; i++) {
-        ObjectsList[i].update();
         collisionDetection(ObjectsList[i], ObjectsList);
+    }
+    for (let i = 0; i <=TargetsList.length -1;i++){
+        collisionDetection(TargetsList[i], ObjectsList);
+        collisionDetection(TargetsList[i], TargetsList);
+    }
+    for (let i = 0; i <= ObjectsList.length - 1; i++) {
+        ObjectsList[i].update();
+    }
+    for (let i = 0; i <=TargetsList.length -1;i++){
+        TargetsList[i].update();
     }
     fpsCalculator();
     textDraw();
