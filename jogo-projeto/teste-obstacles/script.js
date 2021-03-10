@@ -63,7 +63,7 @@ var myGameArea = {
         })
         window.addEventListener('mousedown', function () {
             var myGameObjectCreator = new circle(RAIO, "#" + ((1<<24)*Math.random() | 0).toString(16), myGameArea.x, myGameArea.y, 0, 10);
-            myGameObjectCreator.dx+=0;
+            myGameObjectCreator.dx = myGameObjectCreator.dx;
             //ObjectsList.push(myGameObjectCreator);    
         })
         //window.addEventListener('mouseup', function (event) {
@@ -121,8 +121,8 @@ function circle(radius, color, x, y, dx, dy) {
     this.y = y;
     this.mass = 1;
     this.color = color;
-    this.dx = dx * 60 / myGameArea.fps;
-    this.dy = dy * 60 / myGameArea.fps;
+    this.dx = dx //* 60 / myGameArea.fps;
+    this.dy = dy //* 60 / myGameArea.fps;
     //this.dx = Math.floor(Math.random() * 11);
     //this.dy = Math.floor(Math.random() * 11);
     this.isInside;
@@ -145,11 +145,22 @@ function circle(radius, color, x, y, dx, dy) {
             if (this.x < 0 + this.radius) { this.x = this.radius } else if (this.x > cwidth - this.radius) { this.x = cwidth - this.radius }
 
         }
-        if (this.y < 0 + this.radius || this.y > cheidth - this.radius) {
+        if (this.y < 0 + this.radius) {
+            this.dy *= -1;
+            this.isInside = false;
+            if (this.y < 0 + this.radius) { this.y = this.radius } 
+        }
+        if ( this.y > cheidth + 50 && ObjectsList.includes(this) ) {
+            ObjectsList.splice(ObjectsList.indexOf(this), 1);
+            this.x = 300;
+            this.y = 300;
+
+        }
+        /*if (this.y < 0 + this.radius || this.y > cheidth - this.radius) {
             this.dy *= -1;
             this.isInside = false;
             if (this.y < 0 + this.radius) { this.y = this.radius } else if (this.y > cheidth - this.radius) { this.y = cheidth - this.radius }
-        }
+        }*/
         this.x += this.dx * 60 / myGameArea.fps;
         this.y += this.dy * 60 / myGameArea.fps;
     }
@@ -363,12 +374,8 @@ function updateGameArea() {
     //moveobject_keyboard(myGameObject3);
     movePlayerBase_mouse(playeyBase);
     for (let i = 0; i <= ObjectsList.length - 1; i++) {
-        //ObjectsList[i].update();
-        collisionDetection(ObjectsList[i], ObjectsList);
-    }
-    for (let i = 0; i <= ObjectsList.length - 1; i++) {
         ObjectsList[i].update();
-        //collisionDetection(ObjectsList[i], ObjectsList);
+        collisionDetection(ObjectsList[i], ObjectsList);
     }
     fpsCalculator();
     textDraw();
