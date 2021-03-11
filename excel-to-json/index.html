@@ -14,9 +14,14 @@
     <input type="file" id="fileUpload" accept=".xls,.xlsx" /><br />
     <button type="button" id="uploadExcel">Convert</button>
     <pre id="jsonData"></pre>
+    <div>
+      <button type="button" id="teste" onclick="teste()" >Convert</button>
+      <p id="jsonDatatest"></p>
+    </div>
   </body>
   <script>
     var selectedFile;
+    var jsonObject;
     document
       .getElementById("fileUpload")
       .addEventListener("change", function(event) {
@@ -38,8 +43,8 @@
               let rowObject = XLSX.utils.sheet_to_row_object_array(
                 workbook.Sheets[sheet]
               );
-              let jsonObject = JSON.stringify(rowObject);
-              document.getElementById("jsonData").innerHTML = jsonObject;
+              jsonObject = JSON.stringify(rowObject);
+              //document.getElementById("jsonData").innerHTML = jsonObject;
               console.log(jsonObject);
             });
           };
@@ -47,4 +52,11 @@
         }
       });
   </script>
+  <script>
+    function teste() {
+      document.getElementById("jsonDatatest").innerHTML = jsonObject;
+    }
+    
+  </script>
+
 </html>
