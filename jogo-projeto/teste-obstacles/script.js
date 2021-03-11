@@ -130,7 +130,7 @@ function circle(radius, color, x, y, dx, dy) {
     //this.dx = Math.floor(Math.random() * 11);
     //this.dy = Math.floor(Math.random() * 11);
     this.isInside;
-    this.update = function () {
+    this.update = function () { 
         let ctx = myGameArea.context;
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);

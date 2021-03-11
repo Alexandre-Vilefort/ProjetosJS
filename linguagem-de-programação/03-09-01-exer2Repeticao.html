@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function exe2() {
+            let preco = 5.0
+            let qtde = 120
+            let lucro = (preco * qtde) - 200
+            let maiorLucro = lucro
+            let dadosTabela = "" // conteúdo da tabela
+            while (preco >= 1.0) {
+                dadosTabela = dadosTabela + `<tr> <td> ${preco} </td> <td> ${qtde} </td> <td> 200 </td> <td> R$ ${lucro.toFixed(2)} </td> </tr>`
+                //alet(`preço: ${preco} e qtde: ${preco*qtde - 200}`)
+                preco = preco - 0.50 // caindo
+                qtde = qtde + 26 // subindo
+                lucro = (preco * qtde) - 200
+                if (lucro > maiorLucro) {// achamos um novo maiorLucro
+                    maiorLucro = lucro // troca o maiorLucro
+                }
+            }
+            document.getElementById("dadosTabela").innerHTML = dadosTabela
+            alert(`Maior lucro ${maiorLucro}`)
+            let table = document.querySelector(".table");
+            table.style.visibility = "visible";
+        }
+
+    </script>
+    <style>
+        body {
+            background-color: rgb(86, 124, 139);
+            font-family: 'lato', sans-serif;
+        }
+        #conteiner {
+            width: 500px;
+            margin: auto;
+            margin-top: 120px;
+            padding: 10px;
+            background-color: rgba(195, 218, 228, 0.884);
+            border-radius: 15px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-size: 24px;
+            color: rgb(80, 75, 121);
+            margin-top: 12px;
+            padding: 10px;
+        }
+
+        button {
+           position: relative;
+           left: 20%;
+           margin: 10px; 
+           border-radius: 12px;
+           border: 2px solid #4c74af; 
+           padding: 10px 30px;
+           font-size: 20px;
+           background-color: rgb(195, 218, 228);
+           transition-duration: 0.5s;
+        }
+
+        button:hover {
+            background-color: #4c74af; 
+            color: white;
+        }   
+
+        .table{
+            visibility: hidden;
+        }
+
+        th,
+        td {
+            border: 0px solid rgba(195, 218, 228, 0.884);
+            text-align: center;
+            border-radius: 6px;
+            padding: 6px;
+
+        }
+
+        .table-header {
+            background-color:  #4c74af;
+            color:rgba(195, 218, 228, 0.884);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            transition-duration: 0.5s;
+        }
+        .table-header:hover {
+            color:  #4c74af;
+            background-color:rgba(195, 218, 228, 0.884);
+        }
+
+        
+        .table-row {
+            background-color: rgb(86, 124, 139);
+            color:rgba(195, 218, 228, 0.884);
+            transition-duration: 0.5s;
+        }
+        .table-row:hover {
+            color: rgb(86, 124, 139);
+            background-color:rgba(195, 218, 228, 0.884);
+        }
+        tr {
+            border-radius: 3px;
+            padding: 25px 30px;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .output, .saida {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            padding: 10px;
+            font-size: 20px;
+            color:rgb(80, 75, 121);
+            transition-duration: 0.5s;
+        }
+        .output:hover {
+            background-color: rgb(86, 124, 139);
+            color:rgb(195, 218, 228);
+            border-radius: 15px;
+        } 
+    </style>
+</head>
+
+<body>
+
+    <div id="conteiner">
+        <h1>Exercício 2 </h1>
+        <h2> Companhia de Ingressos </h2>
+        <h2> Tabela de Vendas: </h3>
+        <h2> Clique no botão para mostrar a tabela</h4>
+        <br><button type="button" onclick="exe2()"> Tabela </button>
+        <br><button onclick="document.location.href = '03-09-01-index.html'"> Sair </button>
+        <div class="table">
+            <table>
+                <thead>
+                    <tr class="table-header">
+                        <!--tablea row-->
+                        <th> Preço </th>
+                        <!--tablea header-->
+                        <th> Quantidade </th>
+                        <th> Desconto </th>
+                        <th> Lucro </th>
+                    </tr>
+                </thead>
+                <tbody id="dadosTabela" class="table-row"></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

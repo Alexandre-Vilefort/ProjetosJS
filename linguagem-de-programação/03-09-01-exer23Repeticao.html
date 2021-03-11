@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function exe23(opt) {
+
+            if (opt == 1) {
+                let table = document.querySelector(".table");
+                table.style.visibility = "visible";
+                let sal = Number(prompt(`Informe o salário do funcionário`));
+                let newSal;
+                if (sal <= 210) {
+                    newSal = sal * 1.15;
+                } else if (sal > 210 && sal <= 600) {
+                    newSal = sal * 1.10;
+                } else if (sal > 600) {
+                    newSal = sal * 1.05;
+                }
+                document.getElementById("output1").innerHTML = `O salário antigo do funcionário é ${sal.toFixed(2)}
+                                                                <br> O novo salário é R$ ${newSal.toFixed(2)}`;
+            } else if (opt == 2) {
+                let table = document.querySelector(".table");
+                table.style.visibility = "hidden";
+                let sal = Number(prompt(`Informe o salário do funcionário`));
+                let ferias = sal + sal / 3;
+                document.getElementById("output1").innerHTML = `O salário do funcionário é ${sal.toFixed(2)}
+                                                                <br> O valor das férias do funcionário é R$ ${ferias.toFixed(2)}`;
+            } else if (opt == 3) {
+                let table = document.querySelector(".table");
+                table.style.visibility = "hidden";
+                let sal = Number(prompt(`Informe o salário do funcionário`));
+                let mesesTrabalhados;
+                var inputOk = true;
+                while(inputOk){
+                    mesesTrabalhados = Number(prompt(`Informe os meses trabalhados do funcionário`));
+                    if (mesesTrabalhados <= 12){
+                        inputOk = false;
+                    }
+                }
+                decimoTerceiro = sal * mesesTrabalhados /12;
+                document.getElementById("output1").innerHTML = `O salário do funcionário é ${sal.toFixed(2)}
+                                                                <br> O valor do décimo terceiro do funcionário é R$ ${decimoTerceiro.toFixed(2)}`;
+            } else if(opt == 4 ) {
+                document.location.href = "03-09-01-index.html"
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: rgb(86, 124, 139);
+            font-family: 'lato', sans-serif;
+        }
+        #conteiner {
+            width: 500px;
+            margin: auto;
+            margin-top: 120px;
+            padding: 10px;
+            background-color: rgba(195, 218, 228, 0.884);
+            border-radius: 15px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-size: 24px;
+            color: rgb(80, 75, 121);
+            margin-top: 12px;
+            padding: 10px;
+        }
+
+        button {
+           position: relative;
+           left: 20%;
+           margin: 10px; 
+           border-radius: 12px;
+           border: 2px solid #4c74af; 
+           padding: 10px 30px;
+           font-size: 20px;
+           background-color: rgb(195, 218, 228);
+           transition-duration: 0.5s;
+        }
+
+        button:hover {
+            background-color: #4c74af; 
+            color: white;
+        }   
+
+        .table{
+            visibility: hidden;
+        }
+
+        th,
+        td {
+            border: 0px solid rgba(195, 218, 228, 0.884);
+            text-align: center;
+            border-radius: 6px;
+            padding: 6px;
+
+        }
+
+        .table-header {
+            background-color:  #4c74af;
+            color:rgba(195, 218, 228, 0.884);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            transition-duration: 0.5s;
+        }
+        .table-header:hover {
+            color:  #4c74af;
+            background-color:rgba(195, 218, 228, 0.884);
+        }
+
+        
+        .table-row {
+            background-color: rgb(86, 124, 139);
+            color:rgba(195, 218, 228, 0.884);
+            transition-duration: 0.5s;
+        }
+        .table-row:hover {
+            color: rgb(86, 124, 139);
+            background-color:rgba(195, 218, 228, 0.884);
+        }
+        tr {
+            border-radius: 3px;
+            padding: 25px 30px;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .output, .saida {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            padding: 10px;
+            font-size: 20px;
+            color:rgb(80, 75, 121);
+            transition-duration: 0.5s;
+        }
+        .output:hover {
+            background-color: rgb(86, 124, 139);
+            color:rgb(195, 218, 228);
+            border-radius: 15px;
+        } 
+    </style>
+</head>
+
+<body>
+    
+    <div id="conteiner">
+        <h1>Exercício 23 </h1>
+        <h2> Menu de Opções </h2>
+        <h2> Escolha uma das opções abaixo</h2>
+        <br><button type="button" onclick="exe23(1)"> Novo salário </button>
+        <br><button type="button" onclick="exe23(2)"> Férias </button>
+        <br><button type="button" onclick="exe23(3)"> Décimo terceiro </button>
+        <br><button type="button" onclick="exe23(4)"> Sair </button>
+        <div class="output">
+            <p id="output1"></p>
+            <p id="output2"></p>
+        </div>
+        <div class="table">
+            <p class="output">Tabela para o cálculo do novo salários</p>
+            <table>
+                <thead>
+                    <!--header da tablea-->
+                    <tr class="table-header">
+                        <th> Salários </th>
+                        <th> Percentagem de aumento </th>
+                    </tr>
+                </thead >
+                <tbody id="dadosTabela">
+                    <!--Corpo da tabela-->
+                    <tr class="table-row">
+                        <td>Até R$ 210.00 (inclusive)</td>
+                        <td> 15% </td>
+                    </tr>
+                    <tr class="table-row">
+                        <td>De R$ 210.00a R$ 600.00 (inclusive)</td>
+                        <td> 10% </td>
+                    </tr>
+                    <tr class="table-row">
+                        <td>Acima de R$ 600</td>
+                        <td> 5% </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>

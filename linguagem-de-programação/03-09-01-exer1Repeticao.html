@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function exe1() {
+            for (let j = 1; j <= 5; j++) {
+                //Entrada de dados
+                let A = Number(prompt(`Informe o valor de A`))
+                let B = Number(prompt(`Informe o valor de B`))
+                let C = Number(prompt(`Informe o valor de C`))
+                let D = Number(prompt(`Informe o valor de D`))
+                //Comparações - faremos 3 comparações (n-1)
+                let a = A
+                let b = B
+                let c = C
+                let d = D
+                let i = 0
+                while (i <= 3) {
+                    i++// incrementa i
+                    if (a > b) {
+                        let aux = a
+                        a = b
+                        b = aux
+                    }
+                    if (b > c) {
+                        let aux = b
+                        b = c
+                        c = aux
+                    }
+                    if (c > d) {
+                        let aux = c
+                        c = d
+                        d = aux
+                    }
+                }
+                document.getElementById("result1").innerHTML += `<br> Ordem linda ${A} ${B} ${C} ${D} 
+                                                             Ordem crescente ${a} ${b} ${c} ${d} 
+                                                             Ordem descrecente ${d} ${c} ${b} ${a}`
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: rgb(86, 124, 139);
+            font-family: 'lato', sans-serif;
+        }
+
+        #conteiner {
+            width: 500px;
+            margin: auto;
+            margin-top: 120px;
+            padding: 10px;
+            background-color: rgba(195, 218, 228, 0.884);
+            border-radius: 15px;
+        }
+        h1,
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            color: rgb(80, 75, 121);
+            margin-top: 12px;
+            padding: 10px;
+        }
+        button {
+            position: relative;
+            left: 20%;
+            margin: 10px;
+            border-radius: 12px;
+            border: 2px solid #4c74af;
+            padding: 10px 30px;
+            font-size: 20px;
+            background-color: rgb(195, 218, 228);
+            transition-duration: 0.5s;
+        }
+        button:hover {
+            background-color: #4c74af;
+            color: white;
+        }
+        .table {
+            visibility: hidden;
+        }
+        th,
+        td {
+            border: 0px solid rgba(195, 218, 228, 0.884);
+            text-align: center;
+            border-radius: 6px;
+            padding: 6px;
+        }
+        .table-header {
+            background-color: #4c74af;
+            color: rgba(195, 218, 228, 0.884);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            transition-duration: 0.5s;
+        }
+        .table-header:hover {
+            color: #4c74af;
+            background-color: rgba(195, 218, 228, 0.884);
+        }
+        .table-row {
+            background-color: rgb(86, 124, 139);
+            color: rgba(195, 218, 228, 0.884);
+            transition-duration: 0.5s;
+        }
+        .table-row:hover {
+            color: rgb(86, 124, 139);
+            background-color: rgba(195, 218, 228, 0.884);
+        }
+        tr {
+            border-radius: 3px;
+            padding: 25px 30px;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+        .output,
+        .saida {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            padding: 10px;
+            font-size: 20px;
+            color: rgb(80, 75, 121);
+            transition-duration: 0.5s;
+        }
+        .output:hover {
+            background-color: rgb(86, 124, 139);
+            color: rgb(195, 218, 228);
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="conteiner">
+        <h1>
+            Clique no botão ao lado para executar o exercício 1 
+        </h1>
+        <br><button onclick="exe1()">Exercíocio 1</button>
+        <br><button onclick="document.location.href = '03-09-01-index.html'"> Sair </button>
+        <h2 id="output"></h2>
+    </div>
+</body>
+
+</html>
