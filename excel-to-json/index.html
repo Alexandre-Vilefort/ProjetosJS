@@ -23,32 +23,49 @@
 <script type="text/javascript" src="src/xlx2json.js"></script>
 <script>
   function teste() {
-    //document.getElementById("jsonDatatest").innerHTML = jsonObject;
-    var questions = Object.keys(dataQuest[0]);// Array com todas as questões
-    var answers = new Array(80);
-    for (var i = 0; i < answers.length; i++) {
-      answers[i] = new Array(80);
+    var number = Number(prompt(`Informe a questão que deseje gerar o Gráfico`));
+    var question = Object.keys(dataQuest[0]);// Array com todas as questões
+    
+    var answer = new Array(question.length - 1);
+    for (var i = 0; i < answer.length; i++) {
+      answer[i] = new Array(dataQuest.length);
     }
     for (let i = 0; i < dataQuest.length; i++) {
-      for (let j = 0; j < questions.length-1; j++) {
-        answers[j][i] = dataQuest[i][questions[j]];
+      for (let j = 0; j < question.length-1; j++) {
+        answer[j][i] = dataQuest[i][question[j]];
       }
     }
 
-    //answers[j].push(dataQuest[i][questions[j]]);// 66,72
-    console.log(dataQuest[63][questions[71]]);
-    console.log(answers[1][1]);
-    //console.log(answers[2])
-    //for (let i = 0; i < questions.length; i++){console.log(questions[i])};
+    var setAnswer = [...new Set(answer[number])]; 
+    var answerCounter = new Array(setAnswer.length);
+    for (let i = 0; i < answerCounter.length; i++){
+        answerCounter[i] = 0;
+    }
+
+    for (let i = 0; i < setAnswer.length; i++) {
+      for (let j = 0; j < dataQuest.length; j++){
+        if (answer[number][j] === setAnswer[i]){
+          answerCounter[i]+= 1;
+        }
+      }
+    }
+    console.log(answer[number][1])
+    console.log(setAnswer[1]);
+    console.log(answerCounter);
+    //answer[j].push(dataQuest[i][question[j]]);// 66,72
+    //console.log(dataQuest[63][question[71]]);
+    //console.log(answer[1][1]);
+    //console.log(answer[2])
+    //for (let i = 0; i < question.length; i++){console.log(question[i])};
 
     var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: [...new Set(answers[2])],
+        labels: setAnswer,
         datasets: [{
-          label: questions[2],
-          data: [12, 19, 3, 5, 2, 3],
+          label: question[number],
+          data: answerCounter,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
