@@ -29,26 +29,25 @@
     for (var i = 0; i < answers.length; i++) {
       answers[i] = new Array(80);
     }
-    for (let i = 0; i < 66; i++) {
-      for (let j = 0; j < 71; j++) {
+    for (let i = 0; i < dataQuest.length; i++) {
+      for (let j = 0; j < questions.length-1; j++) {
         answers[j][i] = dataQuest[i][questions[j]];
       }
     }
 
-
-
     //answers[j].push(dataQuest[i][questions[j]]);// 66,72
     console.log(dataQuest[63][questions[71]]);
     console.log(answers[1][1]);
+    //console.log(answers[2])
     //for (let i = 0; i < questions.length; i++){console.log(questions[i])};
 
     var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: [12, 19, 3, 5, 2, 3], //[...new Set(answers[2])],
+        labels: [...new Set(answers[2])],
         datasets: [{
-          label: questions[72],
+          label: questions[2],
           data: [12, 19, 3, 5, 2, 3],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
