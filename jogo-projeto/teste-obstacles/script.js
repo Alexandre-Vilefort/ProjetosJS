@@ -67,7 +67,7 @@ var myGameArea = {
 function createTargets(){
     for (let i = 1; i <= 20; i++){
         for (let j = 1; j <= 10; j++){
-            let myGameObjectCreator = new retangle(10, 10,  "#" + ((1<<24)*Math.random() | 0).toString(16), 30 * i + 100, 30 * j +50);
+            let myGameObjectCreator = new retangle(20, 20,  "#" + ((1<<24)*Math.random() | 0).toString(16), 30 * i + 100, 30 * j +50);
         }
     }
 }
@@ -77,8 +77,8 @@ function retangle(width, height, color, x, y) {
     this.radius = width / 2;
     this.x = x;
     this.y = y;
-    this.mass = 10;
-    this.life = 1;
+    this.mass = 50;
+    this.life = 5;
     this.color = color;
     this.dx = 0;
     this.dy = 0;

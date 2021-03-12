@@ -24,8 +24,6 @@ document
                     );
                     jsonObject = JSON.stringify(rowObject);
                     dataQuest = JSON.parse(jsonObject);
-                    //document.getElementById("jsonData").innerHTML = jsonObject;
-                    //console.log(jsonObject);
                 });
             };
             fileReader.readAsBinaryString(selectedFile);

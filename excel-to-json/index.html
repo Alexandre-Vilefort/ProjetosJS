@@ -24,7 +24,6 @@
   function teste() {
     var number = Number(prompt(`Informe a questão que deseje gerar o Gráfico`));
     var question = Object.keys(dataQuest[0]);// Array com todas as questões
-    
     var answer = new Array(question.length - 1);
     for (var i = 0; i < answer.length; i++) {
       answer[i] = new Array(dataQuest.length);
@@ -34,13 +33,11 @@
         answer[j][i] = dataQuest[i][question[j]];
       }
     }
-
     var setAnswer = [...new Set(answer[number])]; 
     var answerCounter = new Array(setAnswer.length);
     for (let i = 0; i < answerCounter.length; i++){
         answerCounter[i] = 0;
     }
-
     for (let i = 0; i < setAnswer.length; i++) {
       for (let j = 0; j < dataQuest.length; j++){
         if (answer[number][j] === setAnswer[i]){
@@ -56,7 +53,6 @@
     //console.log(answer[1][1]);
     //console.log(answer[2])
     //for (let i = 0; i < question.length; i++){console.log(question[i])};
-
     var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {
       type: 'bar',
