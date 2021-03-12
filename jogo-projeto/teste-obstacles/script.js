@@ -13,11 +13,12 @@ var teste = 0;
 var time1 = performance.now();
 var timeCounter = 0;
 var fpsCounter = 0;
+var setColors = ["red","green","blue","Orange","black","gray","white","IndianRed","LightYellow","purple"];
 
 function startGame() {
     myGameArea.start();
     createTargets();
-    playeyBase = new semiCircle(4*RAIO, "black", 395, 700, 0, 2);
+    playeyBase = new semiCircle(4*RAIO, "SlateBlue", 395, 700, 0, 2);
     //myGameObject1 = new retangle(75, 75, "red", 100, 120);
     myGameObject1 = new circle(RAIO*2/3, "red", 400, 450, 0, 3);
     //myGameObjectText = new canvasText(30, testeteset, 0, 0);
@@ -51,7 +52,7 @@ var myGameArea = {
             }
         })
         window.addEventListener('mousedown', function () {
-            let myGameObjectCreator = new circle(RAIO*2/3, "#" + ((1<<24)*Math.random() | 0).toString(16), myGameArea.x, myGameArea.y, 0, 10);
+            let myGameObjectCreator = new circle(RAIO*2/3, setColors[Math.floor(Math.random() * 10)] , myGameArea.x, myGameArea.y, 0, 10);
             myGameObjectCreator.dx = myGameObjectCreator.dx;
             //ObjectsList.push(myGameObjectCreator);    
         })
@@ -67,7 +68,7 @@ var myGameArea = {
 function createTargets(){
     for (let i = 1; i <= 20; i++){
         for (let j = 1; j <= 10; j++){
-            let myGameObjectCreator = new retangle(20, 20,  "#" + ((1<<24)*Math.random() | 0).toString(16), 30 * i + 100, 30 * j +50);
+            let myGameObjectCreator = new retangle(20, 20, setColors[Math.floor(Math.random() * 10)], 30 * i + 100, 30 * j +50);
         }
     }
 }
