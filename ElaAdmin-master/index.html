@@ -421,7 +421,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="box-title">Traffic </h4>
+                                <h4 class="box-title">Gráficos </h4>
                             </div>
                             <div class="row">
                                 <div class="col-lg-8">
@@ -1034,9 +1034,16 @@
                             datasets: [
                                 {
                                     label: question[7],
-                                    borderColor: "rgba(4, 73, 203,.09)",
-                                    borderWidth: "1",
-                                    backgroundColor: "rgba(4, 73, 203,.5)",
+                                    borderColor: "rgba(4, 73, 203,0.9)",
+                                    borderWidth: "2",
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.8)',
+                                        'rgba(54, 162, 235, 0.8)',
+                                        'rgba(255, 206, 86, 0.8)',
+                                        'rgba(75, 192, 192, 0.8)',
+                                        'rgba(153, 102, 255, 0.8)',
+                                        'rgba(255, 159, 64, 0.8)'
+                                    ],
                                     data: answerCounter[7]
                                 }
                             ]
@@ -1059,30 +1066,51 @@
                     var ctx = document.getElementById("TrafficChart2");
                     ctx.height = 150;
                     var myChart = new Chart(ctx, {
-                        type: 'bar',
+                        type: "bar",//'doughnut',
                         data: {
                             labels: setAnswer[6],//["Merda3", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
                             datasets: [
                                 {
                                     label: "2Teste1",
-                                    borderColor: "rgba(4, 73, 203,.09)",
-                                    borderWidth: "1",
-                                    backgroundColor: "rgba(4, 73, 203,.5)",
+                                    borderColor: "rgba(4, 73, 203,0.9)",
+                                    borderWidth: "2",
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.8)',
+                                        'rgba(54, 162, 235, 0.8)',
+                                        'rgba(255, 206, 86, 0.8)',
+                                        'rgba(75, 192, 192, 0.8)',
+                                        'rgba(153, 102, 255, 0.8)',
+                                        'rgba(255, 159, 64, 0.8)'
+                                    ],
                                     data: answerCounter[6]
                                 },
                                 {
                                     label: "2Teste2",
                                     borderColor: "rgba(245, 23, 66, 0.9)",
-                                    borderWidth: "1",
-                                    backgroundColor: "rgba(245, 23, 66,.5)",
+                                    borderWidth: "2",
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.8)',
+                                        'rgba(54, 162, 235, 0.8)',
+                                        'rgba(255, 206, 86, 0.8)',
+                                        'rgba(75, 192, 192, 0.8)',
+                                        'rgba(153, 102, 255, 0.8)',
+                                        'rgba(255, 159, 64, 0.8)'
+                                    ],
                                     pointHighlightStroke: "rgba(245, 23, 66,.5)",
                                     data: answerCounter[6]
                                 },
                                 {
                                     label: "2Teste3",
                                     borderColor: "rgba(40, 169, 46, 0.9)",
-                                    borderWidth: "1",
-                                    backgroundColor: "rgba(40, 169, 46, .5)",
+                                    borderWidth: "2",
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.8)',
+                                        'rgba(54, 162, 235, 0.8)',
+                                        'rgba(255, 206, 86, 0.8)',
+                                        'rgba(75, 192, 192, 0.8)',
+                                        'rgba(153, 102, 255, 0.8)',
+                                        'rgba(255, 159, 64, 0.8)'
+                                    ],
                                     pointHighlightStroke: "rgba(40, 169, 46,.5)",
                                     data: answerCounter[6]
                                 }
