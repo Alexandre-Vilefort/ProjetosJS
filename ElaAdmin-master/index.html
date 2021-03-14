@@ -417,83 +417,7 @@
                 </div>
                 <!-- /Widgets -->
                 <!--  Traffic  -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="box-title">Gráficos </h4>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="card-body">
-                                        <canvas id="TrafficChart1"></canvas>
-                                        <!--<div id="traffic-chart" class="traffic-chart"></div> -->
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card-body">
-                                        <div class="progress-box progress-1">
-                                            <h4 class="por-title">Visits</h4>
-                                            <div class="por-txt">96,930 Users (40%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-1" role="progressbar"
-                                                    style="width: 40%;" aria-valuenow="25" aria-valuemin="0"
-                                                    aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title">Bounce Rate</h4>
-                                            <div class="por-txt">3,220 Users (24%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-2" role="progressbar"
-                                                    style="width: 24%;" aria-valuenow="25" aria-valuemin="0"
-                                                    aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div> <!-- /.card-body -->
-                                </div>
-                            </div> <!-- /.row -->
-                            <div class="card-body"></div>
-                        </div>
-                    </div><!-- /# column -->
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="box-title">Gráficos </h4>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="card-body">
-                                        <canvas id="TrafficChart2"></canvas>
-                                        <!--<div id="traffic-chart" class="traffic-chart"></div> -->
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card-body">
-                                        <div class="progress-box progress-1">
-                                            <h4 class="por-title">Visits</h4>
-                                            <div class="por-txt">96,930 Users (40%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-1" role="progressbar"
-                                                    style="width: 40%;" aria-valuenow="25" aria-valuemin="0"
-                                                    aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title">Bounce Rate</h4>
-                                            <div class="por-txt">3,220 Users (24%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-2" role="progressbar"
-                                                    style="width: 24%;" aria-valuenow="25" aria-valuemin="0"
-                                                    aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div> <!-- /.card-body -->
-                                </div>
-                            </div> <!-- /.row -->
-                            <div class="card-body"></div>
-                        </div>
-                    </div>
+                <div id="divChart" class="row">
                 </div>
                 <!--  /Traffic -->
                 <div class="clearfix"></div>
@@ -628,45 +552,94 @@
             'rgba(75, 192, 192, 0.8)',
             'rgba(153, 102, 255, 0.8)',
             'rgba(255, 159, 64, 0.8)'];
-        var colorBlue = "rgba(4, 73, 203,0.9)"; 
+        var colorBlue = "rgba(4, 73, 203,0.9)";
+
         document
             .getElementById("testeChamar")
             .addEventListener("click", function () {
                 console.log("hi4");
             });
-        
-        function createDataset(setAns,quest,answerC) {
+
+        function createDataset(setAns, quest, answerC) {
             var charDataset = {
-                            labels: setAns,
-                            datasets: [{
-                                        label: quest,
-                                        borderColor: colorBlue,
-                                        borderWidth: "2",
-                                        backgroundColor: setColors,
-                                        data: answerC
-                            }]
+                labels: setAns,
+                datasets: [{
+                    label: quest,
+                    borderColor: colorBlue,
+                    borderWidth: "2",
+                    backgroundColor: setColors,
+                    data: answerC
+                }]
             }
             return charDataset;
-        }    
-        function addDataset(chartDataset,quest,answerC){
+        }
+        function addDataset(chartDataset, quest, answerC) {
             var newDataset = {
-                            label: quest,
-                            borderColor: colorBlue,
-                            borderWidth: "2",
-                            backgroundColor: setColors,
-                            data: answerC
+                label: quest,
+                borderColor: colorBlue,
+                borderWidth: "2",
+                backgroundColor: setColors,
+                data: answerC
             }
             chartDataset.datasets.push(newDataset);
-        }    
+        }
+        function createChartjs(nameGraph, chartDataset, graphType) {
+            var insertDiv = document.createElement('div');
+            insertDiv.setAttribute('class','col-lg-12'); 
+            insertDiv.innerHTML = `
+                            <div class="card">
+                            <div class="card-body">
+                                <h4 class="box-title">Gráficos </h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="card-body">
+                                        <canvas id=${nameGraph}></canvas>
+                                        <!--<div id="traffic-chart" class="traffic-chart"></div> -->
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="card-body">
+                                        <div class="progress-box progress-1">
+                                            <h4 class="por-title">Visits</h4>
+                                            <div class="por-txt">96,930 Users (40%)</div>
+                                            <div class="progress mb-2" style="height: 5px;">
+                                                <div class="progress-bar bg-flat-color-1" role="progressbar"
+                                                    style="width: 40%;" aria-valuenow="25" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                        <div class="progress-box progress-2">
+                                            <h4 class="por-title">Bounce Rate</h4>
+                                            <div class="por-txt">3,220 Users (24%)</div>
+                                            <div class="progress mb-2" style="height: 5px;">
+                                                <div class="progress-bar bg-flat-color-2" role="progressbar"
+                                                    style="width: 24%;" aria-valuenow="25" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div> <!-- /.card-body -->
+                                </div>
+                            </div> <!-- /.row -->
+                            <div class="card-body"></div>
+                        </div><!-- /# column -->`;
+                    
 
-        function createChartjs(nameGraph,chartDataset,graphType) {
-            console.log("hiCreatChartjs");
+            document.getElementById('divChart').appendChild(insertDiv);
+            console.log(nameGraph);
             var ctx = document.getElementById(nameGraph);
-            ctx.height = 75;
+            ctx.height = 100;
             var myChart = new Chart(ctx, {
                 type: graphType,
                 data: chartDataset,
                 options: {
+                    scales:{
+                        xAxes: [{
+                            ticks: {
+                                display: false //Tira o label do eixo x
+                            }
+                        }]
+                    },
                     responsive: true,
                     tooltips: {
                         mode: 'index',
@@ -717,15 +690,16 @@
                 });// Pie chart flotPie1  End
 
                 //Traffic chart chart-js
-                let nameGraph = "TrafficChart";
-                var chartDataset = createDataset(setAnswer[q1],question[q1],answerCounter[q1]); 
-                
-                createChartjs(nameGraph+"1",chartDataset,"bar");
+                let nameGraph = "TrafficChartteste";
+                var chartDataset = createDataset(setAnswer[q1], question[q1], answerCounter[q1]);
+                createChartjs(nameGraph + q1, chartDataset, "pie");
 
-                chartDataset = createDataset(setAnswer[q2],question[q2],answerCounter[q2]); 
-                addDataset(chartDataset,question[q2],answerCounter[q2]);
+                chartDataset = createDataset(setAnswer[q2], question[q2], answerCounter[q2]);
+                addDataset(chartDataset, question[q2], answerCounter[q2]);
+                createChartjs(nameGraph + q2, chartDataset, "bar");
 
-                createChartjs(nameGraph+"2",chartDataset,"bar");
+                chartDataset = createDataset(setAnswer[64], question[64], answerCounter[64]);
+                createChartjs(nameGraph + 64, chartDataset, "bar");
 
 
                 /*
