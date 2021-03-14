@@ -58,7 +58,7 @@ document
                         }
                     }
                 }
-                createGraphs();
+                createGraphs(7,6);
             };
             fileReader.readAsBinaryString(selectedFile);
 
