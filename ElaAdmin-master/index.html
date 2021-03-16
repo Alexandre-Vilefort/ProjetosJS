@@ -555,16 +555,16 @@
     <script>
         //Colors
         var setColors = ['rgba(255, 99, 132, 0.8)',
-                         'rgba(54, 162, 235, 0.8)',
-                         'rgba(255, 206, 86, 0.8)',
-                         'rgba(75, 192, 192, 0.8)',
-                         'rgba(153, 102, 255, 0.8)',
-                         'rgba(255, 159, 64, 0.8)',
-                         'rgba(139, 0, 0, 0.8)',
-                         'rgba(72, 61, 139, 0.8)',
-                         'rgba(0, 206, 209, 0.8)',
-                         'rgba(0, 191, 255, 0.8)',
-                         'rgba(34, 139, 34, 0.8)'];
+            'rgba(54, 162, 235, 0.8)',
+            'rgba(255, 206, 86, 0.8)',
+            'rgba(75, 192, 192, 0.8)',
+            'rgba(153, 102, 255, 0.8)',
+            'rgba(255, 159, 64, 0.8)',
+            'rgba(139, 0, 0, 0.8)',
+            'rgba(72, 61, 139, 0.8)',
+            'rgba(0, 206, 209, 0.8)',
+            'rgba(0, 191, 255, 0.8)',
+            'rgba(34, 139, 34, 0.8)'];
         var colorBlue = "rgba(4, 73, 203,0.9)";
 
         document
@@ -581,7 +581,7 @@
 
             //Contas para gerar as barras ao lado do gráfico
             //Achar o maior valor
-            for (let i = 0; i < answerCounter[q].length;i++) {
+            for (let i = 0; i < answerCounter[q].length; i++) {
                 //teste
             }
 
@@ -628,11 +628,25 @@
 
             document.getElementById('divChart').appendChild(insertDiv);
 
-            if (setAnswer[q].length < dataQuest.length / 3) {
+            if (setAnswer[q].length < dataQuest.length / 6) {
                 let chartDataset = createDataset(setAnswer[q], question[q], answerCounter[q]);
                 createChartjs(nameGraph, chartDataset, graphType);
             } else {
-                createTable(nameGraph, answer[q]);
+                var answerList = new Array(answer[q].length);
+                if (question[q].indexOf("data") >= 0){
+                    for(let i = 0; i < answer[q].length; i++){
+                        let dataTemp = ExcelDateToJSDate(answer[q][i]);
+                        answerList[i] = "";
+                        answerList[i] = (dataTemp.getDate()).toString()+"/"+(dataTemp.getMonth()+1).toString()+"/"+(dataTemp.getFullYear()).toString();
+                       
+                    }
+                }else if (question[q].indexOf("RA") >= 0){
+                    //teste
+                    answerList = answer[q];    
+                } else {
+                    answerList = answer[q];
+                }
+                createTable(nameGraph, answerList);
             }
         }
 
@@ -640,8 +654,8 @@
             //Cria tabela para perguntas que ficam ruins com gráficos                    
             var nameTable = "bootstrapTable" + nameGraph;
             var dataTable = `<table id="${nameTable}" class="table table-striped table-bordered">`;
-            
-            
+
+
             dataTable = dataTable + `<thead>
                                     <tr>
                                         <th>Número</th>
@@ -649,38 +663,41 @@
                                     </tr>
                                 </thead>`;
 
-            dataTable = dataTable+"<tbody>";
+            dataTable = dataTable + "<tbody>";
 
             //var tableAllAnswerSet = new Array(1);
-            var tableAllAnswer = [];    
+            //Fazer Teste se a resposta envolve Data Time Format
+            //console.log(answersList);
+            var tableAllAnswer = [];
             for (let i = 0; i < answersList.length; i++) {
                 dataTable = dataTable + `<tr><td>${i + 1}</td><td>${answersList[i]}</td></tr>`;
                 //Caso a resposta for do tipo checker, poderá ser selecionada mais de uma resposta
                 //Contar as respostas repetidas
-                if (answersList[i].indexOf(",")>=0 ) {
+                answersList[i] = answersList[i].toString();
+                if (answersList[i].indexOf(",") >= 0) {
                     let charArray = answersList[i].split(",");
                     //console.log(charArray)
                     //console.log(`tamanho do array ${charArray.length}`)
-                    for (let j=0; j<charArray.length;j++){                        
-                        if (charArray[j][0]==" "){
+                    for (let j = 0; j < charArray.length; j++) {
+                        if (charArray[j][0] == " ") {
                             //console.log(charArray[j]);
                             charArray[j] = charArray[j].slice(1);
                             //console.log(charArray[j]);
                         }
                         tableAllAnswer.push(charArray[j])
-                    } 
+                    }
                     //console.log(charArray)       
                 }
             }
 
-            var tableAllAnswerSet = [...new Set(tableAllAnswer)]; 
+            var tableAllAnswerSet = [...new Set(tableAllAnswer)];
             var tableAllAnswerCounter = new Array(tableAllAnswerSet.length);
-            for (let j = 0; j < tableAllAnswerSet.length; j++){
+            for (let j = 0; j < tableAllAnswerSet.length; j++) {
                 tableAllAnswerCounter[j] = 0;
             }
-            for (let i = 0; i < tableAllAnswer.length; i++){
-                for (let j = 0; j < tableAllAnswerSet.length; j++){
-                    if (tableAllAnswer[i] === tableAllAnswerSet[j]){
+            for (let i = 0; i < tableAllAnswer.length; i++) {
+                for (let j = 0; j < tableAllAnswerSet.length; j++) {
+                    if (tableAllAnswer[i] === tableAllAnswerSet[j]) {
                         tableAllAnswerCounter[j] += 1;
                     }
                 }
@@ -691,14 +708,14 @@
 
             dataTable = dataTable + "</tbody></table>";
             document.getElementById(`divCanvas${nameGraph}`).innerHTML = dataTable;
-            
+
             (function ($) {
                 $(`#${nameTable}`).DataTable();
             }(jQuery));
 
             var pieChartDataset = createDataset(tableAllAnswerSet, "Blank", tableAllAnswerCounter);
             createChartjs(`Aux${nameGraph}`, pieChartDataset, "pie");
-            
+
         }
 
         function createDataset(setAns, quest, answerC) {
@@ -759,6 +776,18 @@
                 }
             });
         }
+        function ExcelDateToJSDate(serial) {
+            var utc_days = Math.floor(serial - 25568);
+            var utc_value = utc_days * 86400;
+            var date_info = new Date(utc_value * 1000);
+            var fractional_day = serial - Math.floor(serial) + 0.0000001;
+            var total_seconds = Math.floor(86400 * fractional_day);
+            var seconds = total_seconds % 60;
+            total_seconds -= seconds;
+            var hours = Math.floor(total_seconds / (60 * 60));
+            var minutes = Math.floor(total_seconds / 60) % 60;
+            return new Date(date_info.getFullYear(), date_info.getMonth(), date_info.getDate(), hours, minutes, seconds);
+        }
         function correlation() {
             //correlacionar gráficos
         }
@@ -799,13 +828,21 @@
                 //chart chart-js
                 let nameGraph = "TrafficChartteste";
 
+                //for (let i = 1; i < 30; i++){
+                    //if (i!=4){
+                //        createQuestionGraph(nameGraph + i, i, "pie");
+                    //}
+                //}
                 createQuestionGraph(nameGraph + 3, 3, "pie");
                 createQuestionGraph(nameGraph + q1, q1, "pie");
                 createQuestionGraph(nameGraph + q2, q2, "bar");
                 createQuestionGraph(nameGraph + 64, 64, "bar");
                 createQuestionGraph(nameGraph + 1, 1, "pie");
                 createQuestionGraph(nameGraph + 18, 18, "bar");
-            
+                createQuestionGraph(nameGraph + 8, 8, "bar");
+                createQuestionGraph(nameGraph + 5, 5, "pie");
+                //createQuestionGraph(nameGraph + 8, 8, "pie");
+
             }(jQuery));
         }
     </script>
