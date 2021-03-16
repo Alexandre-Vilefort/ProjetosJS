@@ -581,10 +581,15 @@
 
             //Contas para gerar as barras ao lado do gráfico
             //Achar o maior valor
+            var gValue = -1;
             for (let i = 0; i < answerCounter[q].length; i++) {
-                //teste
+                if (answerCounter[q][i] > gValue){
+                    gValue = i;
+                }
             }
-
+            console.log(`${gValue} #### ${answerCounter[q]}`)
+            var porcentG =  answerCounter[q][gValue]/answer[q].length*100;
+            
             insertDiv.innerHTML = `
                             <div class="card">
                             <div class="card-body">
@@ -599,11 +604,11 @@
                                 <div class="col-lg-4">
                                     <div class="card-body">
                                         <div class="progress-box progress-1">
-                                            <h4 class="por-title">Visits</h4>
-                                            <div class="por-txt">96,930 Users (40%)</div>
+                                            <h4 class="por-title">${setAnswer[q][gValue]}</h4>
+                                            <div class="por-txt">${answerCounter[q][gValue]} Alunos (${porcentG.toFixed()}%)</div>
                                             <div class="progress mb-2" style="height: 5px;">
                                                 <div class="progress-bar bg-flat-color-1" role="progressbar"
-                                                    style="width: 40%;" aria-valuenow="25" aria-valuemin="0"
+                                                    style="width: ${porcentG.toFixed()}%;" aria-valuenow="25" aria-valuemin="0"
                                                     aria-valuemax="100"></div>
                                             </div>
                                         </div>
