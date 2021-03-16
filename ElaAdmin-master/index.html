@@ -555,11 +555,16 @@
     <script>
         //Colors
         var setColors = ['rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 206, 86, 0.8)',
-            'rgba(75, 192, 192, 0.8)',
-            'rgba(153, 102, 255, 0.8)',
-            'rgba(255, 159, 64, 0.8)'];
+                         'rgba(54, 162, 235, 0.8)',
+                         'rgba(255, 206, 86, 0.8)',
+                         'rgba(75, 192, 192, 0.8)',
+                         'rgba(153, 102, 255, 0.8)',
+                         'rgba(255, 159, 64, 0.8)',
+                         'rgba(139, 0, 0, 0.8)',
+                         'rgba(72, 61, 139, 0.8)',
+                         'rgba(0, 206, 209, 0.8)',
+                         'rgba(0, 191, 255, 0.8)',
+                         'rgba(34, 139, 34, 0.8)'];
         var colorBlue = "rgba(4, 73, 203,0.9)";
 
         document
@@ -601,9 +606,12 @@
                                             <div class="progress mb-2" style="height: 5px;">
                                                 <div class="progress-bar bg-flat-color-2" role="progressbar"
                                                     style="width: 24%;" aria-valuenow="25" aria-valuemin="0"
-                                                    aria-valuemax="100"></div>
+                                                    aria-valuemax="100">
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <div id="divCanvasAux${nameGraph}"></div>    
                                     </div> <!-- /.card-body -->
                                 </div>
                             </div> <!-- /.row -->
@@ -614,7 +622,7 @@
             document.getElementById('divChart').appendChild(insertDiv);
 
             if (setAnswer[q].length < dataQuest.length / 3) {
-                chartDataset = createDataset(setAnswer[q], question[q], answerCounter[q]);
+                let chartDataset = createDataset(setAnswer[q], question[q], answerCounter[q]);
                 createChartjs(nameGraph, chartDataset, graphType);
             } else {
                 createTable(nameGraph, answer[q]);
@@ -635,14 +643,55 @@
                                 </thead>`;
 
             dataTable = dataTable+"<tbody>";
+
+            //var tableAllAnswerSet = new Array(1);
+            var tableAllAnswer = [];    
             for (let i = 0; i < answersList.length; i++) {
                 dataTable = dataTable + `<tr><td>${i + 1}</td><td>${answersList[i]}</td></tr>`;
+                //Caso a resposta for do tipo checker, poderá ser selecionada mais de uma resposta
+                //Contar as respostas repetidas
+                if (answersList[i].indexOf(",")>=0 ) {
+                    let charArray = answersList[i].split(",");
+                    //console.log(charArray)
+                    //console.log(`tamanho do array ${charArray.length}`)
+                    for (let j=0; j<charArray.length;j++){                        
+                        if (charArray[j][0]==" "){
+                            //console.log(charArray[j]);
+                            charArray[j] = charArray[j].slice(1);
+                            //console.log(charArray[j]);
+                        }
+                        tableAllAnswer.push(charArray[j])
+                    } 
+                    //console.log(charArray)       
+                }
             }
+
+            var tableAllAnswerSet = [...new Set(tableAllAnswer)]; 
+            var tableAllAnswerCounter = new Array(tableAllAnswerSet.length);
+            for (let j = 0; j < tableAllAnswerSet.length; j++){
+                tableAllAnswerCounter[j] = 0;
+            }
+            for (let i = 0; i < tableAllAnswer.length; i++){
+                for (let j = 0; j < tableAllAnswerSet.length; j++){
+                    if (tableAllAnswer[i] === tableAllAnswerSet[j]){
+                        tableAllAnswerCounter[j] += 1;
+                    }
+                }
+            }
+
+            //console.log(tableAllAnswerSet);
+            //console.log(tableAllAnswerCounter);
+
             dataTable = dataTable + "</tbody></table>";
             document.getElementById(`divCanvas${nameGraph}`).innerHTML = dataTable;
+            
             (function ($) {
                 $(`#${nameTable}`).DataTable();
             }(jQuery));
+
+            var pieChartDataset = createDataset(tableAllAnswerSet, "Blank", tableAllAnswerCounter);
+            createChartjs(`Aux${nameGraph}`, pieChartDataset, "pie");
+            
         }
 
         function createDataset(setAns, quest, answerC) {
@@ -671,7 +720,7 @@
         }
         function createChartjs(nameGraph, chartDataset, graphType) {
 
-            console.log(nameGraph + "createChartjs");
+            console.log(`divCanvas${nameGraph}`);
 
             document.getElementById(`divCanvas${nameGraph}`).innerHTML = `<canvas id=${nameGraph}></canvas>`
             var ctx = document.getElementById(nameGraph);
@@ -680,6 +729,10 @@
                 type: graphType,
                 data: chartDataset,
                 options: {
+                    legend: {
+                        display: true,
+                        position: 'right'
+                    },
                     scales: {
                         xAxes: [{
                             ticks: {
