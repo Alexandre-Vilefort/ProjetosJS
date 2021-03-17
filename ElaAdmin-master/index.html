@@ -582,14 +582,23 @@
             //Contas para gerar as barras ao lado do gráfico
             //Achar o maior valor
             var gValue = -1;
+            var mValue = 1000;
+            var gIndice = -1;
+            var mIndice = -1;
             for (let i = 0; i < answerCounter[q].length; i++) {
-                if (answerCounter[q][i] > gValue){
-                    gValue = i;
+                if (answerCounter[q][i] > gValue) {
+                    gValue = answerCounter[q][i];
+                    gIndice = i;
+                }
+                if (answerCounter[q][i] < mValue) {
+                    mValue = answerCounter[q][i];
+                    mIndice = i;
                 }
             }
-            console.log(`${gValue} #### ${answerCounter[q]}`)
-            var porcentG =  answerCounter[q][gValue]/answer[q].length*100;
-            
+            console.log(`${gIndice} #### ${answerCounter[q]}`)
+            var porcentG = answerCounter[q][gIndice] / answer[q].length * 100;
+            var porcentM = answerCounter[q][mIndice] / answer[q].length * 100;
+
             insertDiv.innerHTML = `
                             <div class="card">
                             <div class="card-body">
@@ -604,8 +613,8 @@
                                 <div class="col-lg-4">
                                     <div class="card-body">
                                         <div class="progress-box progress-1">
-                                            <h4 class="por-title">${setAnswer[q][gValue]}</h4>
-                                            <div class="por-txt">${answerCounter[q][gValue]} Alunos (${porcentG.toFixed()}%)</div>
+                                            <h4 class="por-title">${setAnswer[q][gIndice]}</h4>
+                                            <div class="por-txt">${answerCounter[q][gIndice]} Alunos (${porcentG.toFixed()}%)</div>
                                             <div class="progress mb-2" style="height: 5px;">
                                                 <div class="progress-bar bg-flat-color-1" role="progressbar"
                                                     style="width: ${porcentG.toFixed()}%;" aria-valuenow="25" aria-valuemin="0"
@@ -613,8 +622,8 @@
                                             </div>
                                         </div>
                                         <div class="progress-box progress-2">
-                                            <h4 class="por-title">Bounce Rate</h4>
-                                            <div class="por-txt">3,220 Users (24%)</div>
+                                            <h4 class="por-title">${setAnswer[q][mIndice]}</h4>
+                                            <div class="por-txt">${answerCounter[q][mIndice]} Alunos (${porcentM.toFixed()}%)</div>
                                             <div class="progress mb-2" style="height: 5px;">
                                                 <div class="progress-bar bg-flat-color-2" role="progressbar"
                                                     style="width: 24%;" aria-valuenow="25" aria-valuemin="0"
@@ -630,7 +639,6 @@
                             <div class="card-body"></div>
                         </div><!-- /# column -->`;
 
-
             document.getElementById('divChart').appendChild(insertDiv);
 
             if (setAnswer[q].length < dataQuest.length / 6) {
@@ -638,20 +646,36 @@
                 createChartjs(nameGraph, chartDataset, graphType);
             } else {
                 var answerList = new Array(answer[q].length);
-                if (question[q].indexOf("data") >= 0){
-                    for(let i = 0; i < answer[q].length; i++){
+                if (question[q].indexOf("data") >= 0) {
+                    for (let i = 0; i < answer[q].length; i++) {
                         let dataTemp = ExcelDateToJSDate(answer[q][i]);
                         answerList[i] = "";
-                        answerList[i] = (dataTemp.getDate()).toString()+"/"+(dataTemp.getMonth()+1).toString()+"/"+(dataTemp.getFullYear()).toString();
-                       
+                        answerList[i] = (dataTemp.getFullYear()).toString();
+                        //Arrumar para answerCounter contar as respostas
                     }
-                }else if (question[q].indexOf("RA") >= 0){
+                    var answerSet = [...new Set(answerList)];
+                    var counter = new Array(answerSet.length);
+                    for (let j = 0; j < counter.length; j++) {
+                        counter[j] = 0;
+                    }
+                    for (let i = 0; i < answerList.length; i++) {
+                        for (let j = 0; j < counter.length; j++) {
+                            if (answerList[i] == answerSet[j]) {
+                                counter[j] += 1;
+                            }
+                        }
+                    }
+                    let chartDataset = createDataset(answerSet, question[q], counter);
+                    createChartjs(nameGraph, chartDataset, graphType);
+                } else if (question[q].indexOf("RA") >= 0) {
                     //teste
-                    answerList = answer[q];    
+                    answerList = answer[q];
+                    createTable(nameGraph, answerList);
                 } else {
                     answerList = answer[q];
+                    createTable(nameGraph, answerList);
                 }
-                createTable(nameGraph, answerList);
+
             }
         }
 
@@ -834,13 +858,12 @@
                 let nameGraph = "TrafficChartteste";
 
                 //for (let i = 1; i < 30; i++){
-                    //if (i!=4){
+                //if (i!=4){
                 //        createQuestionGraph(nameGraph + i, i, "pie");
-                    //}
+                //}
                 //}
                 createQuestionGraph(nameGraph + 3, 3, "pie");
                 createQuestionGraph(nameGraph + q1, q1, "pie");
-                createQuestionGraph(nameGraph + q2, q2, "bar");
                 createQuestionGraph(nameGraph + 64, 64, "bar");
                 createQuestionGraph(nameGraph + 1, 1, "pie");
                 createQuestionGraph(nameGraph + 18, 18, "bar");
