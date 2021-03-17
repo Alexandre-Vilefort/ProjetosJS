@@ -3,6 +3,7 @@ O que fazer:
 1. Arrumar o dado das questões que pode marcar mais de uma resposta; ainda falta fazer#####
 1.1 Não deixar escrever questões repetidas
 1.2 Filtrar questões com números
+1.3 Procurar e Arrumar erros nos gráficos
 2. Fazer um sistema para o usuário marcar as respostas que ele quer ver os gráficos;
 3. Criar um sistema para listar as respostas que não tem como construir um gráfico;
 4. Constuir um jeito de relacionar diferentes perguntas para gerar um gráfico;
