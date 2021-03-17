@@ -10,6 +10,22 @@ var answerCounter;// array com o número de cada resposta
 document
     .getElementById("fileUpload")
     .addEventListener("change", function (event) {
+
+        (function ($) {
+            var windowWidth = $(window).width();
+            if (windowWidth < 1010) {
+                $('body').removeClass('open');
+                if (windowWidth < 760) {
+                    $('#left-panel').slideToggle();
+                } else {
+                    $('#left-panel').toggleClass('open-menu');
+                }
+            } else {
+                $('body').toggleClass('open');
+                $('#left-panel').removeClass('open-menu');
+            }
+        }(jQuery));
+
         selectedFile = event.target.files[0];
         if (selectedFile) {
             var fileReader = new FileReader();
@@ -58,7 +74,7 @@ document
                         }
                     }
                 }
-                createGraphs(7,6);
+                createGraphs(7, 6);
             };
             fileReader.readAsBinaryString(selectedFile);
 
