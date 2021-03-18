@@ -13,8 +13,8 @@
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="https://site.fatecfranca.edu.br/images/logo-fatec-franca-enade4.png">
-    <link rel="shortcut icon" href="https://site.fatecfranca.edu.br/images/logo-fatec-franca-enade4.png">
+    <link rel="apple-touch-icon" href="https://site.fatecfranca.edu.br/templates/f109-2017/favicon.ico">
+    <link rel="shortcut icon" href="https://site.fatecfranca.edu.br/templates/f109-2017/favicon.ico">
 
     <!--Bibliotecas-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
@@ -463,7 +463,7 @@
 
         function createQuestionGraph(nameGraph, q, graphType) {
 
-            console.log(nameGraph + "createQuestionGraph");
+            console.log(nameGraph);
             var insertDiv = document.createElement('div');
             insertDiv.setAttribute('class', 'col-lg-12');
 
@@ -708,7 +708,6 @@
                 var mValue = 1000;
                 var gIndice = -1;
                 var mIndice = -1;
-                console.log(tableAllAnswerCounter);
                 for (let i = 0; i < tableAllAnswerCounter.length; i++) {
                     if (tableAllAnswerCounter[i] > gValue) {
                         gValue = tableAllAnswerCounter[i];
@@ -796,6 +795,7 @@
                 //Contar as respostas repetidas
                 answersList[i] = answersList[i].toString();
                 if (answersList[i].indexOf(",") >= 0) {
+                    progressBarVar = "aux";
                     let charArray = answersList[i].split(",");
                     //console.log("Entrou no teste da vírgula"+answersList[i]+" # "+i);
                     //console.log(`tamanho do array ${charArray.length}`)
@@ -816,7 +816,6 @@
 
             tableAllAnswerSet = [...new Set(tableAllAnswer)];
             tableAllAnswerCounter = new Array(tableAllAnswerSet.length);
-            progressBarVar = "aux";
             for (let j = 0; j < tableAllAnswerSet.length; j++) {
                 tableAllAnswerCounter[j] = 0;
             }
@@ -828,15 +827,17 @@
                 }
             }
 
-            var insertDivAux = document.createElement('div');
-            insertDivAux.pro
-            insertDivAux.innerHTML = `<div id="divCanvasAux${nameGraph}"></div>`;
-            insertDivAux.setAttribute('id', `divCanvasAux${nameGraph}`);
-            document.getElementById(`${nameGraph}progress`).append(insertDivAux);
+            if (progressBarVar === "aux") {
 
-            var pieChartDataset = createDataset(tableAllAnswerSet, "Blank", tableAllAnswerCounter);
-            createChartjs(`Aux${nameGraph}`, pieChartDataset, "pie");
+                var insertDivAux = document.createElement('div');
+                insertDivAux.pro
+                insertDivAux.innerHTML = `<div id="divCanvasAux${nameGraph}"></div>`;
+                insertDivAux.setAttribute('id', `divCanvasAux${nameGraph}`);
+                document.getElementById(`${nameGraph}progress`).append(insertDivAux);
 
+                var pieChartDataset = createDataset(tableAllAnswerSet, "Blank", tableAllAnswerCounter);
+                createChartjs(`Aux${nameGraph}`, pieChartDataset, "pie");
+            }
             (function ($) {
                 $(`#${nameTable}`).DataTable();
             }(jQuery));
@@ -868,20 +869,26 @@
         }
         function createChartjs(nameGraph, chartDataset, graphType) {
 
+            let heightVar = 120;
+            let legendPos = 'top';
             console.log(`divCanvas${nameGraph}`);
-
-
+            let auxTest = nameGraph.substring(0, 3)
+            console.log(auxTest)
+            if (auxTest.toLowerCase() === "aux") {
+                heightVar = 160;
+                legendPos = 'right'
+            }
 
             document.getElementById(`divCanvas${nameGraph}`).innerHTML = `<canvas id=${nameGraph}></canvas>`
             var ctx = document.getElementById(nameGraph);
-            ctx.height = 100;
+            ctx.height = heightVar;
             var myChart = new Chart(ctx, {
                 type: graphType,
                 data: chartDataset,
                 options: {
                     legend: {
                         display: true,
-                        position: 'right'
+                        position: legendPos
                     },
                     scales: {
                         xAxes: [{
@@ -922,8 +929,6 @@
             (function ($) {
                 //"use strict";
 
-                console.log("Entrou no JQuery");
-
                 var piedata = [// Pie chart flotPie1
                     { label: "Desktop visits", data: [[1, 32]], color: '#5c6bc0' },
                     { label: "Tab visits", data: [[1, 33]], color: '#ef5350' },
@@ -957,9 +962,10 @@
                 //for (let i = 1; i < 71; i++) {
                 //    createQuestionGraph(nameGraph + i, i, "auto");
                 //}
-                //createQuestionGraph(nameGraph + 3, 3, "pie");
+                createQuestionGraph(nameGraph + 3, 3, "pie");
+                createQuestionGraph(nameGraph + 4, 4, "pie");
                 //createQuestionGraph(nameGraph + q1, q1, "pie");
-                createQuestionGraph(nameGraph + 64, 64, "bar");
+                //createQuestionGraph(nameGraph + 64, 64, "bar");
                 //createQuestionGraph(nameGraph + 1, 1, "pie");
                 //createQuestionGraph(nameGraph + 18, 18, "bar");
                 //createQuestionGraph(nameGraph + 8, 8, "bar");
