@@ -26,6 +26,8 @@ document
             }
         }(jQuery));
 
+        document.getElementById('facaUpload').innerHTML = "";//Escrever alguma coisa aqui
+
         selectedFile = event.target.files[0];
         if (selectedFile) {
             var fileReader = new FileReader();
@@ -44,7 +46,9 @@ document
                     console.log("hi");
 
                 });
+                createDataVar();
                 //number = Number(prompt(`Informe a questão que deseje gerar o Gráfico`));
+                /*
                 console.log("hi2");
                 question = Object.keys(dataQuest[0]);// Array com todas as questões
                 answer = new Array(question.length);
@@ -59,12 +63,12 @@ document
                         answer[j][i] = dataQuest[i][question[j]];
                     }
                 }
-                
-                
+
+
 
                 for (let number = 0; number < setAnswer.length; number++) {
                     setAnswer[number] = [...new Set(answer[number])];
-                    setAnswer[number].sort(function(a, b){return a - b});//Colocar as respostas em ordem crescente
+                    setAnswer[number].sort(function (a, b) { return a - b });//Colocar as respostas em ordem crescente
                     answerCounter[number] = new Array(setAnswer[number].length);
                     for (let i = 0; i < answerCounter[number].length; i++) {
                         answerCounter[number][i] = 0;
@@ -78,9 +82,43 @@ document
                     }
                 }
                 createGraphs();
+                */
             };
             fileReader.readAsBinaryString(selectedFile);
-
         }
 
     });
+
+function createDataVar() {
+    console.log("hi2");
+    question = Object.keys(dataQuest[0]);// Array com todas as questões
+    answer = new Array(question.length);
+    setAnswer = new Array(question.length);
+    answerCounter = new Array(question.length);
+
+    for (var i = 0; i < answer.length; i++) {
+        answer[i] = new Array(dataQuest.length);
+    }
+    for (let i = 0; i < dataQuest.length; i++) {
+        for (let j = 0; j < question.length; j++) {
+            answer[j][i] = dataQuest[i][question[j]];
+        }
+    }
+
+    for (let number = 0; number < setAnswer.length; number++) {
+        setAnswer[number] = [...new Set(answer[number])];
+        setAnswer[number].sort(function (a, b) { return a - b });//Colocar as respostas em ordem crescente
+        answerCounter[number] = new Array(setAnswer[number].length);
+        for (let i = 0; i < answerCounter[number].length; i++) {
+            answerCounter[number][i] = 0;
+        }
+        for (let i = 0; i < setAnswer[number].length; i++) {
+            for (let j = 0; j < dataQuest.length; j++) {
+                if (answer[number][j] === setAnswer[number][i]) {
+                    answerCounter[number][i] += 1;
+                }
+            }
+        }
+    }
+    createGraphs();
+}

@@ -243,68 +243,15 @@
                 <!-- Orders -->
                 <div class="orders">
                     <div class="row">
-                        <div class="col-xl-8">
-                            <div class="card">
+                        <div class="col-lg-12 col-md-10">
+                            <div class="card ov-h">
                                 <div class="card-body">
-                                    <h4 class="box-title">Faça Upload da planilha para gerar gráficos</h4>
+                                    <div id="flotBarChart" class="float-chart ml-4 mr-4"> <h3 id="facaUpload">Faça Upload da planilha</h1></div>
                                 </div>
-
-                            </div> <!-- /.card -->
+                                <div id="cellPaiChart" class="float-chart"></div>
+                            </div><!-- /.card -->
                         </div> <!-- /.col-lg-8 -->
 
-                        <div class="col-xl-4">
-                            <div class="row">
-                                <div class="col-lg-6 col-xl-12">
-                                    <div class="card br-0">
-                                        <div class="card-body">
-                                            <div class="chart-container ov-h">
-                                                <div id="flotPie1" class="float-chart"></div>
-                                            </div>
-                                        </div>
-                                    </div><!-- /.card -->
-                                </div>
-
-                                <div class="col-lg-6 col-xl-12">
-                                    <div class="card bg-flat-color-3  ">
-                                        <div class="card-body">
-                                            <h4 class="card-title m-0  white-color ">Vazio</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <div id="flotLine5" class="flot-line"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <!-- /.col-md-4 -->
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-
-                            </div>
-                        </div><!-- /.card -->
-                    </div>
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card ov-h">
-                            <div class="card-body bg-flat-color-2">
-                                <div id="flotBarChart" class="float-chart ml-4 mr-4"></div>
-                            </div>
-                            <div id="cellPaiChart" class="float-chart"></div>
-                        </div><!-- /.card -->
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card weather-box">
-                            <h4 class="weather-title box-title">Weather</h4>
-                            <div class="card-body">
-                                <div class="weather-widget">
-                                    <div id="weather-one" class="weather-one"></div>
-                                </div>
-                            </div>
-                        </div><!-- /.card -->
                     </div>
                 </div>
                 <!-- /Calender Chart Weather -->
@@ -423,12 +370,12 @@
                                 <h4 id="titleGraph${nameGraph}" class="box-title" >${question[q]}</h4>
                             </div>
                             <div class="row">
-                                <div class="col-lg-8">
+                                <div class="col-lg-6">
                                     <div id="divCanvas${nameGraph}" class="card-body">
                                     
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div id="${nameGraph}progress" class="card-body">
                                         <div id="divCanvasAux${nameGraph}"></div>
                                     </div> <!-- /.card-body -->
@@ -772,7 +719,6 @@
                 $(`#${nameTable}`).DataTable();
             }(jQuery));
         }
-
         function createDataset(setAns, quest, answerC) {
             console.log("createDataset");
             var charDataset = {
@@ -805,7 +751,7 @@
             let auxTest = nameGraph.substring(0, 3)
             console.log(auxTest)
             if (auxTest.toLowerCase() === "aux") {
-                heightVar = 160;
+                heightVar = 100;
                 legendPos = 'right'
             }
 
@@ -858,33 +804,6 @@
             console.log("hi3");
             (function ($) {
                 //"use strict";
-
-                var piedata = [// Pie chart flotPie1
-                    { label: "Desktop visits", data: [[1, 32]], color: '#5c6bc0' },
-                    { label: "Tab visits", data: [[1, 33]], color: '#ef5350' },
-                    { label: "Mobile visits", data: [[1, 35]], color: '#66bb6a' }
-                ];
-                $.plot('#flotPie1', piedata, {
-                    series: {
-                        pie: {
-                            show: true,
-                            radius: 1,
-                            innerRadius: 0.65,
-                            label: {
-                                show: true,
-                                radius: 2 / 3,
-                                threshold: 1
-                            },
-                            stroke: {
-                                width: 0
-                            }
-                        }
-                    },
-                    grid: {
-                        hoverable: true,
-                        clickable: true
-                    }
-                });// Pie chart flotPie1  End
 
                 //chart chart-js
                 let nameGraph = "ChartTeste";
