@@ -59,9 +59,12 @@ document
                         answer[j][i] = dataQuest[i][question[j]];
                     }
                 }
+                
+                
 
                 for (let number = 0; number < setAnswer.length; number++) {
                     setAnswer[number] = [...new Set(answer[number])];
+                    setAnswer[number].sort(function(a, b){return a - b});//Colocar as respostas em ordem crescente
                     answerCounter[number] = new Array(setAnswer[number].length);
                     for (let i = 0; i < answerCounter[number].length; i++) {
                         answerCounter[number][i] = 0;

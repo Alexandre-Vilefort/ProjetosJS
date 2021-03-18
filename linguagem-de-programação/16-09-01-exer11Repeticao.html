@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function exe23(opt) {
+
+            if (opt == 1) {
+                let table = document.querySelector(".table");
+                table.style.visibility = "visible";
+                let val = Number(prompt(`Informe o valor do carro`));
+                let newVal;
+
+                let quantPar = [];
+                let juros = [];
+                quantPar[0] = 0;
+                juros[0] = 0;
+                for (let i = 1; i <= 10; i++) {
+                    quantPar.push(i * 6);
+                    juros.push(i * 3);
+                }
+
+                newVal = val * (1 - 20 / 100)
+                let elementTable = document.createElement('tr');
+                elementTable.setAttribute('class', 'table-row');
+                elementTable.innerHTML = `
+                        <td>R$ ${newVal.toFixed(2)}</td>
+                        <td> 1 </td><td> -20% </td><td> R$ ${newVal.toFixed(2)} </td>`
+                document.getElementById('dadosTabela').append(elementTable);
+
+
+                for (let i = 1; i < 11; i++) {
+                    console.log(juros[i] + " " + quantPar[i])
+                    newVal = val * (1 + juros[i] / 100);
+                    let elementTable1 = document.createElement('tr');
+                    elementTable1.setAttribute('class', 'table-row');
+                    elementTable1.innerHTML = `
+                        <td>R$ ${newVal.toFixed(2)}\</td>
+                        <td> ${quantPar[i]} </td><td> ${juros[i]}% </td><td>R$ ${(newVal/quantPar[i]).toFixed(2)} </td>`
+                    document.getElementById('dadosTabela').append(elementTable1);
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: rgb(86, 124, 139);
+            font-family: 'lato', sans-serif;
+        }
+
+        #conteiner {
+            width: 500px;
+            margin: auto;
+            margin-top: 120px;
+            padding: 10px;
+            background-color: rgba(195, 218, 228, 0.884);
+            border-radius: 15px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            color: rgb(80, 75, 121);
+            margin-top: 12px;
+            padding: 10px;
+        }
+
+        button {
+            position: relative;
+            left: 20%;
+            margin: 10px;
+            border-radius: 12px;
+            border: 2px solid #4c74af;
+            padding: 10px 30px;
+            font-size: 20px;
+            background-color: rgb(195, 218, 228);
+            transition-duration: 0.5s;
+        }
+
+        button:hover {
+            background-color: #4c74af;
+            color: white;
+        }
+
+        .table {
+            visibility: hidden;
+        }
+
+        th,
+        td {
+            border: 0px solid rgba(195, 218, 228, 0.884);
+            text-align: center;
+            border-radius: 6px;
+            padding: 6px;
+
+        }
+
+        .table-header {
+            background-color: #4c74af;
+            color: rgba(195, 218, 228, 0.884);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            transition-duration: 0.5s;
+        }
+
+        .table-header:hover {
+            color: #4c74af;
+            background-color: rgba(195, 218, 228, 0.884);
+        }
+
+
+        .table-row {
+            background-color: rgb(86, 124, 139);
+            color: rgba(195, 218, 228, 0.884);
+            transition-duration: 0.5s;
+        }
+
+        .table-row:hover {
+            color: rgb(86, 124, 139);
+            background-color: rgba(195, 218, 228, 0.884);
+        }
+
+        tr {
+            border-radius: 3px;
+            padding: 25px 30px;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .output,
+        .saida {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            padding: 10px;
+            font-size: 20px;
+            color: rgb(80, 75, 121);
+            transition-duration: 0.5s;
+        }
+
+        .output:hover {
+            background-color: rgb(86, 124, 139);
+            color: rgb(195, 218, 228);
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="conteiner">
+        <h1>Exercício 23 </h1>
+        <h2> Menu de Opções </h2>
+        <h2> Escolha uma das opções abaixo</h2>
+        <br><button type="button" onclick="exe23(1)"> Tabela-Valor Carro </button>
+        <div class="output">
+            <p id="output1"></p>
+            <p id="output2"></p>
+        </div>
+        <div class="table">
+            <p class="output">Tabela para o cálculo do novo Valor do Carro</p>
+            <table id="tableEx11">
+                <thead>
+                    <!--header da tablea-->
+                    <tr class="table-header">
+                        <th> Preço final </th>
+                        <th> Quantidade de parcelas </th>
+                        <th> Valor do juros </th>
+                        <th> Valor das parcelas </th>
+                    </tr>
+                </thead>
+                <tbody id="dadosTabela">
+                    <!--Corpo da tabela-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -280,7 +280,7 @@
                                         <div class="text-left dib">
                                             <div class="stat-text"><span id="spanTotalAlunos" class="count">66</span>
                                             </div>
-                                            <div class="stat-heading">Total de alunos na pesquisa</div>
+                                            <div class="stat-heading">Alunos na pesquisa</div>
                                         </div>
                                     </div>
                                 </div>
@@ -435,10 +435,25 @@
             'rgba(72, 61, 139, 0.8)',
             'rgba(0, 206, 209, 0.8)',
             'rgba(0, 191, 255, 0.8)',
-            'rgba(34, 139, 34, 0.8)'];
+            'rgba(34, 139, 34, 0.8)',
+            'rgba(173, 255, 47, 0.8)',
+            'rgba(205, 92, 92, 0.8)',
+            'rgba(240, 230, 140, 0.8)',
+            'rgba(240, 128, 128, 0.8)',
+            'rgba(211, 211, 211, 0.8)',
+            'rgba(255, 182, 193, 0.8)',
+            'rgba(135, 206, 250, 0.8)',
+            'rgba(176, 196, 222, 0.8)',
+            'rgba(186, 85, 211, 0.8)',
+            'rgba(0, 0, 128, 0.8)',
+            'rgba(244, 164, 96, 0.8)',
+        ];
         var colorBlue = "rgba(4, 73, 203,0.9)";
 
         var progressBarVar = "";
+        var tableAllAnswerSet = [];//Variável para caso seja tabela e crie gráfico auxiliar
+        var tableAllAnswerCounter = [];
+        var tableAllAnswer = [];
 
         document
             .getElementById("testeChamar")
@@ -476,7 +491,28 @@
 
             //Decidir como será mostrada os Resultados
             progressBarVar = "nd";//Tem scopo fora dessa função
-            if (setAnswer[q].length < dataQuest.length / 6) {
+            var answerSet;//Variável para gráficos tipo Data
+            var answerSet;
+            var counter;
+
+            if ((question[q].toLowerCase()).indexOf("tempo de moradia") >= 0) {//pegar a questão que está dando problema
+                console.log(setAnswer[q]);
+                var setA = new Array(setAnswer[q].lenght);
+                var ansC = new Array(answerCounter[q].lenght);
+
+                setA = setAnswer[q].slice(0);
+                ansC = answerCounter[q].slice(0);
+
+                setA.sort(function (a, b) { return a - b });
+                for (let i = 0; i < setA.length; i++) {
+                    //teste
+                }
+
+                let chartDataset = createDataset(setAnswer[q], question[q], answerCounter[q]);
+                progressBarVar = "number";
+                createChartjs(nameGraph, chartDataset, 'line');
+
+            } else if (setAnswer[q].length < dataQuest.length / 6) {
                 let chartDataset = createDataset(setAnswer[q], question[q], answerCounter[q]);
                 if (graphType.toLowerCase() === "auto") {
                     if (setAnswer[q].length > 4) {
@@ -490,7 +526,7 @@
                     progressBarVar = "number";
                 }
             } else {
-                var answerList = new Array(answer[q].length);
+                answerList = new Array(answer[q].length);
                 if (question[q].indexOf("data") >= 0) {
                     for (let i = 0; i < answer[q].length; i++) {
                         let dataTemp = ExcelDateToJSDate(answer[q][i]);
@@ -498,8 +534,9 @@
                         answerList[i] = (dataTemp.getFullYear()).toString();
                         //Arrumar para answerCounter contar as respostas
                     }
-                    var answerSet = [...new Set(answerList)];
-                    var counter = new Array(answerSet.length);
+                    answerList.sort(function (a, b) { return a - b });
+                    answerSet = [...new Set(answerList)];
+                    counter = new Array(answerSet.length);
                     for (let j = 0; j < counter.length; j++) {
                         counter[j] = 0;
                     }
@@ -554,10 +591,66 @@
 
                 titleProgressBar1 = `Mais respondido: ${setAnswer[q][gIndice]}`;
                 titleProgressBar2 = `Menos respondido: ${setAnswer[q][mIndice]}`;
-                textProgressBar1 = `${answerCounter[q][gIndice]} Alunos (${porcentG.toFixed()}%)`;
+                textProgressBar1 = `${answerCounter[q][gIndice]} Alunos (${porcentG.toFixed(2)}%)`;
                 textProgressBar2 = `${answerCounter[q][mIndice]} Alunos (${porcentM.toFixed(2)}%)`;
-                progressPorcen1 = porcentG.toFixed();
+                progressPorcen1 = porcentG.toFixed(2);
                 progressPorcen2 = porcentM.toFixed(2);
+            } else if (progressBarVar === "data") {
+
+                var gValue = -1;
+                var mValue = 10000000000000;
+                var gIndice = -1;
+                var mIndice = -1;
+
+                for (let i = 0; i < counter.length; i++) {
+                    //console.log("teste para ver se entrou no for " + counter[1]);
+                    if (Number(counter[i]) > gValue) {
+                        gValue = counter[i];
+                        gIndice = i;
+                        console.log("teste gIndice " + gIndice)
+                    }
+                    if (counter[i] < mValue) {
+                        mValue = counter[i];
+                        mIndice = i;
+                    }
+                }
+                var media = 0;
+                var sum = 0;
+                var countGMedia = 0;
+                var maiorValor = -1;
+
+                for (let i = 0; i < answerList.length; i++) {
+                    sum += Number(answerList[i]);
+                    //console.log(answerList[i]);
+                }
+                media = sum / answerList.length;
+                console.log(answerList.length);
+                console.log(sum);
+                console.log(media);
+                for (let i = 0; i < answerList.length; i++) {
+                    if (answerList[i] > media) {
+                        countGMedia += 1;
+                    }
+                }
+                for (let i = 0; i < answerSet.length; i++) {
+                    if (answerSet[i] > maiorValor) {
+                        maiorValor = answerSet[i];
+                    }
+                }
+
+                var porcentG = counter[gIndice] / answerList.length * 100;
+                var porcentM = counter[mIndice] / answerList.length * 100;
+
+                //progressPorcen1 = (media / maiorValor * 100).toFixed(2);
+                progressPorcen1 = porcentG.toFixed(2);
+
+                titleProgressBar1 = `A média foi ${media.toFixed(0)}`;
+                textProgressBar1 = `O ano em que a maioria dos alunos nasceu foi ${answerList[gIndice]}, que é ${progressPorcen1}% do total`;
+
+                progressPorcen2 = (countGMedia / answer[q].length * 100).toFixed(2);
+                titleProgressBar2 = `${countGMedia} nasceram depois do ano ${media.toFixed(0)}`;
+                textProgressBar2 = `Porcentagem de alunos que nasceu depois do ano da média foi de ${progressPorcen2}%`;
+
             } else if (progressBarVar === "number") {
 
                 var gValue = -1;
@@ -599,15 +692,43 @@
                 var porcentM = answerCounter[q][mIndice] / answer[q].length * 100;
 
                 progressPorcen1 = (media / maiorValor * 100).toFixed(2);
-                titleProgressBar1 = `A média dos alunos é ${media.toFixed(2)}`;
+                titleProgressBar1 = `A média é ${media.toFixed(2)}`;
                 textProgressBar1 = `A média é ${progressPorcen1}% da resposta com o maior valor (${maiorValor})`;
 
                 progressPorcen2 = (countGMedia / answer[q].length * 100).toFixed(2);
                 titleProgressBar2 = `${countGMedia} foram maior que a média`;
                 textProgressBar2 = `Porcentagem de alunos maior que a média foi de ${progressPorcen2}%`;
-                
-                
+
+
             } else if (progressBarVar === "aux") {
+                //tableAllAnswerSet;
+                //tableAllAnswerCounter;
+
+                var gValue = -1;
+                var mValue = 1000;
+                var gIndice = -1;
+                var mIndice = -1;
+                console.log(tableAllAnswerCounter);
+                for (let i = 0; i < tableAllAnswerCounter.length; i++) {
+                    if (tableAllAnswerCounter[i] > gValue) {
+                        gValue = tableAllAnswerCounter[i];
+                        gIndice = i;
+                    }
+                    if (tableAllAnswerCounter[i] < mValue) {
+                        mValue = tableAllAnswerCounter[i];
+                        mIndice = i;
+                    }
+                }
+
+                var porcentG = tableAllAnswerCounter[gIndice] / answer[q].length * 100;
+                var porcentM = tableAllAnswerCounter[mIndice] / answer[q].length * 100;
+
+                titleProgressBar1 = `Mais respondido: ${tableAllAnswerSet[gIndice]}`;
+                titleProgressBar2 = `Menos respondido: ${tableAllAnswerSet[mIndice]}`;
+                textProgressBar1 = `${tableAllAnswerCounter[gIndice]} Alunos (${porcentG.toFixed(2)}%)`;
+                textProgressBar2 = `${tableAllAnswerCounter[mIndice]} Alunos (${porcentM.toFixed(2)}%)`;
+                progressPorcen1 = porcentG.toFixed(2);
+                progressPorcen2 = porcentM.toFixed(2);
 
             }
 
@@ -668,7 +789,7 @@
 
             //var tableAllAnswerSet = new Array(1);
             //console.log(answersList);
-            var tableAllAnswer = [];
+
             for (let i = 0; i < answersList.length; i++) {
                 dataTable = dataTable + `<tr><td>${i + 1}</td><td>${answersList[i]}</td></tr>`;
                 //Caso a resposta for do tipo checker, poderá ser selecionada mais de uma resposta
@@ -684,18 +805,18 @@
                             charArray[j] = charArray[j].slice(1);
                             //console.log(charArray[j]);
                         }
-                        tableAllAnswer.push(charArray[j])
+                        tableAllAnswer.push(charArray[j]);
 
                     }
                     //console.log(charArray) 
-                    progressBarVar = "aux";
                 }
             }
             dataTable = dataTable + "</tbody></table>";
             document.getElementById(`divCanvas${nameGraph}`).innerHTML = dataTable;
 
-            var tableAllAnswerSet = [...new Set(tableAllAnswer)];
-            var tableAllAnswerCounter = new Array(tableAllAnswerSet.length);
+            tableAllAnswerSet = [...new Set(tableAllAnswer)];
+            tableAllAnswerCounter = new Array(tableAllAnswerSet.length);
+            progressBarVar = "aux";
             for (let j = 0; j < tableAllAnswerSet.length; j++) {
                 tableAllAnswerCounter[j] = 0;
             }
@@ -833,20 +954,19 @@
                 //chart chart-js
                 let nameGraph = "ChartTeste";
 
-                for (let i = 1; i < 71; i++) {
-
-                    createQuestionGraph(nameGraph + i, i, "auto");
-
-                }
+                //for (let i = 1; i < 71; i++) {
+                //    createQuestionGraph(nameGraph + i, i, "auto");
+                //}
                 //createQuestionGraph(nameGraph + 3, 3, "pie");
                 //createQuestionGraph(nameGraph + q1, q1, "pie");
-                //createQuestionGraph(nameGraph + 64, 64, "bar");
+                createQuestionGraph(nameGraph + 64, 64, "bar");
                 //createQuestionGraph(nameGraph + 1, 1, "pie");
                 //createQuestionGraph(nameGraph + 18, 18, "bar");
                 //createQuestionGraph(nameGraph + 8, 8, "bar");
                 //createQuestionGraph(nameGraph + 5, 5, "pie");
-                //createQuestionGraph(nameGraph + 8, 8, "pie");
                 //createQuestionGraph(nameGraph + 33, 33, "pie");
+                //createQuestionGraph(nameGraph + 8, 8, "pie");
+                //createQuestionGraph(nameGraph + 16, 16, "bar");
 
             }(jQuery));
         }

@@ -1,6 +1,6 @@
 O que fazer:
 
-1. Arrumar o dado das questões que pode marcar mais de uma resposta; ainda falta fazer#####
+1. Arrumar o dado das questões que pode marcar mais de uma resposta; ainda falta fazer#####@@@@
 1.1 Não deixar escrever questões repetidas
 1.2 Filtrar questões com números
 1.3 Procurar e Arrumar erros nos gráficos
