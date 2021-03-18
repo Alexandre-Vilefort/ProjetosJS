@@ -47,15 +47,15 @@ document
                 //number = Number(prompt(`Informe a questão que deseje gerar o Gráfico`));
                 console.log("hi2");
                 question = Object.keys(dataQuest[0]);// Array com todas as questões
-                answer = new Array(question.length - 1);
-                setAnswer = new Array(question.length - 1);
-                answerCounter = new Array(question.length - 1);
+                answer = new Array(question.length);
+                setAnswer = new Array(question.length);
+                answerCounter = new Array(question.length);
 
                 for (var i = 0; i < answer.length; i++) {
                     answer[i] = new Array(dataQuest.length);
                 }
                 for (let i = 0; i < dataQuest.length; i++) {
-                    for (let j = 0; j < question.length - 1; j++) {
+                    for (let j = 0; j < question.length; j++) {
                         answer[j][i] = dataQuest[i][question[j]];
                     }
                 }
@@ -77,7 +77,7 @@ document
                         }
                     }
                 }
-                createGraphs(7, 6);
+                createGraphs();
             };
             fileReader.readAsBinaryString(selectedFile);
 
