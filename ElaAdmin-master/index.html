@@ -830,9 +830,8 @@
             if (progressBarVar === "aux") {
 
                 var insertDivAux = document.createElement('div');
-                insertDivAux.pro
-                insertDivAux.innerHTML = `<div id="divCanvasAux${nameGraph}"></div>`;
                 insertDivAux.setAttribute('id', `divCanvasAux${nameGraph}`);
+                insertDivAux.innerHTML = `<div id="divCanvasAux${nameGraph}"></div>`;
                 document.getElementById(`${nameGraph}progress`).append(insertDivAux);
 
                 var pieChartDataset = createDataset(tableAllAnswerSet, "Blank", tableAllAnswerCounter);
@@ -869,7 +868,7 @@
         }
         function createChartjs(nameGraph, chartDataset, graphType) {
 
-            let heightVar = 120;
+            let heightVar = 100;
             let legendPos = 'top';
             console.log(`divCanvas${nameGraph}`);
             let auxTest = nameGraph.substring(0, 3)
@@ -959,11 +958,11 @@
                 //chart chart-js
                 let nameGraph = "ChartTeste";
 
-                //for (let i = 1; i < 71; i++) {
-                //    createQuestionGraph(nameGraph + i, i, "auto");
-                //}
-                createQuestionGraph(nameGraph + 3, 3, "pie");
-                createQuestionGraph(nameGraph + 4, 4, "pie");
+                for (let i = 1; i < 71; i++) {
+                    createQuestionGraph(nameGraph + i, i, "auto");
+                }
+                //createQuestionGraph(nameGraph + 3, 3, "pie");
+                //createQuestionGraph(nameGraph + 4, 4, "pie");
                 //createQuestionGraph(nameGraph + q1, q1, "pie");
                 //createQuestionGraph(nameGraph + 64, 64, "bar");
                 //createQuestionGraph(nameGraph + 1, 1, "pie");
