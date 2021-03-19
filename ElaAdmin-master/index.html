@@ -910,11 +910,11 @@
         function createGraphs() {
             console.log("hi3");
             (function ($) {
-                spanTotalPerguntas
-                document.getElementById("spanTotalPerguntas").innerHTML = question.length - 1;
-                document.getElementById("spanTotalAlunos").innerHTML = answer[1].length;
+                //spanTotalPerguntas
+                
                 document.getElementById('divChart').innerHTML = "";//limpar gráficos
-
+                document.getElementById("spanTotalPerguntas").innerHTML = question.length - 1;
+                document.getElementById("spanTotalAlunos").innerHTML = answer[0].length;
 
 
                 //"use strict";
@@ -930,7 +930,8 @@
                         createQuestionGraph(nameGraph + i, i, "auto");
                     }
                 }
-
+                //document.getElementById("spanTotalPerguntas").innerHTML = question.length - 1;
+                //document.getElementById("spanTotalAlunos").innerHTML = answer[0].length;
             }(jQuery));
         }
 
