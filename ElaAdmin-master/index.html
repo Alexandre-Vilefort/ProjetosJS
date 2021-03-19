@@ -80,6 +80,23 @@
         }
 
         /*CSS adicionado para o Trabalho do Roland*/
+
+        #cardChecker .form-check>input {
+            display: inline-block;
+            color: #03a9f3;
+            font-size: 20px;
+            padding: 10px 0;
+            position: relative;
+        }
+
+        #cardChecker .form-check>label {
+            display: inline-block;
+            color: #41434d;
+            font-size: 20px;
+            padding: 10px 0;
+            position: relative;
+        }
+
         .navbar .navbar-nav li>label {
             background: none !important;
             color: #03a9f3;
@@ -144,26 +161,30 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-cog"></i>Questões</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-check-square"></i> <a id="testeChamar">Selecionar Questões</a></li>
-                            <li><i class="fa  fa-cogs"></i><a href="ui-badges.html">Modificar Gráficos</a></li>
+                            <li><i class="fa fa-check-square"></i> <a id="selQuest">Selecionar Questões</a></li>
+                            <li><i class="fa  fa-cogs"></i><a>Modificar Gráficos</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Turmas</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-id-badge"></i><a href="tables-basic.html">Matutino</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="tables-data.html">Noturno</a></li>
+                            <li><i class="fa fa-id-badge"></i><a id="selMatutino">Matutino</a></li>
+                            <li><i class="fa fa-id-badge"></i><a id="selNoturno">Noturno</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Cursos</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-plus-square-o"></i><a href="forms-basic.html">Análise e Desenvolvimento de Sistemas</a></li>
-                            <li><i class="menu-icon fa fa-plus-square-o"></i><a href="forms-advanced.html">Desenvolvimento de Software Multiplataforma</a></li>
-                            <li><i class="menu-icon fa fa-plus-square-o"></i><a href="forms-basic.html">Gestão da Produção Industrial</a></li>
-                            <li><i class="menu-icon fa fa-plus-square-o"></i><a href="forms-advanced.html">Gestão de Recursos Humanos</a></li>
+                            <li><i class="menu-icon fa fa-plus-square-o"></i><a href="forms-basic.html">Análise e
+                                    Desenvolvimento de Sistemas</a></li>
+                            <li><i class="menu-icon fa fa-plus-square-o"></i><a
+                                    href="forms-advanced.html">Desenvolvimento de Software Multiplataforma</a></li>
+                            <li><i class="menu-icon fa fa-plus-square-o"></i><a href="forms-basic.html">Gestão da
+                                    Produção Industrial</a></li>
+                            <li><i class="menu-icon fa fa-plus-square-o"></i><a href="forms-advanced.html">Gestão de
+                                    Recursos Humanos</a></li>
                         </ul>
                     </li>
 
@@ -179,7 +200,8 @@
             <div class="top-left">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="./"><img
-                            src="https://site.fatecfranca.edu.br/images/logo-fatec-franca-enade4.png" width="50%" height="50%" alt="Logo"></a>
+                            src="https://site.fatecfranca.edu.br/images/logo-fatec-franca-enade4.png" width="50%"
+                            height="50%" alt="Logo"></a>
                     <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
@@ -246,7 +268,9 @@
                         <div class="col-lg-12 col-md-10">
                             <div class="card ov-h">
                                 <div class="card-body">
-                                    <div id="flotBarChart" class="float-chart ml-4 mr-4"> <h3 id="facaUpload">Faça Upload da planilha</h1></div>
+                                    <div id="flotBarChart" class="float-chart ml-4 mr-4">
+                                        <h3 id="facaUpload">Faça Upload da planilha</h1>
+                                    </div>
                                 </div>
                                 <div id="cellPaiChart" class="float-chart"></div>
                             </div><!-- /.card -->
@@ -349,10 +373,74 @@
         var tableAllAnswer = [];
 
         document
-            .getElementById("testeChamar")
+            .getElementById("selMatutino")
             .addEventListener("click", function () {
-                console.log("hi4");
+                filterData("Matutino");
+                createGraphs();
             });
+
+        document
+            .getElementById("selNoturno")
+            .addEventListener("click", function () {
+                filterData("Noturno");
+                createGraphs();
+            });
+
+        document
+            .getElementById("selQuest")
+            .addEventListener("click", function () {
+                console.log("entron no selQuest")
+                document.getElementById('divChart').innerHTML = "";
+                //Criar CheckBox para escolher quais Questões irão aparecer
+
+                document.getElementById('divChart').innerHTML = `<div class="card col-lg-12">
+                                                                <div id="cardChecker" class="card-body col-lg-12">
+                                                                </div></div>`;
+
+                for (let i = 1; i < question.length; i++) {
+                    var insertDiv = document.createElement('div');
+                    insertDiv.setAttribute('class', 'form-check col-lg-12');
+
+                    insertDiv.innerHTML = `<input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="Check${question[i]}"
+                                        />
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                        ${question[i]}
+                                        </label>`;
+
+                    document.getElementById('cardChecker').append(insertDiv);
+                }
+
+                //flotBarChart
+                var insertBtn1 = document.createElement('button')
+                insertBtn1.setAttribute('class', 'btn btn-outline-primary btnCheck');
+                insertBtn1.setAttribute('onclick', 'btnCheckerFunction()');
+                insertBtn1.innerHTML = "Gerar Gráficos";
+                insertBtn1.style.margin = "25px";
+                insertBtn1.style.fontSize = "20px";
+                document.getElementById('cardChecker').append(insertBtn1);
+
+                var insertBtn2 = document.createElement('button')
+                insertBtn2.setAttribute('class', 'btn btn-outline-primary btnCheck');
+                insertBtn2.setAttribute('onclick', 'btnCheckerFunction()');
+                insertBtn2.innerHTML = "Gerar Gráficos";
+                insertBtn2.style.margin = "25px";
+                insertBtn2.style.fontSize = "20px";
+                document.getElementById('cardChecker').prepend(insertBtn2);
+
+            });
+
+        function btnCheckerFunction() {
+
+            for (let i = 1; i < question.length; i++) {
+                checkList[i] = document.getElementById(`Check${question[i]}`).checked;
+            }
+            createGraphs();
+
+        }
 
         function createQuestionGraph(nameGraph, q, graphType) {
             questionClass = "nenhuma";
@@ -655,7 +743,6 @@
             document.getElementById(`${nameGraph}progress`).prepend(insertDivP2);
             document.getElementById(`${nameGraph}progress`).prepend(insertDivP1);
         }
-
         function createTable(nameGraph, answersList) {
             //Cria tabela para perguntas que ficam ruins com gráficos                    
             var nameTable = "bootstrapTable" + nameGraph;
@@ -803,29 +890,29 @@
         function createGraphs() {
             console.log("hi3");
             (function ($) {
+
+                document.getElementById("spanTotalAlunos").innerHTML = answer[1].length;
+                document.getElementById('divChart').innerHTML = "";//limpar gráficos
+
+
+
                 //"use strict";
 
                 //chart chart-js
                 let nameGraph = "ChartTeste";
 
+
+
                 for (let i = 1; i < question.length; i++) {
-                    createQuestionGraph(nameGraph + i, i, "auto");
+                    console.log(checkList[i]);
+                    if (checkList[i]) {
+                        createQuestionGraph(nameGraph + i, i, "auto");
+                    }
                 }
-                //createQuestionGraph(nameGraph + 1, 1, "pie");
-                //createQuestionGraph(nameGraph + 3, 3, "pie");
-                //createQuestionGraph(nameGraph + 4, 4, "pie");
-                //createQuestionGraph(nameGraph + 64, 64, "bar");
-                //createQuestionGraph(nameGraph + 1, 1, "pie");
-                //createQuestionGraph(nameGraph + 18, 18, "bar");
-                //createQuestionGraph(nameGraph + 8, 8, "bar");
-                //createQuestionGraph(nameGraph + 5, 5, "pie");
-                //createQuestionGraph(nameGraph + 33, 33, "pie");
-                //createQuestionGraph(nameGraph + 8, 8, "pie");
-                //createQuestionGraph(nameGraph + 16, 16, "bar");
-                //createQuestionGraph(nameGraph + 72, 72, "bar");
 
             }(jQuery));
         }
+
     </script>
 </body>
 
