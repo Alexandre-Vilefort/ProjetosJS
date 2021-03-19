@@ -81,6 +81,10 @@
 
         /*CSS adicionado para o Trabalho do Roland*/
 
+        #facaUpload{
+            color: #41434d;
+
+        }
         #cardChecker .form-check>input {
             display: inline-block;
             color: #03a9f3;
@@ -227,7 +231,7 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span id="spanTotalPerguntas" class="count">72</span>
+                                            <div class="stat-text"><span id="spanTotalPerguntas" class="count"></span>
                                             </div>
                                             <div class="stat-heading">Total de perguntas</div>
                                         </div>
@@ -246,7 +250,7 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span id="spanTotalAlunos" class="count">66</span>
+                                            <div class="stat-text"><span id="spanTotalAlunos" class="count"></span>
                                             </div>
                                             <div class="stat-heading">Alunos na pesquisa</div>
                                         </div>
@@ -890,7 +894,8 @@
         function createGraphs() {
             console.log("hi3");
             (function ($) {
-
+                spanTotalPerguntas
+                document.getElementById("spanTotalPerguntas").innerHTML = question.length-1;
                 document.getElementById("spanTotalAlunos").innerHTML = answer[1].length;
                 document.getElementById('divChart').innerHTML = "";//limpar gráficos
 
