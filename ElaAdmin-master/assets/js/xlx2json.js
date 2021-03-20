@@ -120,8 +120,6 @@ function filterData(filterKey) {
         }
         if(indice > -1){break}
     }
-
-    
     for (let j = 0; j < answer[indice].length; j++) {       
         if (answer[indice][j] != filterKey) {// achar os índices diferentes de filterKey           
             for (let k = 0; k < answer.length; k++) {             
