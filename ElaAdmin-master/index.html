@@ -916,22 +916,14 @@
                 document.getElementById("spanTotalPerguntas").innerHTML = question.length - 1;
                 document.getElementById("spanTotalAlunos").innerHTML = answer[0].length;
 
-
-                //"use strict";
-
-                //chart chart-js
                 let nameGraph = "ChartTeste";
 
-
-
                 for (let i = 1; i < question.length; i++) {
-                    console.log(checkList[i]);
+                    //console.log(checkList[i]);
                     if (checkList[i]) {
                         createQuestionGraph(nameGraph + i, i, "auto");
                     }
                 }
-                //document.getElementById("spanTotalPerguntas").innerHTML = question.length - 1;
-                //document.getElementById("spanTotalAlunos").innerHTML = answer[0].length;
             }(jQuery));
         }
 
