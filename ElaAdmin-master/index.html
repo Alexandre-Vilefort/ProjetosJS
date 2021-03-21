@@ -183,15 +183,16 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Cursos</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-plus-square-o"></i><a>Análise e
+                            <li><i class="menu-icon fa fa-plus-square-o"></i><a id="ADS">Análise e
                                     Desenvolvimento de Sistemas</a></li>
-                            <li><i class="menu-icon fa fa-plus-square-o"></i><a
-                                    href="forms-advanced.html">Desenvolvimento de Software Multiplataforma</a></li>
-                            <li><i class="menu-icon fa fa-plus-square-o"></i><a>Gestão da
+                            <li><i class="menu-icon fa fa-plus-square-o"></i><a id="DSM">
+                                    Desenvolvimento de Software Multiplataforma</a></li>
+                            <li><i class="menu-icon fa fa-plus-square-o"></i><a id="GPI">Gestão da
                                     Produção Industrial</a></li>
-                            <li><i class="menu-icon fa fa-plus-square-o"></i><a>Gestão de
+                            <li><i class="menu-icon fa fa-plus-square-o"></i><a id="RH">Gestão de
                                     Recursos Humanos</a></li>
-                            <li><i class="menu-icon fa fa-plus-square-o"></i><a>Todos os cursos</a></li>
+                            <li><i class="menu-icon fa fa-plus-square-o"></i><a id="todosCursos">Todos os cursos</a>
+                            </li>
                         </ul>
                     </li>
 
@@ -402,7 +403,42 @@
             .addEventListener("click", function () {
                 createAnswer();
                 createSetCounter();
-                //filterData("Matutino");
+                createGraphs();
+            });
+
+        document
+            .getElementById("ADS")
+            .addEventListener("click", function () {
+                createAnswer();
+                createSetCounter();
+                filterData("Análise e Desenvolvimento de Sistemas (ADS)");
+                createGraphs();
+            });
+
+        document
+            .getElementById("DSM")
+            .addEventListener("click", function () {
+                createAnswer();
+                createSetCounter();
+                filterData("Desenvolvimento de Software Multiplataforma");
+                createGraphs();
+            });
+
+        document
+            .getElementById("GPI")
+            .addEventListener("click", function () {
+                createAnswer();
+                createSetCounter();
+                filterData("Gestão da Produção Industrial");
+                createGraphs();
+            });
+
+        document
+            .getElementById("GRH")
+            .addEventListener("click", function () {
+                createAnswer();
+                createSetCounter();
+                filterData("Gestão de Recursos Humanos");
                 createGraphs();
             });
 
@@ -911,7 +947,7 @@
             console.log("hi3");
             (function ($) {
                 //spanTotalPerguntas
-                
+
                 document.getElementById('divChart').innerHTML = "";//limpar gráficos
                 document.getElementById("spanTotalPerguntas").innerHTML = question.length - 1;
                 document.getElementById("spanTotalAlunos").innerHTML = answer[0].length;
