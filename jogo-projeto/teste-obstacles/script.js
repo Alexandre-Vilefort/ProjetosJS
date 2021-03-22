@@ -67,7 +67,7 @@ var myGameArea = {
 }
 function createTargets(){
     for (let i = 1; i <= 20; i++){
-        for (let j = 1; j <= 10; j++){
+        for (let j = 1; j <= 4; j++){
             let myGameObjectCreator = new retangle(20, 20, setColors[Math.floor(Math.random() * 10)], 30 * i + 100, 30 * j +50);
         }
     }
@@ -81,6 +81,7 @@ function retangle(width, height, color, x, y) {
     this.mass = 50;
     this.life = 5;
     this.color = color;
+    this.type = "retangle";
     this.dx = 0;
     this.dy = 0;
     //this.dx = Math.floor(Math.random() * 11) * 60 / myGameArea.fps;
@@ -98,6 +99,7 @@ function retangle(width, height, color, x, y) {
         }
         if ( this.life == 0 && TargetsList.includes(this) ) {
             TargetsList.splice(TargetsList.indexOf(this), 1);
+            ObjectsList.splice(ObjectsList.indexOf(this), 1);
             this.x = 300;
             this.y = 300;
         }
@@ -105,6 +107,7 @@ function retangle(width, height, color, x, y) {
         this.y += this.dy * 60 / myGameArea.fps;
     }
     TargetsList.push(this);
+    ObjectsList.push(this);
 }
 function canvasText(fontSize, text, x, y) {
     this.font = fontSize;
@@ -126,6 +129,7 @@ function circle(radius, color, x, y, dx, dy) {
     this.mass = 1;
     this.life = -1;
     this.color = color;
+    this.type = "circle"
     this.dx = dx //* 60 / myGameArea.fps;
     this.dy = dy //* 60 / myGameArea.fps;
     //this.dx = Math.floor(Math.random() * 11);
@@ -182,6 +186,7 @@ function semiCircle(radius, color, x, y, dx, dy) {
     this.mass = 3;
     this.life = -1;
     this.color = color;
+    this.type = "semi-circle";
     this.dx = 0;
     this.dy = 0;
     this.isInside;
@@ -293,9 +298,6 @@ function collisionDetection(item, list) {
             let v1 = ((item.mass - list[i].mass) * vl1 + 2 * list[i].mass * vl2) / (item.mass + list[i].mass);
             let v2 = ((list[i].mass - item.mass) * vl2 + 2 * item.mass * vl1) / (item.mass + list[i].mass);
 
-            //document.getElementById("debug2").innerHTML = `item vel ante: vx ${item.dx} -- vy ${item.dy}`
-            //document.getElementById("debug3").innerHTML = `list vel ante: vx ${list[i].dx} -- vy ${list[i].dy}`
-
             var tag = document.createElement("p");
             var linebreak = document.createElement('br');
             var text = document.createTextNode(`Colisão: sin - ${(cos.toFixed(2)).toString()}, cos - ${(sin.toFixed(2)).toString()}, Frame: ${fpsCounter}`);
@@ -335,19 +337,6 @@ function collisionDetection(item, list) {
             var element = document.getElementById("debug");
             element.appendChild(tag);
 
-            /*if (item.mass > list[i].mass) {
-                list[i].x += (dis_r + a) * cos;
-                list[i].y += (dis_r + a) * sin;
-            } else if (item.mass < list[i].mass) {
-                item.x -= (dis_r + a) * cos;
-                item.y -= (dis_r + a) * sin;
-            } else {
-                list[i].x += (dis_r + a / 2) * cos;
-                list[i].y += (dis_r + a / 2) * sin;
-                item.x -= (dis_r + a / 2) * cos;
-                item.y -= (dis_r + a / 2) * sin;
-            }*/
-
             if (item.mass > list[i].mass) {
                 list[i].x += (dis_r + a) * cos;
                 list[i].y += (dis_r + a) * sin;
@@ -360,9 +349,11 @@ function collisionDetection(item, list) {
                 item.x -= (dis_r + a / 2) * cos;
                 item.y -= (dis_r + a / 2) * sin;
             }
-            item.life += -1;
-            list[i].life += -1;
 
+            if (item.type != list[i].type){
+                if (item.type == "retangle") {item.life += -1};
+                if (list[i].type == "retangle") {list[i].life += -1};
+            }
             colidedPar.push([item, list[i]])
         }
     }
@@ -385,18 +376,12 @@ function updateGameArea() {
     myGameArea.clear();
     //moveobject_keyboard(myGameObject3);
     movePlayerBase_mouse(playeyBase);
-    for (let i = 0; i <= ObjectsList.length - 1; i++) {
+    for (let i = 0; i < ObjectsList.length; i++) {
         collisionDetection(ObjectsList[i], ObjectsList);
     }
-    for (let i = 0; i <=TargetsList.length -1;i++){
-        collisionDetection(TargetsList[i], ObjectsList);
-        collisionDetection(TargetsList[i], TargetsList);
-    }
-    for (let i = 0; i <= ObjectsList.length - 1; i++) {
+    
+    for (let i = 0; i < ObjectsList.length; i++) {
         ObjectsList[i].update();
-    }
-    for (let i = 0; i <=TargetsList.length -1;i++){
-        TargetsList[i].update();
     }
     fpsCalculator();
     textDraw();
