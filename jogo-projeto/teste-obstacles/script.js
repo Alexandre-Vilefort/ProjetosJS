@@ -351,14 +351,18 @@ function collisionDetection(item, list) {
             }
 
             if (item.type != list[i].type){
+                if (item.color == list[i].color) {
+                    if (item.type == "circle") {
+                        let myGameObjectCreator = new circle(RAIO*2/3, setColors[Math.floor(Math.random() * 3)] , item.x, item.y, Math.floor(Math.random() * 11), Math.floor(Math.random() * 11));
+                        myGameObjectCreator.dx = myGameObjectCreator.dx;
+                    }else{
+                        let myGameObjectCreator = new circle(RAIO*2/3, setColors[Math.floor(Math.random() * 3)] , list[i].x, list[i].y, Math.floor(Math.random() * 11), Math.floor(Math.random() * 11));
+                        myGameObjectCreator.dx = myGameObjectCreator.dx;
+                    }
+                }
+             
                 if (item.type == "retangle") {item.life += -1};
                 if (list[i].type == "retangle") {list[i].life += -1};
-
-                if (item.color == list[i].color) {
-                    let myGameObjectCreator = new circle(RAIO*2/3, setColors[Math.floor(Math.random() * 3)] , item.x+RAIO*2/3, item.y+RAIO*2/3, Math.floor(Math.random() * 11), Math.floor(Math.random() * 11));
-                    myGameObjectCreator.dx = myGameObjectCreator.dx;
-                }
-                
             }
             colidedPar.push([item, list[i]])
         }
