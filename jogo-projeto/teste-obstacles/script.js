@@ -13,7 +13,7 @@ var teste = 0;
 var time1 = performance.now();
 var timeCounter = 0;
 var fpsCounter = 0;
-var setColors = ["red","green","blue","Orange","black","gray","white","IndianRed","LightYellow","purple"];
+var setColors = ["red","green","blue"];//["red","green","blue","Orange","black","gray"];
 
 function startGame() {
     myGameArea.start();
@@ -52,7 +52,7 @@ var myGameArea = {
             }
         })
         window.addEventListener('mousedown', function () {
-            let myGameObjectCreator = new circle(RAIO*2/3, setColors[Math.floor(Math.random() * 10)] , myGameArea.x, myGameArea.y, 0, 10);
+            let myGameObjectCreator = new circle(RAIO*2/3, setColors[Math.floor(Math.random() * 3)] , myGameArea.x, myGameArea.y, 0, 10);
             myGameObjectCreator.dx = myGameObjectCreator.dx;
             //ObjectsList.push(myGameObjectCreator);    
         })
@@ -68,7 +68,7 @@ var myGameArea = {
 function createTargets(){
     for (let i = 1; i <= 20; i++){
         for (let j = 1; j <= 4; j++){
-            let myGameObjectCreator = new retangle(20, 20, setColors[Math.floor(Math.random() * 10)], 30 * i + 100, 30 * j +50);
+            let myGameObjectCreator = new retangle(20, 20, setColors[Math.floor(Math.random() * 3)], 30 * i + 100, 30 * j +50);
         }
     }
 }
@@ -353,6 +353,12 @@ function collisionDetection(item, list) {
             if (item.type != list[i].type){
                 if (item.type == "retangle") {item.life += -1};
                 if (list[i].type == "retangle") {list[i].life += -1};
+
+                if (item.color == list[i].color) {
+                    let myGameObjectCreator = new circle(RAIO*2/3, setColors[Math.floor(Math.random() * 3)] , item.x+RAIO*2/3, item.y+RAIO*2/3, Math.floor(Math.random() * 11), Math.floor(Math.random() * 11));
+                    myGameObjectCreator.dx = myGameObjectCreator.dx;
+                }
+                
             }
             colidedPar.push([item, list[i]])
         }
