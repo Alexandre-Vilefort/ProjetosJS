@@ -4,8 +4,10 @@
 <head>
     <meta charset="utf-8 ">
     <script>
-        function exe1(opt) {
-
+        function exe(opt) {
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`output${i}`).innerHTML = "";
+            }
             if (opt == 1) {
                 // declaração de vetores
                 let vetor = [];
@@ -15,15 +17,56 @@
                 // entrada de dados
                 for (let i = 1; i <= 6; i++) {
                     vetor.push(prompt(`Informe o element ${i}`));
-                    if (vetor[i-1] % 2 == 0){
-                        pares.push(vetor[i-1]);
+                    if (vetor[i - 1] % 2 == 0) {
+                        pares.push(vetor[i - 1]);
                     } else {
-                        impares.push(vetor[i-1]);
+                        impares.push(vetor[i - 1]);
                     }
                 }
-            
+
                 document.getElementById("output1").innerHTML = pares;
                 document.getElementById("output2").innerHTML = impares
+            } else if (opt == 2) {
+                // declaração de vetores
+                let vetor = [];
+                let vetorMult2 = [];
+                let vetorMult3 = [];
+                let vetorMult2e3 = [];
+
+                for (let i = 1; i <= 7; i++) {
+                    vetor.push(prompt(`Informe o element ${i}`));
+                    if (vetor[i - 1] % 2 == 0) {
+                        vetorMult2.push(vetor[i - 1]);
+                    }
+                    if (vetor[i - 1] % 3 == 0) {
+                        vetorMult3.push(vetor[i - 1]);
+                    }
+                    if (vetor[i - 1] % 3 == 0 && vetor[i - 1] % 2 == 0) {
+                        vetorMult2e3.push(vetor[i - 1]);
+                    }
+                }
+
+
+                document.getElementById("output1").innerHTML = `Multiplos de 2:  ${vetorMult2}`;
+                document.getElementById("output2").innerHTML = `Multiplos de 3:  ${vetorMult3}`;
+                document.getElementById("output3").innerHTML = `Multiplos de 2 e 3:  ${vetorMult2e3}`;
+
+            } else if (opt == 4) {
+                let vetor = [];
+                let pos30 = []
+
+                document.getElementById("output1").innerHTML = `O número 30 pode ser encontrado nas posições:`;
+                for (let i = 0; i < 15; i++) {
+                    vetor.push(prompt(`Informe o element ${i}`));
+                    if (vetor[i] == 30) {
+                        pos30.push(i)
+                    }
+                }
+                if (pos30.length > 0) {
+                    document.getElementById("output2").innerHTML = pos30;
+                } else if (pos30.length == 0) {
+                    document.getElementById("output1").innerHTML = `Não há número 30 no vetor`;
+                }
             }
         }
     </script>
@@ -130,19 +173,65 @@
             color: rgb(195, 218, 228);
             border-radius: 15px;
         }
+
+        /* Tooltip text */
+        .tooltiptext {
+            visibility: hidden;
+            
+            background-color: black;
+            opacity: 0.0;
+            color: #fff;
+            text-align: left;
+            padding: 5px 0;
+            border-radius: 6px;
+            /* Position the tooltip text - see examples below!*/
+            position: absolute;
+            z-index: 1;
+            transition-duration: 0.5s;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .divbutton:hover .tooltiptext {
+            visibility: visible;
+            opacity: 0.8;
+        }
     </style>
+
 </head>
 
 <body>
 
     <div id="conteiner">
         <h1>Exercícios Lista Vetor </h1>
-        <h2> Menu de Opções </h2>
-        <h2> Escolha uma das opções abaixo</h2>
-        <br><button type="button" onclick="exe1(1)"> Exercício 1 </button>
+        <h2> Escolha um dos exercícios abaixo</h2>
+        <div class="divbutton">
+            <br><button type="button" onclick="exe(1)"> Exercício 1 </button>
+            <span class="tooltiptext"> Faça um programa que preencha um vetor com seis elementos numéricos inteiros.
+                <br> Calcule e mostre:
+                <br> - Todos os números pares;
+                <br> - Todos os números impares.
+            </span>
+        </div>
+        <div class="divbutton">
+            <br><button type="button" onclick="exe(2)"> Exercício 2 </button>
+            <span class="tooltiptext">Faça um programa que preencha um vetor com sete números.
+                <br>Calcule e mostre:
+                <br>- Os números múltiplos de 2;
+                <br>- Os números múltiplos de 3;
+                <br>- Os números múltiplos de 2 e 3.
+            </span>
+        </div>
+        <div class="divbutton">
+            <br><button type="button" onclick="exe(4)"> Exercício 4 </button>
+            <span class="tooltiptext">Faça um programa que preencha um vetor com 15 elementos
+                <br>e verifique a existência de elementos iguais a 30,
+                <br>mostrando as posições que apareceram.
+            </span>
+        </div>
         <div class="output">
             <p id="output1"></p>
             <p id="output2"></p>
+            <p id="output3"></p>
         </div>
         <div class="table">
             <p class="output">Tabela para o cálculo do novo Valor do Carro</p>
