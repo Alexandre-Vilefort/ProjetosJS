@@ -5,7 +5,7 @@
     <meta charset="utf-8 ">
     <script>
         function exe(opt) {
-            for (let i = 1; i <= 3; i++) {
+            for (let i = 1; i <= 4; i++) {
                 document.getElementById(`output${i}`).innerHTML = "";
             }
             if (opt == 1) {
@@ -67,6 +67,32 @@
                 } else if (pos30.length == 0) {
                     document.getElementById("output1").innerHTML = `Não há número 30 no vetor`;
                 }
+            } else if (opt == 5) {
+                var alunosLogica = [];
+                var alunosLinguagem = [];
+                var alunosBoth = [];
+
+                for (let i = 1; i <= 15; i++) {
+                    alunosLogica.push(prompt(`Informe o número de matrícula do aluno do ${i} do curso de Lógica`));
+                }
+                for (let i = 1; i <= 10; i++) {
+                    alunosLinguagem.push(prompt(`Informe o número de matrícula do aluno do ${i} do curso de Linguágem de programação`));
+                }
+                for (let i = 0; i < alunosLogica.length; i++) {
+                    for (let j = 0; j < alunosLinguagem.length; j++) {
+                        if (alunosLinguagem[j] == alunosLogica[i]) {
+                            alunosBoth.push(alunosLogica[i]);
+                        }
+                    }
+                }
+                document.getElementById("output1").innerHTML = `Alunos que cursam a disciplina de Lógica: <br> ${alunosLogica}`
+                document.getElementById("output2").innerHTML = `Alunos que cursam a disciplina de Linguágem de programação: <br> ${alunosLinguagem}`
+                if (alunosBoth.length > 0) {
+                    document.getElementById("output3").innerHTML =`O número de matrícula dos alunos que faz as duaz disciplinas: <br> ${alunosBoth}` ;
+                } else if (pos30.length == 0) {
+                    document.getElementById("output3").innerHTML = `Não há alunos que cursam as duas disciplinas`;
+                }
+
             }
         }
     </script>
@@ -177,7 +203,7 @@
         /* Tooltip text */
         .tooltiptext {
             visibility: hidden;
-            
+
             background-color: black;
             opacity: 0.0;
             color: #fff;
@@ -233,7 +259,8 @@
             <span class="tooltiptext">Uma escola deseja saber se existem alunos cursando, simultaneamente,
                 <br>as disciplinas de lógica e linguagem de programação.
                 <br>- Coloque os números das matrículas dos alunos que cursam lógica em um vetor, quinze alunos.
-                <br>- Coloque os números das matrículos dos alunos que cursam linguagem de programação em outro vetor, dez alunos.
+                <br>- Coloque os números das matrículos dos alunos que cursam linguagem de programação em outro vetor,
+                dez alunos.
                 <br>- Mostre o número de matrículas que aparecem nos dois vetores.
             </span>
         </div>
@@ -241,6 +268,7 @@
             <p id="output1"></p>
             <p id="output2"></p>
             <p id="output3"></p>
+            <p id="output4"></p>
         </div>
         <div class="table">
             <p class="output">Tabela para o cálculo do novo Valor do Carro</p>
