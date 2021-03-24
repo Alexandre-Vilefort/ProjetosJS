@@ -800,7 +800,7 @@ aside.left-panel {
         overflow: visible; }
         .open aside.left-panel .navbar .navbar-nav li.menu-item-has-children.show .sub-menu {
           position: absolute !important;
-          width: 180px;
+          width: 200px;
           -webkit-box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
                   box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08); }
     .open aside.left-panel .navbar .navbar-nav li span.count {
