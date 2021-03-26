@@ -1,1 +1,1 @@
-https://alexandre-vilefort.github.io/ProjetosJS/GraficdoExcel/index.html
+https://alexandre-vilefort.github.io/ProjetosJS/GraficoExcel/index.html
