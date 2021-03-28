@@ -9,10 +9,9 @@ O que fazer:
 
 1.4 Arrumar o sistema de filtros;
 
-2. Fazer um sistema para o usuário marcar as respostas que ele quer ver os gráficos;
-
-3. Criar um sistema para listar as respostas que não tem como construir um gráfico;
+1.5 Arrumar o sistema responsivo quando troca para Small-divices
 
 4. Constuir um jeito de relacionar diferentes perguntas para gerar um gráfico;
 
-5. Pensar em como vai ficar o Front-end;
+
+
