@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8 ">
+    <script>
+        function exe(opt) {
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`output${i}`).innerHTML = "";
+            }
+            if (opt == 1) {
+                // declaração de vetores
+                let vetor = [];
+                let pares = [];
+                let impares = [];
+
+                // entrada de dados
+                for (let i = 1; i <= 6; i++) {
+                    vetor.push(prompt(`Informe o element ${i}`));
+                    if (vetor[i - 1] % 2 == 0) {
+                        pares.push(vetor[i - 1]);
+                    } else {
+                        impares.push(vetor[i - 1]);
+                    }
+                }
+
+                document.getElementById("output1").innerHTML = pares;
+                document.getElementById("output2").innerHTML = impares
+            } else if (opt == 2) {
+                // declaração de vetores
+                let vetor = [];
+                let vetorMult2 = [];
+                let vetorMult3 = [];
+                let vetorMult2e3 = [];
+
+                for (let i = 1; i <= 7; i++) {
+                    vetor.push(prompt(`Informe o element ${i}`));
+                    if (vetor[i - 1] % 2 == 0) {
+                        vetorMult2.push(vetor[i - 1]);
+                    }
+                    if (vetor[i - 1] % 3 == 0) {
+                        vetorMult3.push(vetor[i - 1]);
+                    }
+                    if (vetor[i - 1] % 3 == 0 && vetor[i - 1] % 2 == 0) {
+                        vetorMult2e3.push(vetor[i - 1]);
+                    }
+                }
+
+
+                document.getElementById("output1").innerHTML = `Multiplos de 2:  ${vetorMult2}`;
+                document.getElementById("output2").innerHTML = `Multiplos de 3:  ${vetorMult3}`;
+                document.getElementById("output3").innerHTML = `Multiplos de 2 e 3:  ${vetorMult2e3}`;
+
+            } else if (opt == 3) {
+                let qtd = 3;
+                var compras = []
+                var estoque = [];
+
+                for (let i = 0; i < qtd; i++) {
+                    let product = new Object();
+
+                    product.code = prompt(`Informe o código do produto ${i + 1}`)
+                    product.quantidade = "";
+                    do {
+                        product.quantidade = Number(prompt(`Informe a quantidade do produto ${i + 1}`))
+                        //console.log(typeof product.quantidade);
+                        //console.log(product);
+                    } while (isNaN(product.quantidade));
+                    estoque.push(product);
+                }
+                console.log(estoque);
+                var clientCod = 0;
+
+                do {
+                    clientCod = prompt(`Inform o código do cliente`);
+
+                    if (clientCod != 0) {
+                        let compraProd = prompt(`Inform o código do produto a ser comprado`);
+                        let compraQuant = "";
+                        let achou = false;
+
+                        do {
+                            compraQuant = Number(prompt(`Inform a quantidade do produto a ser comprado`));
+                        } while (isNaN(compraQuant));
+
+                        //Achar produto no estoque
+                        for (let j = 0; j < qtd; j++) {
+
+                            if (estoque[j].code == compraProd) {
+                                achou = true;
+                                //Verificar quantidade no estoque para a compra
+                                if (estoque[j].quantidade >= compraQuant) {
+                                    estoque[j].quantidade -= compraQuant;
+                                } else {
+                                    //produto fora de estoque
+                                    alert(`Produto com código ${estoque[j].code} não tem quantidade em estoque o suficiente`)
+                                }
+                            }
+                        }
+                        if (achou == false) {
+                            alert(`não foi encontrado nenhum produto com esse código`)
+                        }
+                    } else {
+                        alert(`Código do Client é 0, compra abortada`)
+                    }
+                } while (clientCod != 0);
+                console.log(estoque);
+                let  output = "";
+                for (let i = 0;i < qtd; i++){
+                    output = output + `<br>Produto código: ${estoque[i].code}    Quantidade: ${estoque[i].quantidade}`;
+                }
+                document.getElementById("output1").innerHTML = output;
+
+            } else if (opt == 4) {
+                let vetor = [];
+                let pos30 = []
+
+                document.getElementById("output1").innerHTML = `O número 30 pode ser encontrado nas posições:`;
+                for (let i = 0; i < 15; i++) {
+                    vetor.push(prompt(`Informe o element ${i}`));
+                    if (vetor[i] == 30) {
+                        pos30.push(i)
+                    }
+                }
+                if (pos30.length > 0) {
+                    document.getElementById("output2").innerHTML = pos30;
+                } else if (pos30.length == 0) {
+                    document.getElementById("output1").innerHTML = `Não há número 30 no vetor`;
+                }
+            } else if (opt == 5) {
+                var alunosLogica = [];
+                var alunosLinguagem = [];
+                var alunosBoth = [];
+
+                for (let i = 1; i <= 15; i++) {
+                    alunosLogica.push(prompt(`Informe o número de matrícula do aluno do ${i} do curso de Lógica`));
+                }
+                for (let i = 1; i <= 10; i++) {
+                    alunosLinguagem.push(prompt(`Informe o número de matrícula do aluno do ${i} do curso de Linguágem de programação`));
+                }
+                for (let i = 0; i < alunosLogica.length; i++) {
+                    for (let j = 0; j < alunosLinguagem.length; j++) {
+                        if (alunosLinguagem[j] == alunosLogica[i]) {
+                            alunosBoth.push(alunosLogica[i]);
+                        }
+                    }
+                }
+                document.getElementById("output1").innerHTML = `Alunos que cursam a disciplina de Lógica: <br> ${alunosLogica}`
+                document.getElementById("output2").innerHTML = `Alunos que cursam a disciplina de Linguágem de programação: <br> ${alunosLinguagem}`
+                if (alunosBoth.length > 0) {
+                    document.getElementById("output3").innerHTML = `O número de matrícula dos alunos que faz as duaz disciplinas: <br> ${alunosBoth}`;
+                } else if (pos30.length == 0) {
+                    document.getElementById("output3").innerHTML = `Não há alunos que cursam as duas disciplinas`;
+                }
+
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: rgb(86, 124, 139);
+            font-family: 'lato', sans-serif;
+        }
+
+        #conteiner {
+            width: 500px;
+            margin: auto;
+            margin-top: 120px;
+            padding: 10px;
+            background-color: rgba(195, 218, 228, 0.884);
+            border-radius: 15px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            color: rgb(80, 75, 121);
+            margin-top: 12px;
+            padding: 10px;
+        }
+
+        button {
+            position: relative;
+            left: 20%;
+            margin: 10px;
+            border-radius: 12px;
+            border: 2px solid #4c74af;
+            padding: 10px 30px;
+            font-size: 20px;
+            background-color: rgb(195, 218, 228);
+            transition-duration: 0.5s;
+        }
+
+        button:hover {
+            background-color: #4c74af;
+            color: white;
+        }
+
+        .table {
+            visibility: hidden;
+        }
+
+        th,
+        td {
+            border: 0px solid rgba(195, 218, 228, 0.884);
+            text-align: center;
+            border-radius: 6px;
+            padding: 6px;
+
+        }
+
+        .table-header {
+            background-color: #4c74af;
+            color: rgba(195, 218, 228, 0.884);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            transition-duration: 0.5s;
+        }
+
+        .table-header:hover {
+            color: #4c74af;
+            background-color: rgba(195, 218, 228, 0.884);
+        }
+
+
+        .table-row {
+            background-color: rgb(86, 124, 139);
+            color: rgba(195, 218, 228, 0.884);
+            transition-duration: 0.5s;
+        }
+
+        .table-row:hover {
+            color: rgb(86, 124, 139);
+            background-color: rgba(195, 218, 228, 0.884);
+        }
+
+        tr {
+            border-radius: 3px;
+            padding: 25px 30px;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .output,
+        .saida {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            padding: 10px;
+            font-size: 20px;
+            color: rgb(80, 75, 121);
+            transition-duration: 0.5s;
+        }
+
+        .output:hover {
+            background-color: rgb(86, 124, 139);
+            color: rgb(195, 218, 228);
+            border-radius: 15px;
+        }
+
+        /* Tooltip text */
+        .tooltiptext {
+            visibility: hidden;
+
+            background-color: black;
+            opacity: 0.0;
+            color: #fff;
+            text-align: left;
+            padding: 5px 0;
+            border-radius: 6px;
+            /* Position the tooltip text - see examples below!*/
+            position: absolute;
+            z-index: 1;
+            transition-duration: 0.5s;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .divbutton:hover .tooltiptext {
+            visibility: visible;
+            opacity: 0.8;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="conteiner">
+        <h1>Exercícios Lista Vetor </h1>
+        <h2> Escolha um dos exercícios abaixo</h2>
+        <div class="divbutton">
+            <br><button type="button" onclick="exe(1)"> Exercício 1 </button>
+            <span class="tooltiptext"> Faça um programa que preencha um vetor com seis elementos numéricos inteiros.
+                <br> Calcule e mostre:
+                <br> - Todos os números pares;
+                <br> - Todos os números impares.
+            </span>
+        </div>
+        <div class="divbutton">
+            <br><button type="button" onclick="exe(2)"> Exercício 2 </button>
+            <span class="tooltiptext">Faça um programa que preencha um vetor com sete números.
+                <br>Calcule e mostre:
+                <br>- Os números múltiplos de 2;
+                <br>- Os números múltiplos de 3;
+                <br>- Os números múltiplos de 2 e 3.
+            </span>
+        </div>
+        <div class="divbutton">
+            <br><button type="button" onclick="exe(3)"> Exercício 3 </button>
+            <span class="tooltiptext">Faça um programa que ...
+                <br>bla bla bla ...
+                <br>bla bla bla ...
+            </span>
+        </div>
+        <div class="divbutton">
+            <br><button type="button" onclick="exe(4)"> Exercício 4 </button>
+            <span class="tooltiptext">Faça um programa que preencha um vetor com 15 elementos
+                <br>e verifique a existência de elementos iguais a 30,
+                <br>mostrando as posições que apareceram.
+            </span>
+        </div>
+        <div class="divbutton">
+            <br><button type="button" onclick="exe(5)"> Exercício 5 </button>
+            <span class="tooltiptext">Uma escola deseja saber se existem alunos cursando, simultaneamente,
+                <br>as disciplinas de lógica e linguagem de programação.
+                <br>- Coloque os números das matrículas dos alunos que cursam lógica em um vetor, quinze alunos.
+                <br>- Coloque os números das matrículos dos alunos que cursam linguagem de programação em outro vetor,
+                dez alunos.
+                <br>- Mostre o número de matrículas que aparecem nos dois vetores.
+            </span>
+        </div>
+        <div class="output">
+            <p id="output1"></p>
+            <p id="output2"></p>
+            <p id="output3"></p>
+            <p id="output4"></p>
+        </div>
+        <div class="table">
+            <p class="output">Tabela para o cálculo do novo Valor do Carro</p>
+            <table id="tableEx11">
+                <thead>
+                    <!--header da tablea-->
+                    <tr class="table-header">
+                    </tr>
+                </thead>
+                <tbody id="dadosTabela">
+                    <!--Corpo da tabela-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>
