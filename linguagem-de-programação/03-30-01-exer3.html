@@ -105,8 +105,8 @@
                     }
                 } while (clientCod != 0);
                 console.log(estoque);
-                let  output = "";
-                for (let i = 0;i < qtd; i++){
+                let output = "";
+                for (let i = 0; i < qtd; i++) {
                     output = output + `<br>Produto código: ${estoque[i].code}    Quantidade: ${estoque[i].quantidade}`;
                 }
                 document.getElementById("output1").innerHTML = output;
@@ -128,9 +128,9 @@
                     document.getElementById("output1").innerHTML = `Não há número 30 no vetor`;
                 }
             } else if (opt == 5) {
-                var alunosLogica = [];
-                var alunosLinguagem = [];
-                var alunosBoth = [];
+                let alunosLogica = [];
+                let alunosLinguagem = [];
+                let alunosBoth = [];
 
                 for (let i = 1; i <= 15; i++) {
                     alunosLogica.push(prompt(`Informe o número de matrícula do aluno do ${i} do curso de Lógica`));
@@ -152,6 +152,52 @@
                 } else if (pos30.length == 0) {
                     document.getElementById("output3").innerHTML = `Não há alunos que cursam as duas disciplinas`;
                 }
+
+            } else if (opt == 6) {
+                let qtd = 3;
+                let vector = [];
+
+                for (let i = 0; i < qtd; i++) {
+                    let objeto = new Object();
+                    objeto.nome = prompt(`Informe o nome do vendedor ${i + 1}`);
+                    do {
+                        objeto.vendas = Number(prompt(`Informe o valor das vendas do vendedor ${i + 1}`));
+                    } while (isNaN(objeto.vendas));
+
+                    do {
+                        objeto.percentual = Number(prompt(`Informe a porcentagem do vendedor ${i + 1}`));
+                    } while (isNaN(objeto.percentual));
+                    objeto.comissao = objeto.percentual / 100 * objeto.vendas
+
+                    vector.push(objeto)
+                }
+                let output1 = "";
+                let totalVendas = 0
+                let maiorValor = vector[0].vendas;
+                let menorValor = vector[0].vendas;
+                let ig = 0;
+                let il = 0;
+                
+                for (let i = 0; i < qtd; i++) {
+                    output1 = output1 + `<br>Nome: ${vector[i].nome}  <br> Total de vendas: R$ ${vector[i].vendas}  <br>   Comissão: R$ ${vector[i].comissao} <br>`;
+                    totalVendas += vector[i].vendas;
+
+                    if (vector[i].vendas > maiorValor) {
+                        ig = i;
+                        maiorValor = vector[i].vendas;
+                    }
+                    if (vector[i].vendas < menorValor) {
+                        il = i;
+                        menorValor = vector[i].vendas;
+                    }
+                }
+                console.log(il);
+                console.log(ig);
+                document.getElementById("output1").innerHTML = output1;
+                document.getElementById("output2").innerHTML = `O total de Vendas foi R$ ${totalVendas}`;
+                document.getElementById("output3").innerHTML = `${vector[ig].nome} vendeu  R$ ${vector[ig].vendas}, e foi o que vendeu mais`;
+                document.getElementById("output4").innerHTML = `${vector[il].nome} vendeu  R$ ${vector[il].vendas}, e foi o que vendeu menos`;
+
 
             }
         }
@@ -331,6 +377,14 @@
                 <br>- Mostre o número de matrículas que aparecem nos dois vetores.
             </span>
         </div>
+        <div class="divbutton">
+            <br><button type="button" onclick="exe(6)"> Exercício 6 </button>
+            <span class="tooltiptext">Faça um programa que ...
+                <br>bla bla bla ...
+                <br>bla bla bla ...
+            </span>
+        </div>
+
         <div class="output">
             <p id="output1"></p>
             <p id="output2"></p>
