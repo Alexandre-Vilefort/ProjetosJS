@@ -184,11 +184,21 @@
                             aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Cursos</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-plus-square-o"></i><a id="ADS">ADS</a></li>
-                            <li><i class="menu-icon fa fa-plus-square-o"></i><a id="DSM">
-                                    DSM</a></li>
+                            <li><i class="menu-icon fa fa-plus-square-o"></i><a id="DSM">DSM</a></li>
                             <li><i class="menu-icon fa fa-plus-square-o"></i><a id="GPI">GPI</a></li>
                             <li><i class="menu-icon fa fa-plus-square-o"></i><a id="GRH">GRH</a></li>
                             <li><i class="menu-icon fa fa-plus-square-o"></i><a id="todosCursos">Todos os cursos</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Gêneros</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-user"></i><a id="selMas">Masculino</a></li>
+                            <li><i class="menu-icon fa fa-user"></i><a id="selFem">Feminino</a></li>
+                            <li><i class="menu-icon fa fa-user"></i><a id="todosGen">Todos os Gêneros</a>
                             </li>
                         </ul>
                     </li>
@@ -204,11 +214,9 @@
         <header id="header" class="header bg-danger">
             <div class="top-left bg-danger">
                 <div class="navbar-header bg-danger">
-                    <a class="navbar-brand"><img
-                            src="images/fatec-logo.png" width="50%"
-                            height="50%" alt="Logo"></a>
+                    <a class="navbar-brand"><img src="images/fatec-logo.png" width="50%" height="50%" alt="Logo"></a>
                     <a class="navbar-brand hidden"><img src="images/fatec-logo.png" alt="Logo" width="50%"
-                        height="50%"></a>
+                            height="50%"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
@@ -383,83 +391,103 @@
         let filtro = new Object();
         filtro.periodo = "";
         filtro.curso = "";
+        filtro.genero = "";
 
 
-        function aplicarFiltro();
-            
-
+        function aplicarFiltro() {
+            createAnswer();
+            createSetCounter();
+            if (filtro.periodo != "") { filterData(filtro.periodo) };
+            if (filtro.curso != "") { filterData(filtro.curso) };
+            if (filtro.genero != "") { filterData(filtro.genero) };
+            createGraphs();
+            let filtersLabel = document.getElementsByClassName("filterPeriodo");
+            for (h of filtersLabel) { h.innerHTML = `Filtros: ${filtro.periodo}  ${filtro.curso}  ${filtro.genero}`};
+        }
 
         document
             .getElementById("selMatutino")
             .addEventListener("click", function () {
-                if (filtro.curso == "")
-                createAnswer();
-                createSetCounter();
-                filterData("Matutino");
-                createGraphs();
                 filtro.periodo = "Matutino";
-                let filtersLabel = document.getElementsByClassName("filterPeriodo");
-                for (h of filtersLabel) {h.innerHTML = `Filtro: ` + filtro.periodo};
+                aplicarFiltro()
             });
 
         document
             .getElementById("selNoturno")
             .addEventListener("click", function () {
-                createAnswer();
-                createSetCounter();
-                filterData("Noturno");
-                createGraphs();
                 filtro.periodo = "Noturno";
-                let filtersLabel = document.getElementsByClassName("filterPeriodo");
-                for (h of filtersLabel) {h.innerHTML = `Período: ` + filtro.periodo};
+                aplicarFiltro()
             });
 
         document
             .getElementById("selTodas")
             .addEventListener("click", function () {
-                createAnswer();
-                createSetCounter();
-                createGraphs();
-                filtro.periodo = "Todos";
-                let filtersLabel = document.getElementsByClassName("filterPeriodo");
-                for (h of filtersLabel) {h.innerHTML = `Período: ` + filtro.periodo};
+                filtro.periodo = "";
+                aplicarFiltro()
             });
 
         document
             .getElementById("ADS")
             .addEventListener("click", function () {
-                createAnswer();
-                createSetCounter();
                 //filterData("Análise e Desenvolvimento de Sistemas (ADS)");
-                createGraphs();
+                filtro.curso = "Análise e Desenvolvimento de Sistemas (ADS)";
+                aplicarFiltro()
             });
 
         document
             .getElementById("DSM")
             .addEventListener("click", function () {
-                createAnswer();
-                createSetCounter();
                 //filterData("Desenvolvimento de Software Multiplataforma");
-                createGraphs();
+                filtro.curso = "Desenvolvimento de Software Multiplataforma";
+                aplicarFiltro()
             });
 
         document
             .getElementById("GPI")
             .addEventListener("click", function () {
-                createAnswer();
-                createSetCounter();
-                //filterData("Gestão da Produção Industrial");
-                createGraphs();
+                //filterData("Gestão da Produção Industrial (GPI)");
+                filtro.curso = "Gestão da Produção Industrial (GPI)";
+                aplicarFiltro()
             });
 
         document
             .getElementById("GRH")
             .addEventListener("click", function () {
-                createAnswer();
-                createSetCounter();
                 //filterData("Gestão de Recursos Humanos");
-                createGraphs();
+                filtro.curso = "Gestão de Recursos Humanos";
+                aplicarFiltro()
             });
+
+        document
+            .getElementById("todosCursos")
+            .addEventListener("click", function () {
+                //filterData("Gestão de Recursos Humanos");
+                filtro.curso = "";
+                aplicarFiltro()
+            });
+
+        document
+            .getElementById("selMas")
+            .addEventListener("click", function () {
+                filtro.genero = "Masculino";
+                aplicarFiltro()
+            });
+
+        document
+            .getElementById("selFem")
+            .addEventListener("click", function () {
+                filtro.genero = "Feminino";
+                aplicarFiltro()
+            });
+
+        document
+            .getElementById("todosGen")
+            .addEventListener("click", function () {
+                filtro.genero = "";
+                aplicarFiltro()
+            });
+
+
 
         document
             .getElementById("selQuest")
