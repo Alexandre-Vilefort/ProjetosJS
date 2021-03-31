@@ -402,7 +402,9 @@
             if (filtro.genero != "") { filterData(filtro.genero) };
             createGraphs();
             let filtersLabel = document.getElementsByClassName("filterPeriodo");
-            for (h of filtersLabel) { h.innerHTML = `Filtros: ${filtro.periodo}  ${filtro.curso}  ${filtro.genero}`};
+            if (filtro.periodo != "" || filtro.curso != "" || filtro.genero != "") {
+                for (h of filtersLabel) { h.innerHTML = `Filtros: ${filtro.periodo} - ${filtro.genero} - ${filtro.curso}` };
+            }
         }
 
         document
@@ -996,17 +998,17 @@
                 //spanTotalPerguntas
 
                 document.getElementById('divChart').innerHTML = "";//limpar gráficos
-                document.getElementById("spanTotalPerguntas").innerHTML = question.length - 1;
-                document.getElementById("spanTotalAlunos").innerHTML = answer[0].length;
-
                 let nameGraph = "ChartTeste";
-
+                let questionsCount = 0;
                 for (let i = 1; i < question.length; i++) {
                     //console.log(checkList[i]);
                     if (checkList[i]) {
+                        questionsCount += 1;
                         createQuestionGraph(nameGraph + i, i, "auto");
                     }
                 }
+                document.getElementById("spanTotalPerguntas").innerHTML = questionsCount;
+                document.getElementById("spanTotalAlunos").innerHTML = answer[0].length;
             }(jQuery));
         }
     </script>
