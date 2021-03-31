@@ -375,19 +375,31 @@
             'rgba(244, 164, 96, 0.8)',
         ];
         var colorBlue = "rgba(4, 73, 203,0.9)";
-
         var questionClass = "nenhuma";
         var tableAllAnswerSet = [];//Variável para caso seja tabela e crie gráfico auxiliar
         var tableAllAnswerCounter = [];
         var tableAllAnswer = [];
 
+        let filtro = new Object();
+        filtro.periodo = "";
+        filtro.curso = "";
+
+
+        function aplicarFiltro();
+            
+
+
         document
             .getElementById("selMatutino")
             .addEventListener("click", function () {
+                if (filtro.curso == "")
                 createAnswer();
                 createSetCounter();
                 filterData("Matutino");
                 createGraphs();
+                filtro.periodo = "Matutino";
+                let filtersLabel = document.getElementsByClassName("filterPeriodo");
+                for (h of filtersLabel) {h.innerHTML = `Filtro: ` + filtro.periodo};
             });
 
         document
@@ -397,6 +409,9 @@
                 createSetCounter();
                 filterData("Noturno");
                 createGraphs();
+                filtro.periodo = "Noturno";
+                let filtersLabel = document.getElementsByClassName("filterPeriodo");
+                for (h of filtersLabel) {h.innerHTML = `Período: ` + filtro.periodo};
             });
 
         document
@@ -405,6 +420,9 @@
                 createAnswer();
                 createSetCounter();
                 createGraphs();
+                filtro.periodo = "Todos";
+                let filtersLabel = document.getElementsByClassName("filterPeriodo");
+                for (h of filtersLabel) {h.innerHTML = `Período: ` + filtro.periodo};
             });
 
         document
@@ -496,9 +514,7 @@
                 checkList[i] = document.getElementById(`Check${question[i]}`).checked;
             }
             createGraphs();
-
         }
-
         function createQuestionGraph(nameGraph, q, graphType) {
             questionClass = "nenhuma";
             tableAllAnswerSet = [];//Variável para caso seja tabela e crie gráfico auxiliar
@@ -521,6 +537,8 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
+                                    <h3 id="filterGraphPer${nameGraph}" class="filterPeriodo box-title"></h3>
+                                    <h3 id="filterGraphCur${nameGraph}" class="filterCurso box-title"></h3>
                                     <div id="${nameGraph}progress" class="card-body">
                                         <div id="divCanvasAux${nameGraph}"></div>
                                     </div> <!-- /.card-body -->
