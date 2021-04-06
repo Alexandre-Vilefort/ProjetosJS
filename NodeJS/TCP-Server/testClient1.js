@@ -2,7 +2,7 @@ const net = require('net');
 const readlineSync = require('readline-sync');
 
 var client = new net.Socket();
-client.connect(9000, '127.0.0.1', inputServer);
+client.connect(9000, '177.106.174.44', inputServer);
 
 client.on('data', function (data) {
     console.log('Received: ' + data);
