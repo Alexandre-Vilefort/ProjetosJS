@@ -1,33 +1,26 @@
-const http = require("http");
-const fs = require('fs').promises;
+const path = require('path');
+const express = require('express');
+const morgan = require('morgan');
 
-const host = 'localhost';
-const port = 8000;
+const app = express();
 
-let indexFile;
+//setting
+app.set('port', process.env.PORT || 8000);
+app.set('host','localhost');
+
+//middlewares
+app.use(morgan('dev'));
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
+
+//static files
+app.use(express.static('public'));
+
+//start server
+ app.listen(app.get('port'),function(){
+    console.log(`Server is running on http://${app.get('host')}:${app.get('port')}`);
+    //console.log(`server on port ${app.get('port')}`);
+ });
+//Funcionando!!
 
 
-const requestListener = function (req, res) {
-    res.setHeader("Content-Type", "text/html");
-    res.writeHead(200);
-    res.end(indexFile);
-};
-
-
-const server = http.createServer(requestListener);
-
-fs.readFile(__dirname + "/index.html")
-    .then( function(contents){
-        indexFile = contents;
-        server.listen(port, host, () => {
-            console.log(`Server is running on http://${host}:${port}`);
-        });
-    })
-    .catch(function(err) {
-        console.error(`Could not read index.html file: ${err}`);
-        process.exit(1);
-    });
-
-server.listen(port, host, () => {
-    console.log(`Server is running on http://${host}:${port}`);
-});
