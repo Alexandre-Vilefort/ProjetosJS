@@ -5,10 +5,11 @@ const products = require('../data.json');
 
 router.get('/', (req, res) => {
   res.json(products);
+  //console.log(products);
 });
 
 router.post('/', (req, res) => {
-  console.log(req.body);
+  console.log(req.body , '########### Post');
   const { name } = req.body;
   products.push({
     id: products.length + 1,
@@ -18,7 +19,7 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  console.log(req.body, req.params)
+  console.log(req.body,'######### Put')
   const { id } = req.params;
   const { name } = req.body;
 
@@ -32,10 +33,10 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  const { id } = req.params;
+  const ids = req.params.id;
 
   products.forEach((product, i) => {
-    if(product.id == id) {
+    if(product.id == ids) {
       products.splice(i, 1);
     }
   });

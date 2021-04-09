@@ -69,7 +69,8 @@ $(function () {
   $('table').on('click', '.delete-button', function() {
     let row = $(this).closest('tr');
     let id = row.find('.id').text();
-
+    //console.log(id);
+    //console.log(`${URI}/${id}   ######`)
     $.ajax({
       url: `${URI}/${id}`,
       method: 'DELETE',
