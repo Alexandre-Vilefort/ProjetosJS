@@ -45,4 +45,4 @@ $('#messagesForm').on('submit', (e) => {
 
 setInterval(function(){ 
     $('#getMessages').click();  
-}, 2000);
+}, 500);
