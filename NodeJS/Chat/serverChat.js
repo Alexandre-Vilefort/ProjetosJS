@@ -1,20 +1,23 @@
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
+///const cors = require('cors');
 
 const app = express();
 
 //setting
+
 app.set('port', process.env.PORT || 8000);
 app.set('host','localhost');
 
 //middlewares
+//app.use(cors());
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 // routes
-app.use('/api/chat', require('./routes/apiChat'));
+app.use('/api/chat', require('./routes/apiChatTest'));
 
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
