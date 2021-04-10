@@ -8,8 +8,8 @@ $('#getMessages').on('click', () => {
       success: function (chatText) {
         let tbody = $('tbody');
         tbody.html('');
-        console.log("chatText:")
-        console.log(chatText);
+        //console.log("chatText:")
+        //console.log(chatText);
         chatText.forEach(chat => {
           tbody.append(`
               <tr>
