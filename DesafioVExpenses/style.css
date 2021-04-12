@@ -188,6 +188,7 @@ a.article:hover {
     position: absolute;
     top: 0;
     right: 0;
+    z-index: 950;
 }
 
 .rotate {
@@ -195,9 +196,8 @@ a.article:hover {
     opacity: 0.1;
     position: fixed;
     z-index: -1;
-  }
-  
-  @keyframes rotation {
+  }  
+@keyframes rotation {
     from {
       transform: rotate(0deg);
     }
@@ -205,3 +205,16 @@ a.article:hover {
       transform: rotate(359deg);
     }
   }
+
+.profileImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #512DA8;
+    font-size: 25px;
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+    margin: 0px 25px;
+  }
+
