@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8 ">
+    <script>
+        function exer2() {
+            let vetor = []; // cria vetor
+            for (let i = 0; i < 2; i++) {
+                let objeto = new Object();
+                objeto.salario = Number(prompt('Informe o salário'));
+                objeto.filhos = Number(prompt('Informe o número de filhos'));
+                objeto.sexo = prompt('Informe o sexo: F para feminino e M para masculino').toUpperCase();
+                objeto.idade = Number(prompt("Informe a idade"));
+
+                vetor.push(objeto);
+            }
+
+            let mediaSal = 0;
+            let mediaFil = 0;
+            let mediaIda = 0;
+            let maiorSal = vetor[0].salario;
+            let mulh = 0;
+            let mulhSal1000 = 0;
+            for (let i of vetor) {
+                mediaSal += i.salario;
+                mediaFil += i.filhos;
+                mediaIda += i.idade;
+                if (i.salario > maiorSal){maiorSal = i.salario};
+
+                if (i.sexo == "F") {
+                    mulh++;
+                    if (i.salario > 1000) {
+                        mulhSal1000++;
+                    }
+                }
+            }
+
+            mediaSal = mediaSal / vetor.length;
+            mediaFil = mediaFil / vetor.length;
+            mediaIda = mediaIda / vetor.length;
+            mulhSal1000 = mulhSal1000/mulh*vetor.length;
+
+            console.log(mulh);
+            console.log(mulhSal1000);
+
+            document.getElementById('output1').innerHTML = `média de salário é R$ ${mediaSal.toFixed(2)}`;
+            document.getElementById('output2').innerHTML = `média de filhos é ${mediaFil}`;
+            document.getElementById('output3').innerHTML = `maior salário é R$ ${maiorSal.toFixed(2)}`;
+            document.getElementById('output4').innerHTML = `porcentual de mulheres com salário maior que R$ 1000 é ${mulhSal1000}`;
+        }
+        function exer6() {
+            let clientes = {};
+            let contas = {};
+            let exit = false;
+
+            while(exit == false){
+                let numeroConta = Number(prompt("Informe o número da conta"));
+                let numeroCliente = Number(prompt("Informe o numero do cliente"));
+                let saldo = Number(prompt("Informe o saldo da conta"));
+
+                contas[numeroConta] = {"número da conta":numeroConta,"número cliente":numeroCliente, "saldo":saldo}
+
+                if (!(clientes[numeroCliente])){
+                    console.log("hi");
+                    alert('Cadastro de novo cliente');
+                    let nomeCliente = prompt("Informe o nome do cliente novo");
+                    let endereco = prompt("Informe o endereço do cliente novo");
+                    let telefone = prompt("Informe o telefone do cliente novo");
+                    clientes[numeroCliente] = {"número do cliente": numeroCliente,"nome": nomeCliente, "endereço":endereco,"telefone":telefone};
+                }
+                exit = prompt("deseja sair? 1 para sim, 0 para não")
+            }
+            console.log(clientes);
+            console.log(contas);
+        }
+   </script>
+    <style>
+        body {
+            background-color: rgb(86, 124, 139);
+            font-family: 'lato', sans-serif;
+        }
+
+        #conteiner {
+            width: 500px;
+            margin: auto;
+            margin-top: 120px;
+            padding: 10px;
+            background-color: rgba(195, 218, 228, 0.884);
+            border-radius: 15px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            color: rgb(80, 75, 121);
+            margin-top: 12px;
+            padding: 10px;
+        }
+
+        button {
+            position: relative;
+            left: 20%;
+            margin: 10px;
+            border-radius: 12px;
+            border: 2px solid #4c74af;
+            padding: 10px 30px;
+            font-size: 20px;
+            background-color: rgb(195, 218, 228);
+            transition-duration: 0.5s;
+        }
+
+        button:hover {
+            background-color: #4c74af;
+            color: white;
+        }
+
+        .table {
+            visibility: hidden;
+        }
+
+        th,
+        td {
+            border: 0px solid rgba(195, 218, 228, 0.884);
+            text-align: center;
+            border-radius: 6px;
+            padding: 6px;
+
+        }
+
+        .table-header {
+            background-color: #4c74af;
+            color: rgba(195, 218, 228, 0.884);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            transition-duration: 0.5s;
+        }
+
+        .table-header:hover {
+            color: #4c74af;
+            background-color: rgba(195, 218, 228, 0.884);
+        }
+
+
+        .table-row {
+            background-color: rgb(86, 124, 139);
+            color: rgba(195, 218, 228, 0.884);
+            transition-duration: 0.5s;
+        }
+
+        .table-row:hover {
+            color: rgb(86, 124, 139);
+            background-color: rgba(195, 218, 228, 0.884);
+        }
+
+        tr {
+            border-radius: 3px;
+            padding: 25px 30px;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .output,
+        .saida {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            padding: 10px;
+            font-size: 20px;
+            color: rgb(80, 75, 121);
+            transition-duration: 0.5s;
+        }
+
+        .output:hover {
+            background-color: rgb(86, 124, 139);
+            color: rgb(195, 218, 228);
+            border-radius: 15px;
+        }
+
+        /* Tooltip text */
+        .tooltiptext {
+            visibility: hidden;
+
+            background-color: black;
+            opacity: 0.0;
+            color: #fff;
+            text-align: left;
+            padding: 5px 0;
+            border-radius: 6px;
+            /* Position the tooltip text - see examples below!*/
+            position: absolute;
+            z-index: 1;
+            transition-duration: 0.5s;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .divbutton:hover .tooltiptext {
+            visibility: visible;
+            opacity: 0.8;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="conteiner">
+        <h1>Exercícios Lista Vetor </h1>
+        <h2> Escolha um dos exercícios abaixo</h2>
+        <div class="divbutton">
+            <br><button type="button" onclick="exer2()"> Exercício 2 </button>
+            <span class="tooltiptext"> Faça um programa que ...
+                <br> ...
+                <br> - ...
+                <br> - ...
+            </span>
+        </div>
+
+        <div class="divbutton">
+            <br><button type="button" onclick="exer6()"> Exercício 6 </button>
+            <span class="tooltiptext"> Faça um programa que ...
+                <br> ...
+                <br> - ...
+                <br> - ...
+            </span>
+        </div>
+
+        <div class="output">
+            <p id="output1"></p>
+            <p id="output2"></p>
+            <p id="output3"></p>
+            <p id="output4"></p>
+        </div>
+        <div class="table">
+            <p class="output">Tabela para o cálculo do novo Valor do Carro</p>
+            <table id="tableEx11">
+                <thead>
+                    <!--header da tablea-->
+                    <tr class="table-header">
+                    </tr>
+                </thead>
+                <tbody id="dadosTabela">
+                    <!--Corpo da tabela-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>
