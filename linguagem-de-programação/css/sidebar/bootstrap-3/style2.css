@@ -1,8 +1,9 @@
 /*
     DEMO STYLE
 */
-
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+
 body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
@@ -16,9 +17,7 @@ p {
     color: #999;
 }
 
-a,
-a:hover,
-a:focus {
+a, a:hover, a:focus {
     color: inherit;
     text-decoration: none;
     transition: all 0.3s;
@@ -49,58 +48,20 @@ a:focus {
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
-
 #sidebar {
     width: 250px;
     position: fixed;
     top: 0;
-    left: -250px;
+    left: 0;
     height: 100vh;
     z-index: 999;
     background: #7386D5;
     color: #fff;
     transition: all 0.3s;
-    overflow-y: scroll;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
 #sidebar.active {
-    left: 0;
-}
-
-#dismiss {
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
-    text-align: center;
-    background: #7386D5;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    -webkit-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
-}
-
-#dismiss:hover {
-    background: #fff;
-    color: #7386D5;
-}
-
-.overlay {
-    display: none;
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 998;
-    opacity: 0;
-    transition: all 0.5s ease-in-out;
-}
-.overlay.active {
-    display: block;
-    opacity: 1;
+    margin-left: -250px;
 }
 
 #sidebar .sidebar-header {
@@ -123,29 +84,33 @@ a:focus {
     font-size: 1.1em;
     display: block;
 }
-
 #sidebar ul li a:hover {
     color: #7386D5;
     background: #fff;
 }
 
-#sidebar ul li.active>a,
-a[aria-expanded="true"] {
+#sidebar ul li.active > a, a[aria-expanded="true"] {
     color: #fff;
     background: #6d7fcc;
 }
+
 
 a[data-toggle="collapse"] {
     position: relative;
 }
 
-.dropdown-toggle::after {
+a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
+    content: '\e259';
     display: block;
     position: absolute;
-    top: 50%;
     right: 20px;
-    transform: translateY(-50%);
+    font-family: 'Glyphicons Halflings';
+    font-size: 0.6em;
 }
+a[aria-expanded="true"]::before {
+    content: '\e260';
+}
+
 
 ul ul a {
     font-size: 0.9em !important;
@@ -164,44 +129,50 @@ ul.CTAs a {
     border-radius: 5px;
     margin-bottom: 5px;
 }
-
 a.download {
     background: #fff;
     color: #7386D5;
 }
-
-a.article,
-a.article:hover {
+a.article, a.article:hover {
     background: #6d7fcc !important;
     color: #fff !important;
 }
 
+
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
-
 #content {
-    width: 100%;
-    padding: 20px;
+    width: calc(100% - 250px);
+    padding: 40px;
     min-height: 100vh;
     transition: all 0.3s;
     position: absolute;
     top: 0;
     right: 0;
 }
+#content.active {
+    width: 100%;
+}
 
-.rotate {
-    animation: rotation 20s infinite linear;
-    opacity: 0.1;
-    position: fixed;
-    z-index: -1;
-  }
-  
-  @keyframes rotation {
-    from {
-      transform: rotate(0deg);
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
     }
-    to {
-      transform: rotate(359deg);
+    #sidebar.active {
+        margin-left: 0;
     }
-  }
+    #content {
+        width: 100%;
+    }
+    #content.active {
+        width: calc(100% - 250px);
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}
