@@ -4,8 +4,8 @@ const cors = require('cors');
 
 router.use(cors());
 
-//var contacts = require('../data.json');
-var contacts = [];
+var contacts = require('../data.json');
+//var contacts = [];
 let clients = [];
 let facts = [];
 
@@ -40,7 +40,7 @@ router.get('/connect', eventsHandler);
 
 router.get('/', (req, res) => {
     res.json(contacts);
-    //console.log(contacts);
+    console.log("Teste LoadContacts");
 });
 
 router.post('/',addMessage);
@@ -50,11 +50,13 @@ function sendEventsToAll(newData) {
 }
 
 async function addMessage(req,res,next){
-    const newMessage = req.body;
-    console.log(newMessage);
-    contacts.push(newMessage);
+    let newData = req.body;
+    console.log("entrou POST");
+    console.log(newData);
+    contacts.push(newData);
+    console.log(contacts);
     res.json('Successfully created');
-    return sendEventsToAll(newMessage);
+    return sendEventsToAll(newData);
 }
 
 module.exports = router;
