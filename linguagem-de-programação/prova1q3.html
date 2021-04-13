@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8 ">
+    <script>
+        var vetorPessoas = [];
+        var vetorImoveis = [];
+
+        function questao3() {
+            for (let i = 0; i < 10; i++) {
+                let pessoa = new Object();
+                pessoa.rg = Number(prompt(`Pessoa ${i + 1}: Informe o RG`));
+                pessoa.cpf = Number(prompt(`Pessoa ${i + 1}: Informe o CPF`));
+                pessoa.nome = prompt(`Pessoa ${i + 1}: Informe o nome`);
+                vetorPessoas.push(pessoa);
+            }
+            for (let i = 0; i < 2; i++) {
+                let imovel = new Object();
+                imovel.endereco = Number(prompt(`Imóvel ${i + 1}: Informe o endereço`));
+                imovel.tamanho = Number(prompt(`Imóvel ${i + 1}: Informe o tamanho`));
+                imovel.valor = Number(prompt(`Imóvel ${i + 1}: Informe o valor`));
+                imovel.rgDono = Number(prompt(`Imóvel ${i + 1}: Informe o RG do dono`));
+                vetorImoveis.push(imovel);
+            }
+        }
+        function questao3RG() {
+            let RG = Number(prompt(`Informe o RG para realizar a pesquisa`));
+            let valorTotalImoveis = 0;
+            let nome = "";
+            for (let imovel of vetorImoveis) {
+                if (imovel.rgDono == RG) {
+                    valorTotalImoveis += imovel.valor;
+                }
+            }
+            for (let pessoa of vetorPessoas) {
+                if (pessoa.rg == RG) {
+                    nome = pessoa.nome;
+                    break
+                }
+            }
+            document.getElementById('output1').innerHTML = `O nome do dono do RG ${RG} é ${nome}`;
+            document.getElementById('output2').innerHTML = `O valor de seus imóveis é R$ ${valorTotalImoveis.toFixed(2)}`;
+        }
+
+    </script>
+    <style>
+        body {
+            background-color: rgb(86, 124, 139);
+            font-family: 'lato', sans-serif;
+        }
+
+        #conteiner {
+            width: 500px;
+            margin: auto;
+            margin-top: 120px;
+            padding: 10px;
+            background-color: rgba(195, 218, 228, 0.884);
+            border-radius: 15px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            color: rgb(80, 75, 121);
+            margin-top: 12px;
+            padding: 10px;
+        }
+
+        button {
+            position: relative;
+            left: 20%;
+            margin: 10px;
+            border-radius: 12px;
+            border: 2px solid #4c74af;
+            padding: 10px 30px;
+            font-size: 20px;
+            background-color: rgb(195, 218, 228);
+            transition-duration: 0.5s;
+        }
+
+        button:hover {
+            background-color: #4c74af;
+            color: white;
+        }
+
+        .table {
+            visibility: hidden;
+        }
+
+        th,
+        td {
+            border: 0px solid rgba(195, 218, 228, 0.884);
+            text-align: center;
+            border-radius: 6px;
+            padding: 6px;
+
+        }
+
+        .table-header {
+            background-color: #4c74af;
+            color: rgba(195, 218, 228, 0.884);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            transition-duration: 0.5s;
+        }
+
+        .table-header:hover {
+            color: #4c74af;
+            background-color: rgba(195, 218, 228, 0.884);
+        }
+
+
+        .table-row {
+            background-color: rgb(86, 124, 139);
+            color: rgba(195, 218, 228, 0.884);
+            transition-duration: 0.5s;
+        }
+
+        .table-row:hover {
+            color: rgb(86, 124, 139);
+            background-color: rgba(195, 218, 228, 0.884);
+        }
+
+        tr {
+            border-radius: 3px;
+            padding: 25px 30px;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .output,
+        .saida {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            padding: 10px;
+            font-size: 20px;
+            color: rgb(80, 75, 121);
+            transition-duration: 0.5s;
+        }
+
+        .output:hover {
+            background-color: rgb(86, 124, 139);
+            color: rgb(195, 218, 228);
+            border-radius: 15px;
+        }
+
+        /* Tooltip text */
+        .tooltiptext {
+            visibility: hidden;
+            background-color: black;
+            opacity: 0.0;
+            color: #fff;
+            text-align: left;
+            padding: 10px 10px;
+            border-radius: 6px;
+            /* Position the tooltip text - see examples below!*/
+            position: absolute;
+            z-index: 1;
+            transition-duration: 0.5s;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .divbutton:hover .tooltiptext {
+            visibility: visible;
+            opacity: 0.8;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="conteiner">
+        <h1>Prova de Linguagem de Programação</h1>
+        <h2> Questão 3</h2>
+        <div class="divbutton">
+            <br><button type="button" onclick="questao3()"> Cadastrar </button>
+            <!-- <span class="tooltiptext"> receber a metragem do apartamento
+                <br> e o número de garagens, e calcular o valor total
+            </span> -->
+        </div>
+        <div class="divbutton">
+            <br><button type="button" onclick="questao3RG()"> Pesquisa RG </button>
+            <!-- <span class="tooltiptext"> receber a metragem do apartamento
+                <br> e o número de garagens, e calcular o valor total
+            </span> -->
+        </div>
+        <div class="output">
+            <p id="output1"></p>
+            <p id="output2"></p>
+            <p id="output3"></p>
+            <p id="output4"></p>
+        </div>
+        <div class="table">
+            <p class="output">Tabela para o cálculo do novo Valor do Carro</p>
+            <table id="tableEx11">
+                <thead>
+                    <!--header da tablea-->
+                    <tr class="table-header">
+                    </tr>
+                </thead>
+                <tbody id="dadosTabela">
+                    <!--Corpo da tabela-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>

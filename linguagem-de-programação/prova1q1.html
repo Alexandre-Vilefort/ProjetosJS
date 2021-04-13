@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8 ">
+    <script>
+        var valorTotal = 0;
+        var parcela1 = 0;
+        var parcela2 = 0;
+        var parcela3 = 0;
+        var btnSol = document.getElementById("btnSol");
+        var btnAndar = document.getElementById("btnAndar");
+        function questao1(opt) {
+            if (opt == 1) {
+                //Valor total
+                let metragem = Number(prompt('Forneça a metragem do apartamento (metros quadrados)'));
+                let numGaragem = Number(prompt('Forneça o número de garagens'));
+                if (metragem <= 80) {
+                    if (numGaragem == 1) {
+                        parcela1 = 300000;
+                    } else if (numGaragem == 2) {
+                        parcela1 = 320000;
+                    } else if (numGaragem == 3) {
+                        parcela1 = 340000;
+                    } else {
+                        alert("Número inválido");
+                    }
+                } else if (metragem > 80 && metragem <= 120) {
+                    if (numGaragem == 1) {
+                        parcela1 = 400000;
+                    } else if (numGaragem == 2) {
+                        parcela1 = 420000;
+                    } else if (numGaragem == 3) {
+                        parcela1 = 440000;
+                    } else {
+                        alert("Número inválido")
+                    }
+                } else if (metragem > 120) {
+                    if (numGaragem == 1) {
+                        parcela1 = 500000;
+                    } else if (numGaragem == 2) {
+                        parcela1 = 520000;
+                    } else if (numGaragem == 3) {
+                        parcela1 = 540000;
+                    } else {
+                        alert("Número inválido");
+                    }
+                }
+
+
+            } else if (opt == 2) {
+                //Acréscimo em função do andar
+                let andar = Number(prompt('Forneça o andar do apartamento'));
+                if (andar == 1 && parcela1 != 0) {
+                    parcela2 = 10000;
+                } else if (andar == 2 && parcela1 != 0) {
+                    parcela2 = 20000;
+                } else if (andar == 3 && parcela1 != 0) {
+                    parcela2 = 30000;
+                } else if (parcela1 == 0){
+                    alert("Clique primeiro em Valor Total e coloque um valor diferente de zero");
+                }else{
+                    alert("Valor inválido");
+                }
+            } else if (opt == 3) {
+                //Acréscimo em função da posição do sol
+                let posiSol = prompt('Forneça a posição do sol (M ou T)');
+                if (posiSol.toUpperCase() == "M" && parcela1 != 0) {
+                    parcela3 = 5;
+                } else if (posiSol.ToUpperCase() == "T" && parcela1 != 0) {
+                    parcela3 = 8;
+                } else if (parcela1 == 0){
+                    alert("Clique primeiro em Valor Total e coloque um valor diferente de zero");
+                }else{
+                    alert("Valor inválido");
+                }
+            } else if (opt == 4) {
+                valorTotal = 0;
+                parcela1 = 0;
+                parcela2 = 0;
+                parcela3 = 0;
+                document.getElementById('output1').innerHTML = "";
+                document.getElementById('output2').innerHTML = "";
+                document.getElementById('output3').innerHTML = "";
+                document.getElementById('output4').innerHTML = "";
+            } else {
+                alert("Erro");
+            }
+            valorTotal = parcela1 + parcela2;
+            valorTotal = valorTotal * (1 + parcela3 / 100);
+
+            document.getElementById('output1').innerHTML = `Valor pela metragem e garagem é R$ ${parcela1.toFixed(2)}`;
+            document.getElementById('output2').innerHTML = `O acréscimo pelo andar é R$ ${parcela2.toFixed(2)}`;
+            document.getElementById('output3').innerHTML = `O acréscimo percentual pela posição do sol é ${parcela3.toFixed(2)}%`
+            document.getElementById('output4').innerHTML = `Valor total é R$ ${valorTotal.toFixed(2)}`;
+        }
+    </script>
+    <style>
+        body {
+            background-color: rgb(86, 124, 139);
+            font-family: 'lato', sans-serif;
+        }
+
+        #conteiner {
+            width: 500px;
+            margin: auto;
+            margin-top: 120px;
+            padding: 10px;
+            background-color: rgba(195, 218, 228, 0.884);
+            border-radius: 15px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            color: rgb(80, 75, 121);
+            margin-top: 12px;
+            padding: 10px;
+        }
+
+        button {
+            position: relative;
+            left: 20%;
+            margin: 10px;
+            border-radius: 12px;
+            border: 2px solid #4c74af;
+            padding: 10px 30px;
+            font-size: 20px;
+            background-color: rgb(195, 218, 228);
+            transition-duration: 0.5s;
+        }
+
+        button:hover {
+            background-color: #4c74af;
+            color: white;
+        }
+
+        .table {
+            visibility: hidden;
+        }
+
+        th,
+        td {
+            border: 0px solid rgba(195, 218, 228, 0.884);
+            text-align: center;
+            border-radius: 6px;
+            padding: 6px;
+
+        }
+
+        .table-header {
+            background-color: #4c74af;
+            color: rgba(195, 218, 228, 0.884);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            transition-duration: 0.5s;
+        }
+
+        .table-header:hover {
+            color: #4c74af;
+            background-color: rgba(195, 218, 228, 0.884);
+        }
+
+
+        .table-row {
+            background-color: rgb(86, 124, 139);
+            color: rgba(195, 218, 228, 0.884);
+            transition-duration: 0.5s;
+        }
+
+        .table-row:hover {
+            color: rgb(86, 124, 139);
+            background-color: rgba(195, 218, 228, 0.884);
+        }
+
+        tr {
+            border-radius: 3px;
+            padding: 25px 30px;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .output,
+        .saida {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            padding: 10px;
+            font-size: 20px;
+            color: rgb(80, 75, 121);
+            transition-duration: 0.5s;
+        }
+
+        .output:hover {
+            background-color: rgb(86, 124, 139);
+            color: rgb(195, 218, 228);
+            border-radius: 15px;
+        }
+
+        /* Tooltip text */
+        .tooltiptext {
+            visibility: hidden;
+            background-color: black;
+            opacity: 0.0;
+            color: #fff;
+            text-align: left;
+            padding: 10px 10px;
+            border-radius: 6px;
+            /* Position the tooltip text - see examples below!*/
+            position: absolute;
+            z-index: 1;
+            transition-duration: 0.5s;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .divbutton:hover .tooltiptext {
+            visibility: visible;
+            opacity: 0.8;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div id="conteiner">
+        <h1>Prova de Linguagem de Programação</h1>
+        <h2> Questão 1</h2>
+        <div class="divbutton">
+            <br><button type="button" onclick="questao1(1)"> Valor total </button>
+            <span class="tooltiptext"> receber a metragem do apartamento
+                <br> e o número de garagens, e calcular o valor total
+            </span>
+        </div>
+
+        <div class="divbutton">
+            <br><button type="button" onclick="questao1(2)" id="btnAndar"> Acrécimo andar </button>
+            <span class="tooltiptext"> receber o andar do apartamento,
+                <br> e informar o acréscimo
+            </span>
+        </div>
+
+        <div class="divbutton">
+            <br><button type="button" onclick="questao1(3)" id="btnSol">Acréscimo posição do
+                sol</button>
+            <span class="tooltiptext"> receber a posição do sol
+                <br> e informar o acréscimo
+            </span>
+        </div>
+        <div class="divbutton">
+            <br><button type="button" onclick="questao1(4)">Sair</button>
+            <span class="tooltiptext"> Limpar valores.
+            </span>
+        </div>
+        <div class="output">
+            <p id="output1"></p>
+            <p id="output2"></p>
+            <p id="output3"></p>
+            <p id="output4"></p>
+        </div>
+        <div class="table">
+            <p class="output">Tabela para o cálculo do novo Valor do Carro</p>
+            <table id="tableEx11">
+                <thead>
+                    <!--header da tablea-->
+                    <tr class="table-header">
+                    </tr>
+                </thead>
+                <tbody id="dadosTabela">
+                    <!--Corpo da tabela-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>

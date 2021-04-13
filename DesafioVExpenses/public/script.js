@@ -26,8 +26,6 @@ $(document).ready(function () {
         container.html(`
         <div class="contact-form card col-lg-4">
             <div class="card-body">
-            <div class="contact-form card col-lg-4">
-            <div class="card-body">
                 <form id="newContact-form" >
                     <input  type="text" class="form-control" id="newNameInp" placeholder="Nome">
                     <br>
@@ -37,7 +35,6 @@ $(document).ready(function () {
                     <br>
                     <button class="form-control btn-dark" id="btnSaveNewContact" onclick="btnSalvar()">Salvar</button>
                 </form>
-            </div>
             </div>
         </div>`);
     });

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8 ">
+    <script>
+        function questao2() {
+            var vetorMaq = [];
+            var quan1 = 0;//quantidade de máquinas com idade superior a 3 anos e peso inferior a 10.5 quilos
+            var media1 = 0;//A média das idades das máquinas com altura inferior a 8.5
+            var quanMedia1 = 0;
+            var percen1 = 0;//percentagem de máquinas com função para corte entre todas as máquinas analisadas
+            var quanPercen1=0;
+            var quan2 = 0; //quantidade de máquinas do departamento de acabamento e que não são utilizadas para chanfração. 
+            for (let i = 0; i < 4; i++) {
+                let maq = new Object();
+                maq.idade = Number(prompt(`Máquina ${i+1}: Informe o idade da máquina`));
+                maq.peso = Number(prompt(`Máquina ${i+1}: Informe o peso da máquina`));
+                maq.altura = Number(prompt(`Máquina ${i+1}: Informe o altura da máquina`));
+                let funcaoUp = prompt(`Máquina ${i+1}: Informe o função da máquina (C – para corte; A – para aparar e X – para chanfrar)`);
+                maq.funcao = funcaoUp.toUpperCase();
+                let departamentoUp = prompt(`Máquina ${i+1}: Informe o departamento (A – acabamento; C – criação e P - produção)`);
+                maq.departamento = departamentoUp.toUpperCase()
+                vetorMaq.push(maq);
+            }
+            for (let maq of vetorMaq) {
+                if (maq.idade > 3 && maq.peso < 10.5) {
+                    quan1++;
+                }
+                if(maq.altura < 8.5){
+                    quanMedia1++;
+                    media1 += maq.idade;
+                }
+                if (maq.funcao == "C"){
+                    quanPercen1++;
+                }
+                if(maq.departamento == "A" && maq.funcao != "X"){
+                    quan2++;
+                }
+
+            }
+            media1 = media1/quanMedia1;
+            percen1 = quanPercen1/vetorMaq.length*100
+            document.getElementById('output1').innerHTML = `Total de máquinas ${vetorMaq.length} <br> quantidade de máquinas com idade superior a 3 anos e peso inferior a 10.5 quilos é ${quan1}`;
+            document.getElementById('output2').innerHTML = `A média das idades das máquinas com altura inferior a 8.5 é ${media1.toFixed(2)}`;
+            document.getElementById('output3').innerHTML = `percentagem de máquinas com função para corte entre todas as máquinas analisadas é de ${percen1.toFixed(2)}%`
+            document.getElementById('output4').innerHTML = `quantidade de máquinas do departamento de acabamento e que não são utilizadas para chanfração:  ${quan2}`;
+        }
+
+    </script>
+    <style>
+        body {
+            background-color: rgb(86, 124, 139);
+            font-family: 'lato', sans-serif;
+        }
+
+        #conteiner {
+            width: 500px;
+            margin: auto;
+            margin-top: 120px;
+            padding: 10px;
+            background-color: rgba(195, 218, 228, 0.884);
+            border-radius: 15px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            color: rgb(80, 75, 121);
+            margin-top: 12px;
+            padding: 10px;
+        }
+
+        button {
+            position: relative;
+            left: 20%;
+            margin: 10px;
+            border-radius: 12px;
+            border: 2px solid #4c74af;
+            padding: 10px 30px;
+            font-size: 20px;
+            background-color: rgb(195, 218, 228);
+            transition-duration: 0.5s;
+        }
+
+        button:hover {
+            background-color: #4c74af;
+            color: white;
+        }
+
+        .table {
+            visibility: hidden;
+        }
+
+        th,
+        td {
+            border: 0px solid rgba(195, 218, 228, 0.884);
+            text-align: center;
+            border-radius: 6px;
+            padding: 6px;
+
+        }
+
+        .table-header {
+            background-color: #4c74af;
+            color: rgba(195, 218, 228, 0.884);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            transition-duration: 0.5s;
+        }
+
+        .table-header:hover {
+            color: #4c74af;
+            background-color: rgba(195, 218, 228, 0.884);
+        }
+
+
+        .table-row {
+            background-color: rgb(86, 124, 139);
+            color: rgba(195, 218, 228, 0.884);
+            transition-duration: 0.5s;
+        }
+
+        .table-row:hover {
+            color: rgb(86, 124, 139);
+            background-color: rgba(195, 218, 228, 0.884);
+        }
+
+        tr {
+            border-radius: 3px;
+            padding: 25px 30px;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .output,
+        .saida {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            padding: 10px;
+            font-size: 20px;
+            color: rgb(80, 75, 121);
+            transition-duration: 0.5s;
+        }
+
+        .output:hover {
+            background-color: rgb(86, 124, 139);
+            color: rgb(195, 218, 228);
+            border-radius: 15px;
+        }
+
+        /* Tooltip text */
+        .tooltiptext {
+            visibility: hidden;
+            background-color: black;
+            opacity: 0.0;
+            color: #fff;
+            text-align: left;
+            padding: 10px 10px;
+            border-radius: 6px;
+            /* Position the tooltip text - see examples below!*/
+            position: absolute;
+            z-index: 1;
+            transition-duration: 0.5s;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .divbutton:hover .tooltiptext {
+            visibility: visible;
+            opacity: 0.8;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="conteiner">
+        <h1>Prova de Linguagem de Programação</h1>
+        <h2>Questão 2</h2>
+        <div class="divbutton">
+            <br><button type="button" onclick="questao2()"> Questão 2 </button>
+            <!-- <span class="tooltiptext"> receber a metragem do apartamento
+                <br> e o número de garagens, e calcular o valor total
+            </span> -->
+        </div>
+        <div class="output">
+            <p id="output1"></p>
+            <p id="output2"></p>
+            <p id="output3"></p>
+            <p id="output4"></p>
+        </div>
+        <div class="table">
+            <p class="output">Tabela para o cálculo do novo Valor do Carro</p>
+            <table id="tableEx11">
+                <thead>
+                    <!--header da tablea-->
+                    <tr class="table-header">
+                    </tr>
+                </thead>
+                <tbody id="dadosTabela">
+                    <!--Corpo da tabela-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>

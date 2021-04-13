@@ -56,7 +56,7 @@ async function addMessage(req,res,next){
     contacts.push(newData);
     console.log(contacts);
     res.json('Successfully created');
-    return sendEventsToAll(newData);
+    //return sendEventsToAll(newData);
 }
 
 module.exports = router;
