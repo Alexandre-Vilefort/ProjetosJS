@@ -1,10 +1,14 @@
 [
   {
     "id": 1,
-    "name": "laptop"
+    "name": "Alexandre",
+    "phone": "555-555",
+    "email": "alexandre@email.com"
   },
   {
     "id": 2,
-    "name": "microphone"
+    "name": "Bruno",
+    "phone": "555-555",
+    "email": "bruno@email.com"
   }
 ]
