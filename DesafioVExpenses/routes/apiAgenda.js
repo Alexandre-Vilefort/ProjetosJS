@@ -4,8 +4,8 @@ const cors = require('cors');
 
 router.use(cors());
 
-//var chatText = require('../data.json');
-var chatText = [];
+//var contacts = require('../data.json');
+var contacts = [];
 let clients = [];
 let facts = [];
 
@@ -39,8 +39,8 @@ function eventsHandler(req, res, next) {
 router.get('/connect', eventsHandler);
 
 router.get('/', (req, res) => {
-    res.json(chatText);
-    //console.log(chatText);
+    res.json(contacts);
+    //console.log(contacts);
 });
 
 router.post('/',addMessage);
@@ -52,7 +52,7 @@ function sendEventsToAll(newData) {
 async function addMessage(req,res,next){
     const newMessage = req.body;
     console.log(newMessage);
-    chatText.push(newMessage);
+    contacts.push(newMessage);
     res.json('Successfully created');
     return sendEventsToAll(newMessage);
 }
