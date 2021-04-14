@@ -15,8 +15,8 @@ function eventsHandler(req, res, next) {
         'Content-Type': 'text/event-stream',
         'Connection': 'keep-alive',
         'Cache-Control': 'no-cache',
-        'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
     };
     res.writeHead(200, headers);
     const data = `data: ${JSON.stringify(facts)}\n\n`;
@@ -28,7 +28,7 @@ function eventsHandler(req, res, next) {
     };
     clients.push(newClient);
     console.log(`${clientId} Connection open`)
-        
+
     req.on('close', () => {
         console.log(`${clientId} Connection closed`);
         clients = clients.filter(client => client.id !== clientId);
@@ -43,18 +43,24 @@ router.get('/', (req, res) => {
     console.log("Teste LoadContacts");
 });
 
-router.post('/',addMessage);
+router.post('/novoCadastro', addMessage);
+
+// router.post('/novoCadastro', (req, res) => {
+//     console.log(req.body);
+//     //res.end();
+// });
 
 function sendEventsToAll(newData) {
     clients.forEach(client => client.res.write(`data: ${JSON.stringify(newData)}\n\n`))
 }
 
-async function addMessage(req,res,next){
+async function addMessage(req, res, next) {
     let newData = req.body;
-    console.log("entrou POST");
+    console.log("entrou POST #############");
+    newData.id = contacts.length+1;
     console.log(newData);
     contacts.push(newData);
-    console.log(contacts);
+    //console.log(contacts);
     res.json('Successfully created');
     //return sendEventsToAll(newData);
 }

@@ -26,24 +26,53 @@ $(document).ready(function () {
         container.html(`
         <div class="contactForm card col-lg-4">
             <div class="card-body">
-                <form id="newContactForm" action="/api" method="post" >
+                <form id="newContactForm" action="/api/novoCadastro" method="post" >
                     <label for="newNameInp">Nome</label>
                     <input  type="text" name="name" class="form-control" id="newNameInp" placeholder="Nome">
                     <br>
                     <label for="newEmailInp">Email</label>
                     <input  type="email" name="email" class="form-control" id="newEmailInp" placeholder="Email">
                     <br>
-                    <label for="newPhoneInp">Fone</label>
+                    <label for="newPhoneInp">Fone1</label>
                     <input  type="tel" name="phone" class="form-control" id="newPhoneInp" placeholder="Phone">
+                    <br><label for="newPhoneInp2">Fone2</label>
+                    <input  type="tel" name="phone" class="form-control" id="newPhoneInp2" placeholder="Phone">
                     <br>
-                    <button type="submit" class="form-control btn-dark" onclick="btnSalvar1()">Salvar</button>
+                    <button type="submit" class="form-control btn-dark" id="btnSalvar">Salvar</button>
                 </form>
             </div>
         </div>`);
+        $('#newContactForm').on('submit', (e) => {
+            e.preventDefault();
+            console.log("apertou");
+            $.ajax({
+                url: URI+"/novoCadastro",
+                method: 'POST',
+                data: $('#newContactForm').serialize(),// method creates a text string in standard URL-encoded notation
+                success: function (res) {
+                    $('#loadContacts').click();
+                    console.log("Sucesso Post");
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        });
     });
 });
 
 //Back-end
+
+function btnSalvar1() {
+    console.log("submit");
+    $('#loadContacts').click();
+
+}
+
+function submitContactForm(e) {
+    console.log("nada")
+}
+
 $(document).ready(function () {
     $('#loadContacts').on('click', function () {
         $.ajax({
@@ -73,36 +102,6 @@ $(document).ready(function () {
         });
     });
 });
- function btnSalvar1(){
-     console.log("submit");
-     $('#loadContacts').click();
-
- }
-
-function btnSalvar(){
-    console.log("apertou");
-    let newName = $('#newNameInp');
-    let newEmail = $('#newEmailInp');
-    let newPhone = $('#newPhoneInp');
-    console.log(newName.val(),newPhone.val(),newEmail.val())
-    $.ajax({
-        url: URI,
-        method: 'POST',
-        data: {
-            id: 7,
-            name: newName.val(),
-            phone: newPhone.val(),
-            email: newEmail.val()
-        },
-        success: function (res) {
-            $('#loadContacts').click();
-        },
-        error: function (err) {
-            console.log(err);
-        }
-    });
-}
-
 
 {/* <div class="col-lg-6 mb-3">
     <div class="card"><div class="card-body"><table>
