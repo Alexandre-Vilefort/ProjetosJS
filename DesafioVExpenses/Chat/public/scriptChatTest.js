@@ -8,7 +8,6 @@ events.onmessage = (event) => {
     $('#getMessages').click();
 }
 
-
 $('#getMessages').on('click', () => {
     $.ajax({
         url: URI,
