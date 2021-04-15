@@ -10,7 +10,7 @@ body {
 
 p {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.1em;
+    font-size: 1.3em;
     font-weight: 300;
     line-height: 1.7em;
     color: #999;
@@ -56,7 +56,7 @@ a:focus {
     top: 0;
     left: -250px;
     height: 100vh;
-    z-index: 999;
+    z-index: 990;
     background: #7386D5;
     color: #fff;
     transition: all 0.3s;
@@ -94,7 +94,7 @@ a:focus {
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.7);
-    z-index: 998;
+    z-index: 960;
     opacity: 0;
     transition: all 0.5s ease-in-out;
 }
@@ -191,6 +191,10 @@ a.article:hover {
     z-index: 950;
 }
 
+#containerCards{
+    font-size: 1.2em;
+}
+
 .rotate {
     animation: rotation 20s infinite linear;
     opacity: 0.1;
@@ -215,6 +219,36 @@ a.article:hover {
     color: #fff;
     line-height: 50px;
     text-align: center;
-    margin: 0px 25px;
+    margin: 0px 15px;
   }
 
+div.trans{
+    transition-duration: 0.5s;
+}
+div.trans.bg-corp {
+      background-color: #7387d596;
+      color: #fff;  
+} 
+
+div.color-white{
+    color: #fff;
+}
+
+div.trans.color-white{
+    color: #512DA8;
+}
+
+.row [class*='col-'] {
+    transition: all 0.5s ease-in-out;
+}
+
+/* #newContacts{
+    z-index: 1000;
+    position: absolute;
+    top: 80px;
+    right: 50%;
+    width: 200px;
+    height: 100px;
+    border: 3px solid #73AD21;
+
+} */

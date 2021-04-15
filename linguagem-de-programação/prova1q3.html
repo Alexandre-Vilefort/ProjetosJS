@@ -6,7 +6,10 @@
     <script>
         var vetorPessoas = [];
         var vetorImoveis = [];
-
+        function mudarcord() {
+            var element = document.getElementById("teste1");
+            element.classList.toggle("bg-corp");
+        }
         function questao3() {
             for (let i = 0; i < 10; i++) {
                 let pessoa = new Object();
@@ -168,13 +171,22 @@
             visibility: visible;
             opacity: 0.8;
         }
+
+        h1.trans {
+            transition-duration: 1.5s;
+        }
+
+        h1.trans.bg-corp {
+            background-color: #7387d596;
+            color: #fff;
+        }
     </style>
 
 </head>
 
 <body>
     <div id="conteiner">
-        <h1>Prova de Linguagem de Programação</h1>
+        <h1 class="trans" id="teste1">Prova de Linguagem de Programação</h1>
         <h2> Questão 3</h2>
         <div class="divbutton">
             <br><button type="button" onclick="questao3()"> Cadastrar </button>
@@ -187,6 +199,9 @@
             <!-- <span class="tooltiptext"> receber a metragem do apartamento
                 <br> e o número de garagens, e calcular o valor total
             </span> -->
+        </div>
+        <div class="divbutton">
+            <br><button type="button" onclick="mudarcord()"> mudar cor </button>
         </div>
         <div class="output">
             <p id="output1"></p>
