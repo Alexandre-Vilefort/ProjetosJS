@@ -53,7 +53,6 @@ $(document).ready(function () {
         let count = 2;
         $('#rmvPhoneBtn').on('click', function (e) {
             e.preventDefault();
-            console.log("- apertou");
             let divPhone = $("#divPhone").html();
             let arDivPhone = divPhone.split("<br>");
             let sizeVector = arDivPhone.length - 1
@@ -66,11 +65,7 @@ $(document).ready(function () {
         });
         $('#addPhoneBtn').on('click', function (e) {
             e.preventDefault();
-            console.log("+ apertou");
-            let divPhone = $("#divPhone");
-            let newPhoneInput = `<br><label for="newPhoneInp2"><i class="fas fa-phone-alt fa-lg mr-3"></i>Fone ${count}</label>
-                                    <input  type="tel" name="phone" class="form-control" id="newPhoneInp2" placeholder="Phone">`
-            divPhone.append(newPhoneInput);
+            addInputPhone(count)
             count++;
         });
 
@@ -103,9 +98,6 @@ $(document).ready(function () {
             success: function (contacts) {
                 let container = $('#rowCards');
                 container.html('');
-                console.log("contacts:")
-                console.log(contacts);
-
                 contacts.forEach(contact => {
                     let phone = contact.phone;
                     if (Array.isArray(phone)) phone = phone[0];
@@ -128,7 +120,7 @@ $(document).ready(function () {
                         </div>
                     `)
                     $(`#card${contact.id}`).on('click', function () { cardExpand(contact) });
-                    $(`#iconContact${contact.id}`).on('click', function () {cardUpdate(contact) });
+                    $(`#iconContact${contact.id}`).on('click', function () { cardUpdate(contact) });
 
                 });
             }
@@ -136,16 +128,16 @@ $(document).ready(function () {
     });
 });
 
-function cardUpdate(contact){
-    console.log("Atualizar contato "+contact.name);
-    $("#tituloH2").text('Atualizar Contato '+contact.id);
+function cardUpdate(contact) {
+    console.log("Atualizar contato " + contact.name);
+    $("#tituloH2").text('Atualizar Contato ' + contact.id);
     let container = $('#rowCards');
     let phone = contact.phone;
     if (Array.isArray(phone)) phone = phone[0];
-        container.html(`
+    container.html(`
         <div class="contactForm card col-lg-4">
             <div class="card-body">
-                <form id="newContactForm" action="/api/novoCadastro" method="post" >
+                <form id="newContactForm" action="/api/updateCadastro" method="put" >
                     <label for="newNameInp">Nome</label>
                     <input  type="text" name="name" class="form-control" id="newNameInp" value="${contact.name}">
                     <br>
@@ -165,19 +157,61 @@ function cardUpdate(contact){
                 </form>
             </div>
         </div>`);
-        let tdCont = $(`#divPhone`);
-        let count = 1;
-        if (Array.isArray(contact.phone)) {
-            console.log("newPhoneInput")
-            for (let p = 1; p < contact.phone.length; p++) {
-                count++;
-                tdCont.append(`<br><label for="newPhoneInp2"><i class="fas fa-phone-alt fa-lg mr-3"></i>Fone ${count}</label>
+    let tdCont = $(`#divPhone`);
+    let count = 1;
+    if (Array.isArray(contact.phone)) {
+        for (let p = 1; p < contact.phone.length; p++) {
+            count++;
+            tdCont.append(`<br><label for="newPhoneInp2"><i class="fas fa-phone-alt fa-lg mr-3"></i>Fone ${count}</label>
                                <input  type="tel" name="phone" class="form-control" id="newPhoneInp2" value="${contact.phone[p]}">`);
-            }
         }
+    }
+    //evento para remover input de telefone
+    $('#rmvPhoneBtn').on('click', function (e) {
+        e.preventDefault();
+        let divPhone = $("#divPhone").html();
+        let arDivPhone = divPhone.split("<br>");
+        let sizeVector = arDivPhone.length - 1
+        arDivPhone.splice(sizeVector);
+        let strDivPhone = arDivPhone.join("<br>");
+        if (sizeVector >= 1) {
+            $("#divPhone").html(strDivPhone);
+            count--;
+        }
+    });
+    //Evento para adicionar input de telefone
+    $('#addPhoneBtn').on('click', function (e) {
+        e.preventDefault();
+        addInputPhone(count)
+        count++;
+    });
 
+    //Botao Salvar    
+    $('#btnSalvar').on('click', function (e) {
+        e.preventDefault();
+        let dataForm = $('#newContactForm').serialize();
+        $.ajax({
+            url: URI + "/updateCadastro/"+contact.id,
+            method: 'PUT',
+            data: $('#newContactForm').serialize(),
+            success: function (res) {
+                $('#loadContacts').click();
+                console.log("Sucesso Put");
+            }
+        });
+    });
 }
 
+//--------#------Funções---------------------
+
+//Adicionar input para telefone, usado no novo contato e atualizar contato
+function addInputPhone(count) {
+    let divPhone = $("#divPhone");
+    let newPhoneInput = `<br><label for="newPhoneInp2"><i class="fas fa-phone-alt fa-lg mr-3"></i>Fone ${count}</label>
+                                    <input  type="tel" name="phone" class="form-control" id="newPhoneInp2" placeholder="Phone">`
+    divPhone.append(newPhoneInput);
+}
+//Expandir card com informações dos contatos
 function cardExpand(contact) {
     console.log("contact name: " + contact.name);
     let tdCont = $(`#conteinerCont${contact.id}`);
@@ -200,7 +234,7 @@ function cardExpand(contact) {
         $(`#card${contact.id}`).toggleClass("col-lg-6");
         $(`#divName${contact.id}`).toggleClass("bg-corp p-3");
         $(`#divEmail${contact.id}`).toggleClass("bg-corp p-1");
-    
+
         let phone1 = contact.phone;
         if (Array.isArray(phone1)) phone1 = phone1[0];
         tdCont.html(`<div class="card-text"><i class="fas fa-phone-alt fa-lg mr-3"></i>${phone1}</div>`);

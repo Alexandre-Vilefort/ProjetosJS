@@ -1,14 +1,24 @@
 [
   {
     "name": "Faria",
-    "phone": "555-555",
     "email": "Faria@email.com",
+    "phone": "555-555",
     "id": 1
   },
   {
     "name": "Bruno",
-    "phone": "555-555",
     "email": "bruno@email.com",
+    "phone": "555-555",
     "id": 2
+  },
+  {
+    "name": "ALEXANDRE",
+    "email": "alexandre.vilefot@gmail.com",
+    "phone": [
+      "16991675819",
+      "16991675812",
+      "16991675811"
+    ],
+    "id": 3
   }
 ]

@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
-///const cors = require('cors');
+const fs = require('fs');
 
 const app = express();
 

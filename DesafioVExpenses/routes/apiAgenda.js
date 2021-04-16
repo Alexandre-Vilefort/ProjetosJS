@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
+const fs = require('fs');
 
 router.use(cors());
 
@@ -40,29 +41,52 @@ router.get('/connect', eventsHandler);
 
 router.get('/', (req, res) => {
     res.json(contacts);
-    console.log("Teste LoadContacts");
 });
 
-router.post('/novoCadastro', addMessage);
+router.post('/novoCadastro', addContato);
 
-// router.post('/novoCadastro', (req, res) => {
-//     console.log(req.body);
-//     //res.end();
-// });
+router.put('/updateCadastro/:id', (req, res) => {
+    console.log(req.body, '######### Put')
+    const { id } = req.params;
+    let newData = req.body;
 
+    for (let contact of contacts) {
+        if (contact.id == id) {
+            contact.name = newData.name;
+            contact.phone = newData.phone;
+            contact.email = newData.email;
+        }
+    };
+    writeOnJSON(contacts);
+    res.json('Successfully updated');
+
+});
+
+
+
+//Functions-----------#-----------
 function sendEventsToAll(newData) {
     clients.forEach(client => client.res.write(`data: ${JSON.stringify(newData)}\n\n`))
 }
 
-async function addMessage(req, res, next) {
+async function addContato(req, res, next) {
     let newData = req.body;
-    console.log("entrou POST #############");
-    newData.id = contacts.length+1;
-    console.log(newData);
+    newData.id = contacts.length + 1;
+    console.log(newData, '######### Post');
     contacts.push(newData);
-    //console.log(contacts);
+    writeOnJSON(contacts);
     res.json('Successfully created');
     //return sendEventsToAll(newData);
 }
 
+
+async function writeOnJSON(jsonContent) {
+    fs.writeFile('data.json', JSON.stringify(jsonContent, null, 2), function (err) {
+        if (err) {
+            console.log("An error occured while writing JSON Object to File.");
+            return console.log(err);
+        }
+        console.log("JSON file has been saved.");
+    });
+};
 module.exports = router;
