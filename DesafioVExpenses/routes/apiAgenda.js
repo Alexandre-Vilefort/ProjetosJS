@@ -6,6 +6,8 @@ const fs = require('fs');
 router.use(cors());
 
 var contacts = require('../data.json');
+var users = require('../users.json');
+
 //var contacts = [];
 let clients = [];
 let facts = [];

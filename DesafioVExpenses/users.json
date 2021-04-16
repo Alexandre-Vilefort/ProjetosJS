@@ -1,0 +1,23 @@
+[
+  {
+    "user": "Faria",
+    "login": "Faria@email.com",
+    "password": 123,
+    "categories":["familia","trabalho","amigos"],
+    "id": 1
+  },
+  {
+    "user": "Bruno",
+    "login": "bruno@email.com",
+    "password": 123,
+    "categories":[],
+    "id": 2
+  },
+  {
+    "user": "Alexandre",
+    "login": "alexandre@email.com",
+    "password": 123,
+    "categories":[],
+    "id": 3
+  }
+]
