@@ -1,16 +1,117 @@
 [
   {
-    "name": "Faria",
-    "email": "Faria@email.com",
-    "phone": "555-555",
-    "categories":["familia"],
-    "id": 1
+    "name": "Alexandre",
+    "email": "alexandre.vilefot@gmail.com",
+    "categories": "",
+    "phone": "16991675819",
+    "address": [
+      {
+        "cep": "13566-220",
+        "logradouro": "Rua Rafael de Abreu Sampaio Vidal",
+        "número": "444",
+        "complemento": "",
+        "bairro": "Jardim LIma",
+        "localidade": "São Carlos",
+        "estado": "Sao Paulo"
+      }
+    ]
   },
   {
     "name": "Bruno",
-    "email": "bruno@email.com",
-    "phone": "555-555",
-    "categories":["familia","amigos"],
-    "id": 2
+    "email": "bruno1@email.com",
+    "categories": "trabalho",
+    "phone": [
+      "16991675811",
+      "16991675812",
+      "16991675813"
+    ],
+    "address": [
+      {
+        "cep": "13566-220",
+        "logradouro": "Rua Rafael de Abreu Sampaio Vidal",
+        "número": "111",
+        "complemento": "",
+        "bairro": "vitoria",
+        "localidade": "São Carlos",
+        "estado": "Sao Paulo"
+      }
+    ]
+  },
+  {
+    "name": "Faria da Silva",
+    "email": "faria@email.com",
+    "categories": "amigos",
+    "phone": [
+      "16991675819",
+      "16991675811",
+      "16991675812",
+      "16991675813"
+    ],
+    "address": [
+      {
+        "cep": "13566-220",
+        "logradouro": "Rua Rafael de Abreu Sampaio Vidal",
+        "número": "444",
+        "complemento": "",
+        "bairro": "bailarina",
+        "localidade": "Franca",
+        "estado": "Sao Paulo"
+      }
+    ]
+  },
+  {
+    "name": "Samuel",
+    "email": "samuel@email.com",
+    "categories": "amigos",
+    "phone": [
+      "16991675819",
+      "16991675812"
+    ],
+    "address": [
+      {
+        "cep": "13566-220",
+        "logradouro": "Rua Rafael de Abreu Sampaio Vidal",
+        "número": "111",
+        "complemento": "",
+        "bairro": "vitoria",
+        "localidade": "São Carlos",
+        "estado": "Sao Paulo"
+      },
+      {
+        "cep": "13566-220",
+        "logradouro": "Rua Rafael de Abreu Sampaio Vidal",
+        "número": "333",
+        "complemento": "",
+        "bairro": "Jardim LIma",
+        "localidade": "São Carlos",
+        "estado": "Sao Paulo"
+      },
+      {
+        "cep": "13571060",
+        "logradouro": "Avenida Germano Fher Júnior",
+        "número": "7777",
+        "complemento": "",
+        "bairro": "vitoria",
+        "localidade": "São Carlos",
+        "estado": "SP"
+      }
+    ]
+  },
+  {
+    "name": "Mike",
+    "email": "mike@email.com",
+    "categories": "trabalho",
+    "phone": "16991675819",
+    "address": [
+      {
+        "cep": "",
+        "logradouro": "",
+        "número": "",
+        "complemento": "",
+        "bairro": "",
+        "localidade": "",
+        "estado": ""
+      }
+    ]
   }
 ]

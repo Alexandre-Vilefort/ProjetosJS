@@ -45,18 +45,21 @@ router.get('/', (req, res) => {
     res.json(contacts);
 });
 
-router.post('/novoCadastro', addContato);
+router.post('/novoCadastro', function(req,res){
+    loadContacts(req);
+    writeOnJSON(contacts);
+    res.json('Successfully created');
+    //return sendEventsToAll(newData);
+});
 
 router.put('/updateCadastro/:id', (req, res) => {
     console.log(req.body, '######### Put')
     const { id } = req.params;
-    let newData = req.body;
+    //let newData = req.body;
 
     for (let contact of contacts) {
         if (contact.id == id) {
-            contact.name = newData.name;
-            contact.phone = newData.phone;
-            contact.email = newData.email;
+            loadContacts(req);
         }
     };
     writeOnJSON(contacts);
@@ -71,14 +74,43 @@ function sendEventsToAll(newData) {
     clients.forEach(client => client.res.write(`data: ${JSON.stringify(newData)}\n\n`))
 }
 
-async function addContato(req, res, next) {
-    let newData = req.body;
-    newData.id = contacts.length + 1;
+async function loadContacts(req) {
+
+    //Fazer validação dos dados
+    var newData = new Object(); 
+    newData.name = req.body.name;
+    newData.email = req.body.email;
+    newData.categories = req.body.categories;
+    newData.phone = req.body.phone;
+    var addressList = [];
+    if (Array.isArray(req.body.cep)) {
+        for (let i = 0; i < req.body.cep.length; i++) {
+            let newAddress = new Object();
+            newAddress.cep = req.body.cep[i];
+            newAddress.logradouro = req.body.street[i];
+            newAddress.número = req.body.number[i];
+            newAddress.complemento = req.body.complement[i];
+            newAddress.bairro = req.body.district[i];
+            newAddress.localidade = req.body.city[i];
+            newAddress.estado = req.body.state[i];
+            console.log(newAddress);
+            addressList.push(newAddress);
+        }
+    } else {
+        let newAddress = new Object();
+        newAddress.cep = req.body.cep;
+        newAddress.logradouro = req.body.street;
+        newAddress.número = req.body.number;
+        newAddress.complemento = req.body.complement;
+        newAddress.bairro = req.body.district;
+        newAddress.localidade = req.body.city;
+        newAddress.estado = req.body.state;
+        console.log(newAddress);
+        addressList.push(newAddress);
+    }
+    newData.address = addressList;
     console.log(newData, '######### Post');
     contacts.push(newData);
-    writeOnJSON(contacts);
-    res.json('Successfully created');
-    //return sendEventsToAll(newData);
 }
 
 
