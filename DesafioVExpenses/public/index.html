@@ -16,8 +16,9 @@
 
 </head>
 <style>
-   
+
 </style>
+
 <body>
 
     <div class="wrapper">
@@ -37,7 +38,8 @@
                     <a href="#" id="novoContato">Novo Contato</a>
                 </li>
                 <li>
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Categorias</a>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle">Categorias</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
                             <a href="#">Família</a>
@@ -80,21 +82,38 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
                 <div class="container-fluid">
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-dark  mr-3">
-                        <i class="fas fa-bars"></i>
-                        <span>Sidebar</span>
-                    </button>
+                    <div class="d-flex flex-row">
+                        <button type="button" id="sidebarCollapse" class="btn btn-dark mr-3 mb-1">
+                            <i class="fas fa-bars"></i>
+                            <span>Menu</span>
+                        </button>
 
-                    <!-- botão para teste -->
-                    <button type="button" id="loadContacts" class="btn btn-dark">
-                        <i class="fas fa-bars"></i>
-                        <span>Load Contatos</span>
-                    </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto mt-2" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
+                        <!-- botão para teste -->
+                        <button type="button" id="loadContacts" class="btn btn-dark mr-3 mb-1">
+                            <span>Contatos</span>
+                        </button>
+                    </div>
+
+                    <div class="d-flex flex-row mb-1">
+                        <div class="form-outline">
+                            <input type="search" id="searchContacts" class="form-control" placeholder="Buscar"
+                                onkeyup="if(this.value.length>=1)this.setAttribute('list','searchContactsList');"
+                                onkeydown="if(this.value.length<1)this.removeAttribute('list');">
+                            <datalist id="searchContactsList">
+                            </datalist>
+                        </div>
+                        <button type="button" class="btn btn-dark mr-2" id="btnSearch">
+                            <i class="fas fa-search"></i>
+                        </button>
+
+
+                        <button class="btn btn-dark d-inline-block d-lg-none ml-auto ml-2" type="button"
+                            data-toggle="collapse" data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fas fa-align-justify"></i>
+                        </button>
+                    </div>
+
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">

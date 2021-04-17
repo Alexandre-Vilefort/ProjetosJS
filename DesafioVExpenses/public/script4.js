@@ -295,8 +295,11 @@ function loadCardContacts(filter) {
     $.ajax({
         url: URI,
         success: function (contacts) {
+            //Container Contacts Cards
             let container = $('#rowCards');
-
+            //Search Bar
+            let searchData = $('#searchContactsList');
+            
             container.html('');
             if (filter) {
                 contacts = contacts.filter(function (contact) {
@@ -305,6 +308,7 @@ function loadCardContacts(filter) {
             };
             let index = 0;
             contacts.forEach(contact => {
+                searchData.append(`<option value="${contact.name}"></option>`)
                 let phone = contact.phone;
                 index++;
                 contact.id = index;
