@@ -10,7 +10,7 @@
     "address": [
       {
         "cep": "13566-220",
-        "logradouro": "Rua Rafael de Abreu Sampaio Vidal",
+        "logradouro": "",
         "número": "111",
         "complemento": "",
         "bairro": "vitoria",
@@ -19,7 +19,7 @@
       },
       {
         "cep": "13566-220",
-        "logradouro": "Rua Rafael de Abreu Sampaio Vidal",
+        "logradouro": "",
         "número": "333",
         "complemento": "",
         "bairro": "Jardim LIma",
@@ -28,7 +28,7 @@
       },
       {
         "cep": "13571060",
-        "logradouro": "Avenida Germano Fher Júnior",
+        "logradouro": "",
         "número": "7777",
         "complemento": "",
         "bairro": "vitoria",

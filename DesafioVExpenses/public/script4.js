@@ -33,6 +33,7 @@ $(document).ready(function () {
                     <br>
                     <label for="newEmailInp"><i class="fas fa-at fa-lg mr-1"></i>Email</label>
                     <input  type="email" name="email" class="form-control" id="newEmailInp" placeholder="Email">
+
                     <br>
                     <label for="inlineFormCustomSelect">Categorias</label>
                      <select name="categories"class="form-control custom-select" id="inlineFormCustomSelect">
@@ -41,6 +42,7 @@ $(document).ready(function () {
                         <option value="trabalho">Trabalho</option>
                         <option value="amigos">Amigos</option>
                     </select>
+
                     <br>
                     <br>
                     <label for="newPhoneInp"><i class="fas fa-phone-alt fa-lg mr-3"></i>Fone</label>
@@ -121,7 +123,7 @@ $(document).ready(function () {
             e.preventDefault();
             console.log("apertou");
             let formsData = $("#newContactForm").serialize();// method creates a text string in standard URL-encoded notation
-            
+
             console.log(formsData);
             $.ajax({
                 url: URI + "/novoCadastro",
@@ -151,6 +153,12 @@ $(document).ready(function () {
         $("#tituloH2").text(filter);
         loadCardContacts(filter);
     });
+
+    $('#btnSearch').on('click', function () {
+        let contactName = $("#searchContacts").val();
+        console.log(contactName);
+        loadCardContacts("", contactName);
+    });
 });
 
 //--------#------Functions Declaration---------------------
@@ -160,8 +168,8 @@ function cardUpdate(contact) {
     let container = $('#rowCards');
     let phone = contact.phone;
     if (Array.isArray(phone)) phone = phone[0];
+    if (!(contact.categories)) contact.categories = ''; 
     container.html(`
-
         <div class="contactForm card col-lg-8">
             <div class="card-body">
                 <form id="newContactForm" action="/api/updateCadastro" method="put" >
@@ -170,10 +178,11 @@ function cardUpdate(contact) {
                     <br>
                     <label for="newEmailInp"><i class="fas fa-at fa-lg mr-1"></i>Email</label>
                     <input  type="email" name="email" class="form-control" id="newEmailInp" value="${contact.email}">
+                    
                     <br>
                     <label for="inlineFormCustomSelect">Categorias</label>
                      <select name="categories"class="form-control custom-select" id="inlineFormCustomSelect">
-                        <option selected></option>
+                        <option selected>${contact.categories}</option>
                         <option value="família">Família</option>
                         <option value="trabalho">Trabalho</option>
                         <option value="amigos">Amigos</option>
@@ -217,7 +226,7 @@ function cardUpdate(contact) {
             <label for="newAddressInp"><strong>Endereço ${countAddress}</strong></label>`
             divAddress.append(newAddressInput);
             addInputAddress(countAddress, contact.address[i])
-            
+
         }
     }
 
@@ -291,7 +300,7 @@ function cardUpdate(contact) {
 
 
 //carregar contatos no front
-function loadCardContacts(filter) {
+function loadCardContacts(filterCat, filterName) {
     $.ajax({
         url: URI,
         success: function (contacts) {
@@ -299,14 +308,21 @@ function loadCardContacts(filter) {
             let container = $('#rowCards');
             //Search Bar
             let searchData = $('#searchContactsList');
-            
+
             container.html('');
-            if (filter) {
+            if (filterCat) {
                 contacts = contacts.filter(function (contact) {
-                    return contact.categories.includes(filter.toLowerCase());
+                    return contact.categories.includes(filterCat.toLowerCase());
+                });
+            };
+            if (filterName) {
+                console.log("entrou filtro de nome")
+                contacts = contacts.filter(function (contact) {
+                    return contact.name == filterName;
                 });
             };
             let index = 0;
+            searchData.html('');
             contacts.forEach(contact => {
                 searchData.append(`<option value="${contact.name}"></option>`)
                 let phone = contact.phone;
@@ -405,6 +421,9 @@ function addInputAddress(count, data) {
         newAddress = data;
     } else {
         newAddress = new Object();
+        // Object.keys(newAddress).forEach(function(index) {
+        //     newAddress[index] = '';
+        // });
         newAddress.cep = "";
         newAddress.logradouro = "";
         newAddress.número = "";
@@ -416,6 +435,7 @@ function addInputAddress(count, data) {
 
     let newAddressInput = `
     
+    <button type="button" class="btn btn-dark m-3" id="btnBuscaCEP${count}">Buscar pelo CEP</button>
     <br>
     <div class="form-row">
         <div class="form-group col-md-2">
@@ -437,7 +457,7 @@ function addInputAddress(count, data) {
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="newCompleInp${count}">Complemento</label>
-            <input  type="text" name="complement" class="form-control" id="newStreetInp${count}" placeholder="Complemento" value="${newAddress.complemento}">
+            <input  type="text" name="complement" class="form-control" id="newCompleInp${count}" placeholder="Complemento" value="${newAddress.complemento}">
         </div>
         <div class="form-group col-md-6">
             <label for="newDistrictInp${count}">Bairro</label>
@@ -458,4 +478,30 @@ function addInputAddress(count, data) {
     </div>`;
 
     divAddress.append(newAddressInput);
+    $(`#btnBuscaCEP${count}`).on('click', function () {
+        let cep = $(`#newCEPInp${count}`).val();
+        cep = cep.replace(/\D/g, '');
+        var validaCEP = /^[0-9]{8}$/; // Regular Expression
+        if (validaCEP.test(cep)) {
+            $.ajax({
+                url: `https://viacep.com.br/ws/${cep}/json`,//Usando viacep.com.br para buscar endereço pelo CEP
+                success: function (conteudo) {
+                    console.log(conteudo);
+                    if (!("erro" in conteudo)) {
+                        //Atualiza os campos com os valores.
+                        $(`#newStreetInp${count}`).val(conteudo.logradouro);
+                        $(`#newCompleInp${count}`).val(conteudo.complemento);
+                        $(`#newDistrictInp${count}`).val(conteudo.bairro);
+                        $(`#newCityInp${count}`).val(conteudo.localidade);
+                        $(`#newStateInp${count}`).val(conteudo.uf);
+                    } //end if.
+                    else {
+                        //CEP não Encontrado.
+                        alert("CEP não encontrado.");
+                        $(`#newCEPInp${count}`).val('');
+                    }
+                },
+            });
+        }else{alert("CEP Invalido")}
+    });
 }
