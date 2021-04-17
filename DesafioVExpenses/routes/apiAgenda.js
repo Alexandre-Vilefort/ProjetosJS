@@ -46,22 +46,15 @@ router.get('/', (req, res) => {
 });
 
 router.post('/novoCadastro', function(req,res){
-    loadContacts(req);
+    contacts.push(loadContacts(req));
     writeOnJSON(contacts);
     res.json('Successfully created');
     //return sendEventsToAll(newData);
 });
 
 router.put('/updateCadastro/:id', (req, res) => {
-    console.log(req.body, '######### Put')
     const { id } = req.params;
-    //let newData = req.body;
-
-    for (let contact of contacts) {
-        if (contact.id == id) {
-            loadContacts(req);
-        }
-    };
+    contacts[id-1] = loadContacts(req);     
     writeOnJSON(contacts);
     res.json('Successfully updated');
 
@@ -74,7 +67,7 @@ function sendEventsToAll(newData) {
     clients.forEach(client => client.res.write(`data: ${JSON.stringify(newData)}\n\n`))
 }
 
-async function loadContacts(req) {
+function loadContacts(req) {
 
     //Fazer validação dos dados
     var newData = new Object(); 
@@ -105,12 +98,12 @@ async function loadContacts(req) {
         newAddress.bairro = req.body.district;
         newAddress.localidade = req.body.city;
         newAddress.estado = req.body.state;
-        console.log(newAddress);
+        //console.log(newAddress);
         addressList.push(newAddress);
     }
     newData.address = addressList;
-    console.log(newData, '######### Post');
-    contacts.push(newData);
+    console.log('######### Load',newData);
+    return newData; 
 }
 
 

@@ -1,65 +1,5 @@
 [
   {
-    "name": "Alexandre",
-    "email": "alexandre.vilefot@gmail.com",
-    "categories": "",
-    "phone": "16991675819",
-    "address": [
-      {
-        "cep": "13566-220",
-        "logradouro": "Rua Rafael de Abreu Sampaio Vidal",
-        "número": "444",
-        "complemento": "",
-        "bairro": "Jardim LIma",
-        "localidade": "São Carlos",
-        "estado": "Sao Paulo"
-      }
-    ]
-  },
-  {
-    "name": "Bruno",
-    "email": "bruno1@email.com",
-    "categories": "trabalho",
-    "phone": [
-      "16991675811",
-      "16991675812",
-      "16991675813"
-    ],
-    "address": [
-      {
-        "cep": "13566-220",
-        "logradouro": "Rua Rafael de Abreu Sampaio Vidal",
-        "número": "111",
-        "complemento": "",
-        "bairro": "vitoria",
-        "localidade": "São Carlos",
-        "estado": "Sao Paulo"
-      }
-    ]
-  },
-  {
-    "name": "Faria da Silva",
-    "email": "faria@email.com",
-    "categories": "amigos",
-    "phone": [
-      "16991675819",
-      "16991675811",
-      "16991675812",
-      "16991675813"
-    ],
-    "address": [
-      {
-        "cep": "13566-220",
-        "logradouro": "Rua Rafael de Abreu Sampaio Vidal",
-        "número": "444",
-        "complemento": "",
-        "bairro": "bailarina",
-        "localidade": "Franca",
-        "estado": "Sao Paulo"
-      }
-    ]
-  },
-  {
     "name": "Samuel",
     "email": "samuel@email.com",
     "categories": "amigos",
@@ -111,6 +51,60 @@
         "bairro": "",
         "localidade": "",
         "estado": ""
+      }
+    ]
+  },
+  {
+    "name": "Bruno Vilefort",
+    "email": "g1710193@ufscar.br",
+    "categories": "",
+    "phone": "1436221581",
+    "address": [
+      {
+        "cep": "13566-220",
+        "logradouro": "",
+        "número": "",
+        "complemento": "",
+        "bairro": "",
+        "localidade": "São Carlos",
+        "estado": "São Paulo"
+      }
+    ]
+  },
+  {
+    "name": "Alexandre",
+    "email": "alexandre.vilefot@gmail.com",
+    "categories": "",
+    "phone": [
+      "16991675819",
+      "555-555"
+    ],
+    "address": [
+      {
+        "cep": "13566-220",
+        "logradouro": "",
+        "número": "",
+        "complemento": "",
+        "bairro": "",
+        "localidade": "São Carlos",
+        "estado": "Sao Paulo"
+      }
+    ]
+  },
+  {
+    "name": "Caroline Pardi",
+    "email": "g1710193@ufscar.br",
+    "categories": "",
+    "phone": "1436221581",
+    "address": [
+      {
+        "cep": "13566-220",
+        "logradouro": "Rua Rafael de Abreu Sampaio Vidal",
+        "número": "",
+        "complemento": "",
+        "bairro": "",
+        "localidade": "São Carlos",
+        "estado": "São Paulo"
       }
     ]
   }
