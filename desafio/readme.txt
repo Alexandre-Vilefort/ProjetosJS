@@ -1,19 +1,19 @@
-versão 1 tem o esqueleto do Front-end e esqueleto do servidor
+versão 2 funcionalidades básicas sem problema
 
-1. Fazer a parte do UpDate das informações
-1.1. Fazer escrever no JSON permanente
+1. Fazer a parte do UpDate das informações #feito
+1.1. Fazer escrever no JSON permanente #feito
 
-2. Endereço e API do correio  #### prioridade
+2. Endereço e API do correio  #feito
 
-3. Categorização / Agrupamento
-3.1. Busca de contatos com sugestão de pesquisa #### prioridade;
+3. Categorização / Agrupamento #feito mas precisa melhorar
+3.1. Busca de contatos com sugestão de pesquisa #feito
  
-4. Login e autentificação
-4.1. Validação Front-end e Back-end
+4. Login e autentificação #prioridade
+4.1. Validação Front-end e Back-end #prioridade
 
-5. Envio de notificação assíncrona de sucesso (via e-mail, slack ou outro canal
+5. Envio de notificação assíncrona de sucesso (via e-mail, slack ou outro canal###
 
-6. Puxar contatos do Google Contacts API  
+6. Puxar contatos do Google Contacts API ###  
 
 Cadastro de contatos;
 ➭ Via AJAX ; Certo

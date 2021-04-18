@@ -15,7 +15,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // routes
-app.use('/api', require('./routes/apiAgenda'));
+app.use('/api', require('./routes/agenda/apiAgenda'));
+app.use('/', require('./routes/login/server-login'));
 
 // static files
 app.use(express.static(path.join(__dirname, 'public')));

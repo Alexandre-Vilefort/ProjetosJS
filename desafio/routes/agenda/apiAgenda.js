@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const fs = require('fs');
+//const fs = require('fs');
 
 router.use(cors());
 
-var contacts = require('../data.json');
-var users = require('../users.json');
+var contacts = require('../../data.json');
+const users = require('../../users.json');
 
 //var contacts = [];
 let clients = [];
@@ -60,8 +60,6 @@ router.put('/updateCadastro/:id', (req, res) => {
 
 });
 
-
-
 //Functions-----------#-----------
 function sendEventsToAll(newData) {
     clients.forEach(client => client.res.write(`data: ${JSON.stringify(newData)}\n\n`))
@@ -79,6 +77,7 @@ function loadContacts(req) {
     if (Array.isArray(req.body.cep)) {
         for (let i = 0; i < req.body.cep.length; i++) {
             let newAddress = new Object();
+
             newAddress.cep = req.body.cep[i];
             newAddress.Logradouro = req.body.street[i];
             newAddress.Número = req.body.number[i];
@@ -86,11 +85,13 @@ function loadContacts(req) {
             newAddress.Bairro = req.body.district[i];
             newAddress.Localidade = req.body.city[i];
             newAddress.Estado = req.body.state[i];
+
             console.log(newAddress);
             addressList.push(newAddress);
         }
     } else {
         let newAddress = new Object();
+
         newAddress.cep = req.body.cep;
         newAddress.logradouro = req.body.street;
         newAddress.número = req.body.number;
@@ -116,4 +117,5 @@ async function writeOnJSON(jsonContent) {
         console.log("JSON file has been saved.");
     });
 };
+
 module.exports = router;
