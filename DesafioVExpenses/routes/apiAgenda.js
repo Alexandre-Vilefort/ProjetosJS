@@ -80,12 +80,12 @@ function loadContacts(req) {
         for (let i = 0; i < req.body.cep.length; i++) {
             let newAddress = new Object();
             newAddress.cep = req.body.cep[i];
-            newAddress.logradouro = req.body.street[i];
-            newAddress.número = req.body.number[i];
-            newAddress.complemento = req.body.complement[i];
-            newAddress.bairro = req.body.district[i];
-            newAddress.localidade = req.body.city[i];
-            newAddress.estado = req.body.state[i];
+            newAddress.Logradouro = req.body.street[i];
+            newAddress.Número = req.body.number[i];
+            newAddress.Complemento = req.body.complement[i];
+            newAddress.Bairro = req.body.district[i];
+            newAddress.Localidade = req.body.city[i];
+            newAddress.Estado = req.body.state[i];
             console.log(newAddress);
             addressList.push(newAddress);
         }
