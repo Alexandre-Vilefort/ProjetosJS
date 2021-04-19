@@ -354,6 +354,9 @@ function loadCardContacts(filterCat, filterName) {
                     <div class="class="d-sm-flex justify-content-sm-center flex-sm-wrap rounded trans" id="divAddress${contact.id}">
                     </div>
 
+                    <div id="btnDel${contact.id}" class="text-right">
+                    <div>
+
                     </div>
                     </div>
                 `)
@@ -371,9 +374,13 @@ function cardExpand(contact) {
     console.log("contact name: " + contact.name);
     let tdCont = $(`#conteinerCont${contact.id}`);
     let tdAddress = $(`#divAddress${contact.id}`);
+    let tdCat = $(`#divCat${contact.id}`);
+    let tdDel = $(`#btnDel${contact.id}`);
+
     tdCont.html('');
     tdAddress.html('');
-    $(`#divCat${contact.id}`).html('');
+    tdCat.html('');
+    tdDel.html('');
 
     if ($(`#card${contact.id}`).hasClass("col-lg-6")) {//Experimentar col-lg-5 para ficar dois em cada linha
         $(`#card${contact.id}`).toggleClass("col-lg-6");
@@ -387,7 +394,7 @@ function cardExpand(contact) {
             }
         } else { tdCont.append(`<div class="p-3"><i class="fas fa-phone-alt fa-lg mr-3"></i> ${contact.phone} </div>`) };
 
-        $(`#divCat${contact.id}`).html(`${contact.categories}`)
+        tdCat.html(`${contact.categories}`)
 
         let test = "";
         for (let i = 0; i < contact.address.length; i++) {
@@ -403,6 +410,27 @@ function cardExpand(contact) {
                 tdAddress.append(`  </div>`);
             }
         }
+        tdDel.html(`<i class="fas fa-times fa-lg ml-auto p-2" id="iconDel${contact.id}"></i>`);
+
+        $(`#iconDel${contact.id}`).on('click', function () {
+            //delete
+            let id = contact.id - 1;//Para id ser a posicão do contato no array
+            $.ajax({
+                url: `${URI}/${id}`,
+                method: 'DELETE',
+                success: function (response) {
+                    $('#loadContacts').click();
+                    console.log("Sucesso: Contato deletado");
+                },
+                error: function (err) {
+                    console.log(err);
+                    console.log("Falha em deletar contato");
+                }
+            });
+        });
+
+
+
     } else if ($(`#card${contact.id}`).hasClass("col-lg-10")) {
         $(`#card${contact.id}`).toggleClass("col-lg-10");
         $(`#card${contact.id}`).toggleClass("col-lg-6");
@@ -526,11 +554,15 @@ function formValidation(forms) {
     }
     var validaCEP = /^[0-9]{8}$/;
     listCep = $('.cepInp');
+
     for (let i = 0; i < listCep.length; i++) {
-        if (!(listCep.eq(i).val()) || validaCEP.test(listCep.eq(i).val())) {
+        let cep = listCep.eq(i).val();
+        cep = cep.replace(/\D/g, '');
+
+        if (!(!(cep) || validaCEP.test(cep))) {
             test = false
             listCep.eq(i).addClass('is-invalid');
-
+            console.log('entrou teste CEP');
         } else { listCep.eq(i).removeClass('is-invalid') }
     }
     console.log(test, ' teste')

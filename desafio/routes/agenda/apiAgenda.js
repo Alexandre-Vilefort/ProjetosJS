@@ -5,11 +5,6 @@ const fs = require('fs');
 
 router.use(cors());
 
-
-
-//var contacts = require('../../data.json');
-//const users = require('../../users.json');
-
 //var contacts = exports.usersContactsList;
 let clients = [];
 let facts = [];
@@ -62,6 +57,18 @@ router.put('/updateCadastro/:id', (req, res) => {
     res.json('Successfully updated');
 
 });
+
+router.delete('/:id', (req, res) => {
+    const ids = req.params.id;//Indice do contato no Array contacts
+    
+    if (req.user.contacts.length >ids) {
+        req.user.contacts.splice(ids,1);
+        writeOnJSON(req.user.contacts, req.user.id);
+        res.json('Successfully deleted');
+    }else{
+        res.status(500).send('índice do contato para deletar não existe');
+    }
+  });
 
 //Functions-----------#-----------
 function sendEventsToAll(newData) {
