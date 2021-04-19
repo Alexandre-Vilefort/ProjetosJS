@@ -11,10 +11,10 @@ const flash = require('express-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
+const nodemailer = require('nodemailer');
 const fs = require('fs');
 
 const app = express();
-
 
 const initializePassport = require('./passport-config');
 initializePassport(
@@ -22,7 +22,7 @@ initializePassport(
     email => users.find(user => user.email === email),
     //find user based on email, getUserByEmail on passport-config.js 
     id => users.find(user => user.id === id)
-    //find user based on id, getUserById on passport-config.js 
+    //find user based on id, getUserById on passport-config.js
 );
 
 const users = require('./users.json');
@@ -50,13 +50,10 @@ app.use(methodOverride('_method'));
 app.use('/api', require('./routes/agenda/apiAgenda'));
 
 //Static Files
-app.use('/agenda',checkAuthenticated);
-app.use('/agenda',express.static(path.join(__dirname, 'public')));
+app.use('/agenda', checkAuthenticated);
+app.use('/agenda', express.static(path.join(__dirname, 'public')));
 
 //Methods
-// app.get('/', checkAuthenticated, (req, res) => {
-//     res.render('index.ejs', { name: req.user.name });
-// });
 app.get('/', checkAuthenticated, (req, res) => {
     res.redirect('/agenda');
 });
@@ -80,29 +77,49 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
 });
 
 app.post('/register', checkNotAuthenticated, async (req, res) => {
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        users.push({
-            id: Date.now().toString(),
-            name: req.body.name,
-            email: req.body.email,
-            password: hashedPassword
-        })
 
-        fs.writeFile('users.json', JSON.stringify(users, null, 2), function (err) {
-            if (err) {
-                console.log("An error occured while writing JSON Object to File.");
-                return console.log(err);
+    try {
+        let test = true;
+        const testEmail = await new Promise((resolve, reject) => {
+
+            for (var user of users) {
+                if (user.email == req.body.email) {
+                    test = false;
+                }
             }
-            console.log("JSON file has been saved.");
+            if (test) {
+                resolve(true)
+            } else {
+                reject("Email já cadastrado")
+            }
         });
-    } catch {
-        res.redirect('/register')
+        if (test) {
+            const hashedPassword = await bcrypt.hash(req.body.password, 10)
+            users.push({
+                id: Date.now().toString(),
+                name: req.body.name,
+                email: req.body.email,
+                password: hashedPassword
+            })
+
+            fs.writeFile('users.json', JSON.stringify(users, null, 2), function (err) {
+                if (err) {
+                    console.log("An error occured while writing JSON Object to File.");
+                    return console.log(err);
+                }
+                console.log("JSON file has been saved.");
+            });
+            wrapedSendMail(req.body.email);
+            console.log(req.body)
+            res.redirect('/login');
+        }
+    } catch (err) {
+        console.log(err);
+        res.render('register.ejs', { name : err });
     }
-    console.log(users)
 });
 
-app.delete('/logout',(req,res)=>{
+app.delete('/logout', (req, res) => {
     req.logOut();
     res.redirect('/login')
 })
@@ -123,4 +140,37 @@ function checkNotAuthenticated(req, res, next) {
 
 app.listen(app.get('port'), function () {
     console.log(`Server is running on http://${app.get('host')}:${app.get('port')}`);
- });
+});
+
+function setMailOptions(reciever) {
+    var mailOptions = {
+        from: process.env.SENDER_EMAIL,
+        to: reciever,
+        subject: 'Confirmação do Cadastro',
+        text: 'Cadastro no app Agenda feito com sucesso'
+    }
+    return mailOptions;
+}
+
+async function wrapedSendMail(reciever) {
+    return new Promise((resolve, reject) => {
+        var transporter = nodemailer.createTransport({
+            service: process.env.SENDER_EMAIL_SERVICE,
+            auth: {
+                user: process.env.SENDER_EMAIL,
+                pass: process.env.SENDER_EMAIL_PASSWORD
+            }
+        });
+        let mailOptions = setMailOptions(reciever);
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log("error is " + error);
+                resolve('falha no envio do email');
+            }
+            else {
+                console.log('Email sent: ' + info.response);
+                resolve('email enviado com sucesso');
+            }
+        })
+    })
+}

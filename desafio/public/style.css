@@ -225,7 +225,7 @@ a.article:hover {
 div.trans{
     transition-duration: 0.5s;
 }
-div.trans.bg-corp {
+div.trans.bg-corp, button.bg-corp {
       background-color: #7387d596;
       color: #fff;  
 } 
