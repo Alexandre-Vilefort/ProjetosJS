@@ -77,7 +77,6 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
 });
 
 app.post('/register', checkNotAuthenticated, async (req, res) => {
-
     try {
         let test = true;
         const testEmail = await new Promise((resolve, reject) => {
@@ -95,8 +94,9 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
         });
         if (test) {
             const hashedPassword = await bcrypt.hash(req.body.password, 10)
+            let newId = Date.now().toString()
             users.push({
-                id: Date.now().toString(),
+                id: newId,
                 name: req.body.name,
                 email: req.body.email,
                 password: hashedPassword
@@ -109,6 +109,15 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
                 }
                 console.log("JSON file has been saved.");
             });
+
+            fs.writeFile(`dataBase/${newId}.json`, JSON.stringify(new Array(), null, 2), function (err) {
+                if (err) {
+                    console.log("An error occured while writing JSON Object to File.");
+                    return console.log(err);
+                }
+                console.log("JSON file has been saved.");
+            });
+
             wrapedSendMail(req.body.email);
             console.log(req.body)
             res.redirect('/login');
