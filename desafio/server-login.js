@@ -13,11 +13,12 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
+const { body, validationResult } = require('express-validator');
 
 const app = express();
 
 usersContactsList = [];
-exports.usersContactsList = usersContactsList; 
+exports.usersContactsList = usersContactsList;
 
 const initializePassport = require('./passport-config');
 initializePassport(
@@ -61,19 +62,24 @@ app.get('/', checkAuthenticated, (req, res) => {
     res.redirect('/agenda');
     let contactsList = require(`./dataBase/${req.user.id}.json`);
     usersContactsList.push = {
-        userId : req.user.id, 
-        contacts : contactsList}
-    req.user.contacts = contactsList;    
+        userId: req.user.id,
+        contacts: contactsList
+    }
+    req.user.contacts = contactsList;
 });
 
-app.get('/agenda', checkAuthenticated, (req, res) => {
-    res.redirect('/agenda');
-    res.json()
-});
+app.get('/agenda',
+    checkAuthenticated,
+    (req, res) => {
+        res.redirect('/agenda');
+        res.json()
+    });
 
-app.get('/login', checkNotAuthenticated, (req, res) => {
-    res.render('login.ejs');
-});
+app.get('/login',
+    checkNotAuthenticated,
+    (req, res) => {
+        res.render('login.ejs');
+    });
 
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     successRedirect: '/',
@@ -81,66 +87,88 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     failureFlash: true
 }));
 
-app.get('/register', checkNotAuthenticated, (req, res) => {
-    res.render('register.ejs');
-});
+app.get('/register',
+    checkNotAuthenticated,
+    (req, res) => {
+        res.render('register.ejs');
+    });
 
-app.post('/register', checkNotAuthenticated, async (req, res) => {
-    try {
+app.post('/register',
+    checkNotAuthenticated,
+    body('email').isEmail().normalizeEmail(),
+    body('password').isLength({
+        min: 3
+    }),
+    body('name').isLength({
+        min: 3
+    }),
+    async (req, res) => {
         let test = true;
-        const testEmail = await new Promise((resolve, reject) => {
+        const result = validationResult(req);
+        if (!result.isEmpty()) {
+            console.log(result.errors[0].param);
+            let errText = "";
+            for (let er of result.errors){errText = errText + ` ${er.param } inválido,`}
 
-            for (var user of users) {
-                if (user.email == req.body.email) {
-                    test = false;
-                }
-            }
-            if (test) {
-                resolve(true)
-            } else {
-                reject("Email já cadastrado")
-            }
-        });
-        if (test) {
-            const hashedPassword = await bcrypt.hash(req.body.password, 10)
-            let newId = Date.now().toString()
-            users.push({
-                id: newId,
-                name: req.body.name,
-                email: req.body.email,
-                password: hashedPassword
-            })
-
-            fs.writeFile('users.json', JSON.stringify(users, null, 2), function (err) {
-                if (err) {
-                    console.log("An error occured while writing JSON Object to File.");
-                    return console.log(err);
-                }
-                console.log("JSON file has been saved.");
-            });
-
-            fs.writeFile(`dataBase/${newId}.json`, JSON.stringify(new Array(), null, 2), function (err) {
-                if (err) {
-                    console.log("An error occured while writing JSON Object to File.");
-                    return console.log(err);
-                }
-                console.log("JSON file has been saved.");
-            });
-
-            wrapedSendMail(req.body.email);
-            console.log(req.body)
-            res.redirect('/login');
+            res.render('register.ejs', { name: 'Erro, '+errText});
+            test = false
+            return 
         }
-    } catch (err) {
-        console.log(err);
-        res.render('register.ejs', { name : err });
-    }
-});
+        try {
+            const testEmail = await new Promise((resolve, reject) => {
 
-app.delete('/logout', (req, res) => {
-    req.logOut();
-    res.redirect('/login')
-})
+                for (var user of users) {
+                    if (user.email == req.body.email) {
+                        test = false;
+                    }
+                }
+                if (test) {
+                    resolve(true)
+                } else {
+                    reject("Email já cadastrado")
+                }
+            });
+            if (test) {
+                const hashedPassword = await bcrypt.hash(req.body.password, 10)
+                let newId = Date.now().toString()
+                users.push({
+                    id: newId,
+                    name: req.body.name,
+                    email: req.body.email,
+                    password: hashedPassword
+                })
+
+                fs.writeFile('users.json', JSON.stringify(users, null, 2), function (err) {
+                    if (err) {
+                        console.log("An error occured while writing JSON Object to File.");
+                        return console.log(err);
+                    }
+                    console.log("JSON file has been saved.");
+                });
+
+                fs.writeFile(`dataBase/${newId}.json`, JSON.stringify(new Array(), null, 2), function (err) {
+                    if (err) {
+                        console.log("An error occured while writing JSON Object to File.");
+                        return console.log(err);
+                    }
+                    console.log("JSON file has been saved.");
+                });
+
+                wrapedSendMail(req.body.email);
+                console.log(req.body)
+                res.redirect('/login');
+            }
+        } catch (err) {
+            console.log(err);
+            res.render('register.ejs', { name: err });
+        }
+    });
+
+app.delete('/logout',
+    (req, res) => {
+        req.logOut();
+        res.redirect('/login')
+    })
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -156,7 +184,7 @@ function checkNotAuthenticated(req, res, next) {
     next();
 }
 
-app.listen(app.get('port'), function () {
+app.listen(app.get('port'), () => {
     console.log(`Server is running on http://${app.get('host')}:${app.get('port')}`);
 });
 

@@ -1,71 +1,21 @@
 [
   {
-    "id": "1618791337502",
+    "id": "1618803462614",
     "name": "w",
-    "email": "vkfdevjchundiqwngt@wqcefp.com",
-    "password": "$2b$10$4Gtr3foZUKkW3l4qUX85Y.Jljiz58iW2cWpDIGF1mVRri52o1G5iO",
-    "contacts": [
-      {
-        "name": "Faria da Silva",
-        "email": "faria@email.com",
-        "categories": "amigos",
-        "phone": [
-          "16991675819",
-          "16991675812",
-          "16991675811"
-        ],
-        "address": [
-          {
-            "cep": "13566-220",
-            "Logradouro": "Rua Rafael de Abreu Sampaio Vidal",
-            "Número": "444",
-            "Complemento": "",
-            "Bairro": "bailarina",
-            "Localidade": "São Carlos",
-            "Estado": "Sao Paulo"
-          }
-        ]
-      },
-      {
-        "name": "Caroline Pardi",
-        "email": "g1710193@ufscar.br",
-        "categories": "",
-        "phone": "1436221581",
-        "address": [
-          {
-            "cep": "13566-220",
-            "Logradouro": "Rua Rafael de Abreu Sampaio Vidal",
-            "Número": "",
-            "Complemento": "",
-            "Bairro": "",
-            "Localidade": "São Carlos",
-            "Estado": "São Paulo"
-          }
-        ]
-      },
-      {
-        "name": "ALEXANDRE",
-        "email": "alexandre.vilefot@gmail.com",
-        "categories": "família",
-        "phone": "16991675819",
-        "address": [
-          {
-            "cep": "13566-220",
-            "Logradouro": "Rua Rafael de Abreu Sampaio Vidal",
-            "Número": "",
-            "Complemento": "",
-            "Bairro": "",
-            "Localidade": "São Carlos",
-            "Estado": "Sao Paulo"
-          }
-        ]
-      }
-    ]
+    "email": "xvptfzycztrmojzrin@twzhhq.com",
+    "password": "$2b$10$4UUieJ304G.Nq6cHV8uzf.F42Wl8Im9dMIlZlDB/45ursTGCCXI.C"
   },
   {
-    "id": "1618800626567",
-    "name": "b",
-    "email": "xvptfzycztrmojzrin@twzhhq.com",
-    "password": "$2b$10$6cNltV3Z3N70LXV6v9DvsOvY9lZfO3aPcRd4sOKHvs.oUy30TFocq"
+    "id": "1618810914436",
+    "name": "teste",
+    "email": "dditmcozzyekbbblmd@twzhhq.com",
+    "password": "$2b$10$hzf6jRNIMkBopEhmALI.qeDbAN3nwOAS49Dc1eeW.zk7J5rAiwxCO",
+    "contacts": []
+  },
+  {
+    "id": "1618811800603",
+    "name": "abc",
+    "email": "a@a.com",
+    "password": "$2b$10$dON7Jlvpief/Zvf5a3mQP.wP1JvnFESY7VbUwFeXs6WHVsSVgYeyu"
   }
 ]

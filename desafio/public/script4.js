@@ -29,7 +29,7 @@ $(document).ready(function () {
             <div class="card-body">
                 <form id="newContactForm" action="/api/novoCadastro" method="post" enctype="multipart/form-data">
                     <label for="newNameInp">Nome</label>
-                    <input  type="text" name="name" class="form-control" id="newNameInp" placeholder="Nome">
+                    <input  type="text" name="name" class="form-control" id="newNameInp" placeholder="Nome" required>
                     <br>
                     <label for="newEmailInp"><i class="fas fa-at fa-lg mr-1"></i>Email</label>
                     <input  type="email" name="email" class="form-control" id="newEmailInp" placeholder="Email">
@@ -50,7 +50,7 @@ $(document).ready(function () {
                             <button class="btn btn-dark btn-sm ml-4" id="addPhoneBtn">+</button>
                             <button class="btn btn-dark btn-sm ml-4" id="rmvPhoneBtn">-</button>
                         </div>  
-                    <input  type="tel" name="phone" class="form-control" id="newPhoneInp" placeholder="Phone">
+                    <input  type="number" name="phone" class="form-control" id="newPhoneInp" placeholder="Phone">
                     <div id="divPhone">
                     </div>
                     <br>
@@ -123,20 +123,21 @@ $(document).ready(function () {
             e.preventDefault();
             console.log("apertou");
             let formsData = $("#newContactForm").serialize();// method creates a text string in standard URL-encoded notation
-
             console.log(formsData);
-            $.ajax({
-                url: URI + "/novoCadastro",
-                method: 'POST',
-                data: formsData,
-                success: function (res) {
-                    $('#loadContacts').click();
-                    console.log("Sucesso Post");
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
+            if (formValidation($('#newContactForm'))) {
+                $.ajax({
+                    url: URI + "/novoCadastro",
+                    method: 'POST',
+                    data: formsData,
+                    success: function (res) {
+                        $('#loadContacts').click();
+                        console.log("Sucesso Post");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
         });
     });
 });
@@ -168,13 +169,13 @@ function cardUpdate(contact) {
     let container = $('#rowCards');
     let phone = contact.phone;
     if (Array.isArray(phone)) phone = phone[0];
-    if (!(contact.categories)) contact.categories = ''; 
+    if (!(contact.categories)) contact.categories = '';
     container.html(`
         <div class="contactForm card col-lg-8">
             <div class="card-body">
                 <form id="newContactForm" action="/api/updateCadastro" method="put" >
                     <label for="newNameInp">Nome</label>
-                    <input  type="text" name="name" class="form-control" id="newNameInp" value="${contact.name}">
+                    <input  type="text" name="name" class="form-control" id="newNameInp" value="${contact.name}" required>
                     <br>
                     <label for="newEmailInp"><i class="fas fa-at fa-lg mr-1"></i>Email</label>
                     <input  type="email" name="email" class="form-control" id="newEmailInp" value="${contact.email}">
@@ -194,7 +195,7 @@ function cardUpdate(contact) {
                             <button class="btn btn-dark btn-sm ml-4" id="addPhoneBtn">+</button>
                             <button class="btn btn-dark btn-sm ml-4" id="rmvPhoneBtn">-</button>
                         </div>        
-                    <input  type="tel" name="phone" class="form-control" id="newPhoneInp" value="${phone}">
+                    <input  type="number" name="phone" class="form-control" id="newPhoneInp" value="${phone}">
                     <div id="divPhone">
                     </div>
                     <br>
@@ -216,6 +217,7 @@ function cardUpdate(contact) {
     let count = 1;
     let countAddress = 1;
 
+    console.log(contact.address[0]);
     addInputAddress(countAddress, contact.address[0]);
 
     if (contact.address.length > 1) {
@@ -235,7 +237,7 @@ function cardUpdate(contact) {
         for (let p = 1; p < contact.phone.length; p++) {
             count++;
             tdCont.append(`<br><label for="newPhoneInp2"><i class="fas fa-phone-alt fa-lg mr-3"></i>Fone ${count}</label>
-                               <input  type="tel" name="phone" class="form-control" id="newPhoneInp2" value="${contact.phone[p]}">`);
+                               <input  type="number" name="phone" class="form-control" id="newPhoneInp2" value="${contact.phone[p]}">`);
         }
     }
     //Remover input de telefone
@@ -286,15 +288,17 @@ function cardUpdate(contact) {
     $('#btnSalvar').on('click', function (e) {
         e.preventDefault();
         //let dataForm = $('#newContactForm').serialize();
-        $.ajax({
-            url: URI + "/updateCadastro/" + contact.id,
-            method: 'PUT',
-            data: $('#newContactForm').serialize(),
-            success: function (res) {
-                $('#loadContacts').click();
-                console.log("Sucesso Put");
-            }
-        });
+        if (formValidation($('#newContactForm'))) {
+            $.ajax({
+                url: URI + "/updateCadastro/" + contact.id,
+                method: 'PUT',
+                data: $('#newContactForm').serialize(),
+                success: function (res) {
+                    $('#loadContacts').click();
+                    console.log("Sucesso Put");
+                }
+            });
+        }
     });
 }
 
@@ -345,7 +349,8 @@ function loadCardContacts(filterCat, filterName) {
                         <div class="card-text p-2 "><i class="fas fa-at fa-lg mr-1"></i>${contact.email}</div>
                         
                     </div>
-
+                    <div class="d-sm-flex justify-content-sm-center mt-1" id="divCat${contact.id}">
+                    </div>
                     <div class="class="d-sm-flex justify-content-sm-center flex-sm-wrap rounded trans" id="divAddress${contact.id}">
                     </div>
 
@@ -368,6 +373,7 @@ function cardExpand(contact) {
     let tdAddress = $(`#divAddress${contact.id}`);
     tdCont.html('');
     tdAddress.html('');
+    $(`#divCat${contact.id}`).html('');
 
     if ($(`#card${contact.id}`).hasClass("col-lg-6")) {//Experimentar col-lg-5 para ficar dois em cada linha
         $(`#card${contact.id}`).toggleClass("col-lg-6");
@@ -380,6 +386,8 @@ function cardExpand(contact) {
                 tdCont.append(`<div class="p-3"><i class="fas fa-phone-alt fa-lg mr-1"></i> <strong>${p + 1}</strong> <br> ${contact.phone[p]} </div>`);
             }
         } else { tdCont.append(`<div class="p-3"><i class="fas fa-phone-alt fa-lg mr-3"></i> ${contact.phone} </div>`) };
+
+        $(`#divCat${contact.id}`).html(`${contact.categories}`)
 
         let test = "";
         for (let i = 0; i < contact.address.length; i++) {
@@ -410,7 +418,7 @@ function cardExpand(contact) {
 function addInputPhone(count) {
     let divPhone = $("#divPhone");
     let newPhoneInput = `<br><label for="newPhoneInp${count}"><i class="fas fa-phone-alt fa-lg mr-3"></i>Fone ${count}</label>
-                                    <input  type="tel" name="phone" class="form-control" id="newPhoneInp${count}" placeholder="Phone">`
+                                    <input  type="number" name="phone" class="form-control" id="newPhoneInp${count}" placeholder="Phone">`
     divPhone.append(newPhoneInput);
 }
 
@@ -425,12 +433,12 @@ function addInputAddress(count, data) {
         //     newAddress[index] = '';
         // });
         newAddress.cep = "";
-        newAddress.logradouro = "";
-        newAddress.número = "";
-        newAddress.complemento = "";
-        newAddress.bairro = "";
-        newAddress.localidade = "";
-        newAddress.estado = "";
+        newAddress.Logradouro = "";
+        newAddress.Número = "";
+        newAddress.Complemento = "";
+        newAddress.Bairro = "";
+        newAddress.Localidade = "";
+        newAddress.Estado = "";
     }
 
     let newAddressInput = `
@@ -440,15 +448,15 @@ function addInputAddress(count, data) {
     <div class="form-row">
         <div class="form-group col-md-2">
             <label for="newCEPInp${count}">CEP</label>
-            <input  type="text" name="cep" class="form-control" id="newCEPInp${count}" placeholder="CEP" value="${newAddress.cep}">
+            <input  type="text" name="cep" class="form-control cepInp" id="newCEPInp${count}" placeholder="CEP" value="${newAddress.cep}">
         </div>
         <div class="form-group col-md-8">
             <label for="newStreetInp${count}">Logradouro</label>
-            <input  type="text" name="street" class="form-control" id="newStreetInp${count}" placeholder="Rua" vvalue="${newAddress.logradouro}">
+            <input  type="text" name="street" class="form-control" id="newStreetInp${count}" placeholder="Rua" vvalue="${newAddress.Logradouro}">
         </div>
         <div class="form-group col-md-2">
             <label for="newHouseNumberInp${count}">Número</label>
-            <input  type="number" name="number" class="form-control" id="newHouseNumberInp" placeholder="Número" value="${newAddress.número}">
+            <input  type="number" name="number" class="form-control" id="newHouseNumberInp${count}" placeholder="Número" value="${newAddress.Número}">
         </div>
     </div>
     
@@ -457,11 +465,11 @@ function addInputAddress(count, data) {
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="newCompleInp${count}">Complemento</label>
-            <input  type="text" name="complement" class="form-control" id="newCompleInp${count}" placeholder="Complemento" value="${newAddress.complemento}">
+            <input  type="text" name="complement" class="form-control" id="newCompleInp${count}" placeholder="Complemento" value="${newAddress.Complemento}">
         </div>
         <div class="form-group col-md-6">
             <label for="newDistrictInp${count}">Bairro</label>
-            <input  type="text" name="district" class="form-control" id="newDistrictInp${count}" placeholder="Bairro" value="${newAddress.bairro}">
+            <input  type="text" name="district" class="form-control" id="newDistrictInp${count}" placeholder="Bairro" value="${newAddress.Bairro}">
         </div>
     </div>
 
@@ -469,11 +477,11 @@ function addInputAddress(count, data) {
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="newDistricttInp${count}">Cidade</label>
-            <input  type="text" name="city" class="form-control" id="newCityInp${count}" placeholder="Cidade" value="${newAddress.localidade}">
+            <input  type="text" name="city" class="form-control" id="newCityInp${count}" placeholder="Cidade" value="${newAddress.Localidade}">
         </div>
         <div class="form-group col-md-6">
             <label for="newDistricttInp${count}">Estado</label>
-            <input  type="text" name="state" class="form-control" id="newStateInp${count}" placeholder="Estado" value="${newAddress.estado}">
+            <input  type="text" name="state" class="form-control" id="newStateInp${count}" placeholder="Estado" value="${newAddress.Estado}">
         </div>
     </div>`;
 
@@ -502,6 +510,29 @@ function addInputAddress(count, data) {
                     }
                 },
             });
-        }else{alert("CEP Invalido")}
+        } else { alert("CEP Invalido") }
     });
+}
+
+function formValidation(forms) {
+    test = true
+    if ($('#newNameInp').val()) {
+        $('#newNameInp').addClass('is-valid')
+        $('#newNameInp').removeClass('is-invalid')
+    } else {
+        $('#newNameInp').removeClass('is-valid')
+        $('#newNameInp').addClass('is-invalid')
+        test = false
+    }
+    var validaCEP = /^[0-9]{8}$/;
+    listCep = $('.cepInp');
+    for (let i = 0; i < listCep.length; i++) {
+        if (!(listCep.eq(i).val()) || validaCEP.test(listCep.eq(i).val())) {
+            test = false
+            listCep.eq(i).addClass('is-invalid');
+
+        } else { listCep.eq(i).removeClass('is-invalid') }
+    }
+    console.log(test, ' teste')
+    return test;
 }

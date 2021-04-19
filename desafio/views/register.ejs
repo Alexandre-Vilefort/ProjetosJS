@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./Aperture_Science.svg">
+    <link rel="shortcut icon" href="/agenda/Aperture_Science.svg">
 
     <title>Agenda</title>
 
@@ -12,7 +12,6 @@
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.4/css/tether.min.css'>
-    <link rel="stylesheet" href="./style.css">
 
 </head>
 <style>
@@ -21,27 +20,73 @@
 
 <body>
 
-    <h1>Register</h1>
+    <div class="container">
+        <article class="card-body col-sm-4">
+            <h4 class="card-title text-center mb-4 mt-1">Cadastro</h4>
+            <hr>
+            <p class="text-danger text-center">
+                <%if (typeof name != "undefined" && name) {%>
+                    <%= name %>
+                    <%} %>
+            </p>
+            <form action="/register" method="POST">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input class="form-control" placeholder="Nome" type="text" id="name" name="name" required autocomplete="on">
+                    </div> <!-- input-group.// -->
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-at"></i> </span>
+                        </div>
+                        <input class="form-control" placeholder="Email" type="email" id="email" name="email" required
+                            autocomplete="on">
+                    </div> <!-- input-group.// -->
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input class="form-control" placeholder="******" type="password" id="password" name="password"
+                            required autocomplete="off">
+                    </div> <!-- input-group.// -->
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-dark btn-block"> Cadastrar </button>
+                </div> <!-- form-group// -->
+                <p class="text-center"><a href="/login" class="btn btn-outline-primary">Log in</a></p>
+            </form>
+        </article>
+    </div>
 
-<form action="/register" method="POST">
+
+
+    <!-- <h1>Register</h1>
+
+<form action="/register" method="POST" class="p-3 m-3">
     <h2><%if (typeof name != "undefined" && name) {%>
         <%= name %>
         <%} %></h2>
 <div>
     <label for="name">name</label>
-    <input type="text" id="name" name="name" required>
+    <input type="text" id="name" name="name" required autocomplete="on">
 </div>
 <div>
     <label for="email">email</label>
-    <input type="email" id="email" name="email" required>
+    <input type="email" id="email" name="email" required autocomplete="on">
 </div>
 <div>
     <label for="password">password</label>
-    <input type="password" id="password" name="password" required>
+    <input type="password" id="password" name="password" required autocomplete="off">
 </div>
 <button class="btn btn-dark" type="submit">Register</button>
 </form>
-<a href="/login">Login</a>
+<a href="/login">Login</a> -->
 
     <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>

@@ -1,4 +1,4 @@
-versão 2 funcionalidades básicas sem problema
+versão 3 falta implementar importar contatos do google e melhorar agrupamento 
 
 1. Fazer a parte do UpDate das informações #feito
 1.1. Fazer escrever no JSON permanente #feito
@@ -9,9 +9,9 @@ versão 2 funcionalidades básicas sem problema
 3.1. Busca de contatos com sugestão de pesquisa #feito
  
 4. Login e autentificação #feito #falta arrumar o visual 
-4.1. Validação Front-end e Back-end #prioridade
+4.1. Validação Front-end e Back-end #feito, mas pode melhorar
 
-5. Envio de notificação assíncrona de sucesso (via e-mail, slack ou outro canal###
+5. Envio de notificação assíncrona de sucesso (via e-mail, slack ou outro canal) #feito
 
 6. Puxar contatos do Google Contacts API ###  
 
