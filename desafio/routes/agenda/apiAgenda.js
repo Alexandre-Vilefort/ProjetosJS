@@ -1,14 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-//const fs = require('fs');
+const fs = require('fs');
 
 router.use(cors());
 
-var contacts = require('../../data.json');
-const users = require('../../users.json');
 
-//var contacts = [];
+
+//var contacts = require('../../data.json');
+//const users = require('../../users.json');
+
+//var contacts = exports.usersContactsList;
 let clients = [];
 let facts = [];
 
@@ -42,20 +44,21 @@ function eventsHandler(req, res, next) {
 router.get('/connect', eventsHandler);
 
 router.get('/', (req, res) => {
-    res.json(contacts);
+    //let contacts = exports.usersContactsList.find(o => o.userId == req.user.id);
+    res.json(req.user.contacts);
 });
 
-router.post('/novoCadastro', function(req,res){
-    contacts.push(loadContacts(req));
-    writeOnJSON(contacts);
+router.post('/novoCadastro', function (req, res) {
+    req.user.contacts.push(loadContacts(req));
+    writeOnJSON(req.user.contacts, req.user.id);
     res.json('Successfully created');
     //return sendEventsToAll(newData);
 });
 
 router.put('/updateCadastro/:id', (req, res) => {
     const { id } = req.params;
-    contacts[id-1] = loadContacts(req);     
-    writeOnJSON(contacts);
+    req.user.contacts[id - 1] = loadContacts(req);
+    writeOnJSON(req.user.contacts, req.user.id);
     res.json('Successfully updated');
 
 });
@@ -68,7 +71,7 @@ function sendEventsToAll(newData) {
 function loadContacts(req) {
 
     //Fazer validação dos dados
-    var newData = new Object(); 
+    var newData = new Object();
     newData.name = req.body.name;
     newData.email = req.body.email;
     newData.categories = req.body.categories;
@@ -93,23 +96,24 @@ function loadContacts(req) {
         let newAddress = new Object();
 
         newAddress.cep = req.body.cep;
-        newAddress.logradouro = req.body.street;
-        newAddress.número = req.body.number;
-        newAddress.complemento = req.body.complement;
-        newAddress.bairro = req.body.district;
-        newAddress.localidade = req.body.city;
-        newAddress.estado = req.body.state;
+        newAddress.Logradouro = req.body.street;
+        newAddress.Número = req.body.number;
+        newAddress.Complemento = req.body.complement;
+        newAddress.Bairro = req.body.district;
+        newAddress.Localidade = req.body.city;
+        newAddress.Estado = req.body.state;
         //console.log(newAddress);
         addressList.push(newAddress);
     }
     newData.address = addressList;
-    console.log('######### Load',newData);
-    return newData; 
+    console.log('######### Load', newData);
+    return newData;
 }
 
 
-async function writeOnJSON(jsonContent) {
-    fs.writeFile('data.json', JSON.stringify(jsonContent, null, 2), function (err) {
+async function writeOnJSON(jsonContent, userId) {
+    console.log(`${userId}.json`);
+    fs.writeFile(`dataBase/${userId}.json`, JSON.stringify(jsonContent, null, 2), function (err) {
         if (err) {
             console.log("An error occured while writing JSON Object to File.");
             return console.log(err);

@@ -16,6 +16,9 @@ const fs = require('fs');
 
 const app = express();
 
+usersContactsList = [];
+exports.usersContactsList = usersContactsList; 
+
 const initializePassport = require('./passport-config');
 initializePassport(
     passport,
@@ -56,10 +59,16 @@ app.use('/agenda', express.static(path.join(__dirname, 'public')));
 //Methods
 app.get('/', checkAuthenticated, (req, res) => {
     res.redirect('/agenda');
+    let contactsList = require(`./dataBase/${req.user.id}.json`);
+    usersContactsList.push = {
+        userId : req.user.id, 
+        contacts : contactsList}
+    req.user.contacts = contactsList;    
 });
 
 app.get('/agenda', checkAuthenticated, (req, res) => {
     res.redirect('/agenda');
+    res.json()
 });
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
