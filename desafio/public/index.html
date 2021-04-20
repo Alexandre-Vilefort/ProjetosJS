@@ -38,7 +38,7 @@
                     <a href="#" id="novoContato">Novo Contato</a>
                 </li>
                 <li>
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
+                    <!-- <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
                         class="dropdown-toggle">Categorias</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
@@ -50,7 +50,7 @@
                         <li>
                             <a href="#">Amigos</a>
                         </li>
-                    </ul>
+                    </ul> -->
                 </li>
                 <!-- <li>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
@@ -71,11 +71,14 @@
                     <a href="#">Deletar Contatos</a>
                 </li> -->
                 <li>
-                    <a href="#">Impotar</a>
+                    <form action="/getURLImp" method="GET" class="a">
+                        <button class="btn a" type="submit">Importar</button>
+                    </form>
                 </li>
                 <li>
-                    <form action="/logout?_method=DELETE" method="POST">
-                        <button class="btn btn-dark" type="submit">Log Out</button>
+                    <!-- <a href="#" id="novoContato">Novo Contato</a> -->
+                    <form action="/logout?_method=DELETE" method="POST" class="a">
+                        <button class="btn a" type="submit">Log Out</button>
                     </form>
                 </li>
             </ul>
@@ -137,7 +140,7 @@
             </nav>
             <div id="containerCards">
                 <div class="row justify-content-lg-center">
-                    <h2 id="tituloH2">Place Holder teste agenda prototype</h2>
+                    <h2 id="tituloH2">Agenda Protótipo</h2>
                 </div>
                 <div class="row justify-content-lg-center" id="rowCards">
                     <!-- row-beginning -->
@@ -155,11 +158,10 @@
     </div>
 
     <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js'></script>
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.4/js/tether.min.js'></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="./script4.js"></script>
 
 </body>

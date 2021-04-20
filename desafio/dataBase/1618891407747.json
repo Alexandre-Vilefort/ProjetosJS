@@ -1,0 +1,564 @@
+[
+  {
+    "name": "Marcelo",
+    "email": "marcelogt1977@hotmail.com",
+    "categories": "",
+    "phone": "",
+    "address": [
+      {
+        "cep": "13566-220",
+        "Logradouro": "",
+        "Número": "",
+        "Complemento": "de 2602/2603 ao fim",
+        "Bairro": "Vila Costa do Sol",
+        "Localidade": "São Carlos",
+        "Estado": "SP"
+      }
+    ]
+  },
+  {
+    "name": "Mariana Inacio Faciroli",
+    "email": "mione_marianainacio@hotmail.com",
+    "categories": [
+      "trabalho",
+      "amigos"
+    ],
+    "phone": [
+      "124124123412",
+      "123412341234"
+    ],
+    "address": [
+      {
+        "cep": "13566-220",
+        "Logradouro": "",
+        "Número": "",
+        "Complemento": "de 2602/2603 ao fim",
+        "Bairro": "Vila Costa do Sol",
+        "Localidade": "São Carlos",
+        "Estado": "SP"
+      }
+    ]
+  },
+  {
+    "name": "Márcio de Jesus Soares",
+    "email": "marciojs@dm.ufscar.br",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Otávio Deperon",
+    "email": "otavio_deperon@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "ROX LAN Fabricio - FMM",
+    "email": "rox.lan@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Rafael Béria",
+    "email": "rafael_beria@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Rauni Sergio",
+    "email": "rauni.off-road@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Vinicius Silva",
+    "email": "vinicius_prado14@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "alcy",
+    "email": "contato@alcy.com.br",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "bruno vieira",
+    "email": "bruno110590@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "denis oliveira",
+    "email": "denis_bass_oliveira@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "t a",
+    "email": "asdfgfdsa140989@outlook.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Thales Stewart",
+    "email": "sirstewart15@gmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Bruno",
+    "email": "",
+    "phone": "016993783000",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Naiara",
+    "email": "",
+    "phone": "02116982704938",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Rita",
+    "email": "",
+    "phone": "02116991405078",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Eu-tim",
+    "email": "",
+    "phone": "016981237699",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Alexandre",
+    "email": "",
+    "phone": "991675819",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Eu",
+    "email": "",
+    "phone": "991675819",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Alvarino",
+    "email": "",
+    "phone": "016992629955",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Rafaela",
+    "email": "",
+    "phone": "03791256061",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "mudança 1",
+    "email": "",
+    "phone": "16991333951",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "mudança 2",
+    "email": "",
+    "phone": "16993259540",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "vinicius pires gonçalves",
+    "email": "viniciuspiresgoncalves@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Valentim",
+    "email": "",
+    "phone": "99108-5232",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Gustavo Siqueira",
+    "email": "",
+    "phone": "035997013212",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Raphael",
+    "email": "",
+    "phone": "+55 14 99877-2753",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Rafaela Monteiro",
+    "email": "rafaelamonteirok@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Júlio A. .",
+    "email": "julio_angelo_bolado@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Grayce Araujo",
+    "email": "grayceclasses@gmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Paulinha [Frajola]",
+    "email": "inhagracinha@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Paula Caroline Albano",
+    "email": "inhagracinha@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Carol Batista",
+    "email": "czr_sba@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "junior rossato rossato",
+    "email": "junin_rossato@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Marcus Souza",
+    "email": "mvlcs_0704@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Beatriz Bortolani",
+    "email": "beatrizbortolani@gmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "picinin UFSCar",
+    "email": "apicinin.ufscar@gmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Luara '",
+    "email": "lu.bianca_@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Bruno Vilefort",
+    "email": "brunex_hostalacio@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Jhony Breener",
+    "email": "jhonybreener@gmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Anynhaa Ψ",
+    "email": "anyrockgatinha@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "alexandre ╰ɵ──ɵ╯ totel ╰ɵ──ɵ╯.",
+    "email": "alexandretotel@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Aviner Kitamura",
+    "email": "samuraikitamura@gmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Fabricio",
+    "email": "fabriciosalt@yahoo.com.br",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Nayara",
+    "email": "",
+    "phone": "02116992836953",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Gustavo Rigolin",
+    "email": "rigolin@gmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "ღ Mαђ  ღ ( Miσиe-cђαи)Ѽ",
+    "email": "mione.marianainacio@gmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Diogo Santos",
+    "email": "diogossvasconcelos@gmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Antonio Hamad Junior",
+    "email": "hamadcrf1456@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Paulo Sergio Pizani",
+    "email": "pizani@df.ufscar.br",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Gabriela Aímola Vivan",
+    "email": "gabrielaaimola@gmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Lucas Kalango",
+    "email": "lcs_ms10@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Ítalo Johnny",
+    "email": "italojohnnydosanjos@gmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Ricardo",
+    "email": "",
+    "phone": "16982116766",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Lolla Fernandes♛",
+    "email": "lolyta.eloa@gmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Rauni sergio",
+    "email": "rauni_15@hotmail.com",
+    "phone": "81597302",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Carolina Batista",
+    "email": "czr_sba@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Eloá Fernandes",
+    "email": "lolyta_diva@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Antonio Hamad",
+    "email": "hamadcrf1456@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  },
+  {
+    "name": "Marina ઇઉ",
+    "email": "marinamatos90@hotmail.com",
+    "phone": "",
+    "categories": "",
+    "address": [
+      ""
+    ]
+  }
+]

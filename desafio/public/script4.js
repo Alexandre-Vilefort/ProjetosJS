@@ -18,6 +18,7 @@ $(document).ready(function () {
         $('.collapse.in').toggleClass('in');
         $('a[aria-expanded=true]').attr('aria-expanded', 'false');
     });
+
     // funcionamento Tela de novo contatos
     $('#novoContato').on('click', function () {
         $("#tituloH2").text('Novo Contato');
@@ -36,7 +37,7 @@ $(document).ready(function () {
 
                     <br>
                     <label for="inlineFormCustomSelect">Categorias</label>
-                     <select name="categories"class="form-control custom-select" id="inlineFormCustomSelect">
+                     <select name="categories"class="form-control custom-select" id="inlineFormCustomSelect" multiple>
                         <option selected></option>
                         <option value="família">Família</option>
                         <option value="trabalho">Trabalho</option>
@@ -54,14 +55,12 @@ $(document).ready(function () {
                     <div id="divPhone">
                     </div>
                     <br>
-                    <label for="newAddressInp"><strong>Endereço</strong></label>
+                    <label for="newAddressInp"><strong>Endereço 1</strong></label>
                         <div class="btn-group btn-group-toggle">
                             <button class="btn btn-dark btn-sm ml-4" id="addAddressBtn">+</button>
-                            <button class="btn btn-dark btn-sm ml-4" id="rmvAddressBtn">-</button>
+                        <!--<button class="btn btn-dark btn-sm ml-4" id="rmvAddressBtn">-</button>-->
                         </div>  
                     <br>
-                    <div id="divAddress">
-                    </div>
                     <br>
                     <br>
                     <button type="submit" class="form-control btn btn-dark" id="btnSalvar">Salvar</button>
@@ -182,8 +181,8 @@ function cardUpdate(contact) {
                     
                     <br>
                     <label for="inlineFormCustomSelect">Categorias</label>
-                     <select name="categories"class="form-control custom-select" id="inlineFormCustomSelect">
-                        <option selected>${contact.categories}</option>
+                     <select name="categories"class="form-control custom-select" id="inlineFormCustomSelect" multiple>
+                        <option selected></option>
                         <option value="família">Família</option>
                         <option value="trabalho">Trabalho</option>
                         <option value="amigos">Amigos</option>
@@ -199,13 +198,14 @@ function cardUpdate(contact) {
                     <div id="divPhone">
                     </div>
                     <br>
-                    <label for="newAddressInp"><strong>Endereço</strong></label>
+                    <label for="newAddressInp"><strong>Endereço 1</strong></label>
                         <div class="btn-group btn-group-toggle">
                             <button class="btn btn-dark btn-sm ml-4" id="addAddressBtn">+</button>
-                            <button class="btn btn-dark btn-sm ml-4" id="rmvAddressBtn">-</button>
+                            <!--<button class="btn btn-dark btn-sm ml-4" id="rmvAddressBtn">-</button>-->
                         </div>  
                     <br>
                     <div id="divAddress">
+                        <div id="divAddress1"></div>
                     </div>
                     <br>
                     <br>
@@ -218,12 +218,13 @@ function cardUpdate(contact) {
     let countAddress = 1;
 
     console.log(contact.address[0]);
-    addInputAddress(countAddress, contact.address[0]);
+    addInputAddress(1, contact.address[0]);
 
     if (contact.address.length > 1) {
         for (let i = 1; i < contact.address.length; i++) {
             countAddress++;
             let divAddress = $("#divAddress");
+
             let newAddressInput = `<br class="pularRmvBtn_">
             <label for="newAddressInp"><strong>Endereço ${countAddress}</strong></label>`
             divAddress.append(newAddressInput);
@@ -236,8 +237,8 @@ function cardUpdate(contact) {
         let tdCont = $(`#divPhone`);
         for (let p = 1; p < contact.phone.length; p++) {
             count++;
-            tdCont.append(`<br><label for="newPhoneInp2"><i class="fas fa-phone-alt fa-lg mr-3"></i>Fone ${count}</label>
-                               <input  type="number" name="phone" class="form-control" id="newPhoneInp2" value="${contact.phone[p]}">`);
+            tdCont.append(`<br><label for="newPhoneInp${count}"><i class="fas fa-phone-alt fa-lg mr-3"></i>Fone ${count}</label>
+                               <input  type="number" name="phone" class="form-control" id="newPhoneInp${count}" value="${contact.phone[p]}">`);
         }
     }
     //Remover input de telefone
@@ -270,18 +271,18 @@ function cardUpdate(contact) {
     //Adicionar input de telefone
     $('#addPhoneBtn').on('click', function (e) {
         e.preventDefault();
-        addInputPhone(count)
         count++;
+        addInputPhone(count)
     });
 
     $('#addAddressBtn').on('click', function (e) {
         e.preventDefault();
+        countAddress++;
         let divAddress = $("#divAddress");
         let newAddressInput = `<br class="pularRmvBtn_">
-        <label for="newAddressInp"><strong>Endereço ${count}</strong></label>`
+        <label for="newAddressInp"><strong>Endereço ${countAddress}</strong></label>`
         divAddress.append(newAddressInput);
-        addInputAddress(countAddress)
-        countAddress++;
+        addInputAddress(countAddress,'')
     });
 
     //Botao Salvar    
@@ -414,7 +415,7 @@ function cardExpand(contact) {
 
         $(`#iconDel${contact.id}`).on('click', function () {
             //delete
-            let id = contact.id - 1;//Para id ser a posicão do contato no array
+            let id = contact.id;//Para id ser a posicão do contato no array
             $.ajax({
                 url: `${URI}/${id}`,
                 method: 'DELETE',
@@ -562,9 +563,7 @@ function formValidation(forms) {
         if (!(!(cep) || validaCEP.test(cep))) {
             test = false
             listCep.eq(i).addClass('is-invalid');
-            console.log('entrou teste CEP');
         } else { listCep.eq(i).removeClass('is-invalid') }
     }
-    console.log(test, ' teste')
     return test;
 }

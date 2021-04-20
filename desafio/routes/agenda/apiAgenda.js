@@ -51,8 +51,8 @@ router.post('/novoCadastro', function (req, res) {
 });
 
 router.put('/updateCadastro/:id', (req, res) => {
-    const { id } = req.params;
-    req.user.contacts[id - 1] = loadContacts(req);
+    const ids = req.params.id;
+    req.user.contacts[ids - 1] = loadContacts(req);
     writeOnJSON(req.user.contacts, req.user.id);
     res.json('Successfully updated');
 
@@ -60,15 +60,15 @@ router.put('/updateCadastro/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const ids = req.params.id;//Indice do contato no Array contacts
-    
-    if (req.user.contacts.length >ids) {
-        req.user.contacts.splice(ids,1);
+
+    if (req.user.contacts.length > ids - 1) {
+        req.user.contacts.splice(ids - 1, 1);
         writeOnJSON(req.user.contacts, req.user.id);
         res.json('Successfully deleted');
-    }else{
+    } else {
         res.status(500).send('índice do contato para deletar não existe');
     }
-  });
+});
 
 //Functions-----------#-----------
 function sendEventsToAll(newData) {
@@ -96,8 +96,13 @@ function loadContacts(req) {
             newAddress.Localidade = req.body.city[i];
             newAddress.Estado = req.body.state[i];
 
-            console.log(newAddress);
-            addressList.push(newAddress);
+            let testAddress = false;
+            for (let i in newAddress) {
+                if (newAddress[i]) testAddress = true;
+            }
+            console.log('teste Address: ', testAddress)
+            if (testAddress) addressList.push(newAddress);
+
         }
     } else {
         let newAddress = new Object();
@@ -110,7 +115,12 @@ function loadContacts(req) {
         newAddress.Localidade = req.body.city;
         newAddress.Estado = req.body.state;
         //console.log(newAddress);
-        addressList.push(newAddress);
+        let testAddress = false;
+        for (let i in newAddress) {
+            if (newAddress[i]) testAddress = true;
+        }
+        console.log('teste Address: ', testAddress)
+        if (testAddress) addressList.push(newAddress);
     }
     newData.address = addressList;
     console.log('######### Load', newData);
