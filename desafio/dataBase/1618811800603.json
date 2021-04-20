@@ -32,5 +32,34 @@
         "Estado": "SP"
       }
     ]
+  },
+  {
+    "name": "Bruno",
+    "email": "bruno.vilefot@gmail.com",
+    "categories": "família",
+    "phone": [
+      "16991675819",
+      "1699167581"
+    ],
+    "address": [
+      {
+        "cep": "13566-220",
+        "Logradouro": "Rua Rafael de Abreu Sampaio Vidal",
+        "Número": "333",
+        "Complemento": "de 2602/2603 ao fim",
+        "Bairro": "Vila Costa do Sol",
+        "Localidade": "São Carlos",
+        "Estado": "SP"
+      },
+      {
+        "cep": "14403-102",
+        "Logradouro": "Rua João Batista D'Élia",
+        "Número": "555",
+        "Complemento": "",
+        "Bairro": "Prolongamento Jardim Lima",
+        "Localidade": "Franca",
+        "Estado": "SP"
+      }
+    ]
   }
 ]

@@ -109,7 +109,6 @@ app.post('/register',
             console.log(result.errors[0].param);
             let errText = "";
             for (let er of result.errors){errText = errText + ` ${er.param } inválido,`}
-
             res.render('register.ejs', { name: 'Erro, '+errText});
             test = false
             return 
@@ -154,6 +153,7 @@ app.post('/register',
                     console.log("JSON file has been saved.");
                 });
 
+                //Enviar email de notificação do Cadastro
                 wrapedSendMail(req.body.email);
                 console.log(req.body)
                 res.redirect('/login');
